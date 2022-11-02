@@ -35,3 +35,7 @@
 - Harshil Shah (NUID: 002780887)
 - Keerthana Satheesh (NUID: 002747795)
 - Saloni Talwar (NUID: 002924067)
+
+## Domain Model
+![Final domain diagram](https://user-images.githubusercontent.com/113074072/199590835-36747d70-e814-4813-8dc0-9b53ec43052c.jpg)
+
