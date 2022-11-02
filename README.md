@@ -1,4 +1,6 @@
 # IELTSTAR - IELTS Online Test Platform
+## Project Description
+IELTSTAR is an online IELTS test platform. The platform provides multiple mock tests to help users improve their listening, reading, writing, and speaking IELTS exam performance. IELTSTAR can predict the user's overall IELTS band score with a score calculator. It consists of an AI-based speaking assessment to help users improve Fluency & Coherence, Lexical Resources, Grammatical range and accuracy, and Pronunciation. It lets users post their scores on social media platforms like Facebook, Twitter, and Whatsapp and send scores via SMS and Email. IELTSTAR have an interactive dashboard for registered users to help track their progress and view past test mock exams.
 ## User Requirements
 #### Admin Users
 - Admin can login to the platform using the admin credentials
