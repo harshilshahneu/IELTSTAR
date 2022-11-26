@@ -3,7 +3,6 @@ import { AppProps } from 'next/app';
 import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import { CacheProvider, EmotionCache } from '@emotion/react';
-// import theme from '../material-ui-configs/theme';
 import createEmotionCache from '../material-ui-configs/createEmotionCache';
 import { Provider } from "react-redux";
 import { store } from '../store';
@@ -12,13 +11,13 @@ import { ColorModeContext, useMode } from '../material-ui-configs/theme';
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
 
-// interface MyAppProps extends AppProps {
-//   emotionCache?: EmotionCache;
-// }
+interface MyAppProps extends AppProps {
+  emotionCache?: EmotionCache;
+}
 
-const myApp = (props) => {
+const myApp = (props: MyAppProps) => {
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
-  const [theme, colorMode] = useMode();
+  const [theme, colorMode]= useMode();
 
   return (
     
