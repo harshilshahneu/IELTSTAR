@@ -20,12 +20,11 @@ routes(app);
 
 // Connect to the database
 try {
-    console.log("Connecting to the database...");
-    await mongoose.connect(`${process.env.DB_URL}/${process.env.DB_NAME}`);
-    console.log("Successfully connected to MongoDB");
-}
-catch (e) {
-    console.log("Error connecting to database : ", e);
+  console.log("Connecting to the database...");
+  await mongoose.connect(`${process.env.DB_URL}/${process.env.DB_NAME}`);
+  console.log("Successfully connected to MongoDB");
+} catch (e) {
+  console.log("Error connecting to database : ", e);
 }
 
 export default app;
