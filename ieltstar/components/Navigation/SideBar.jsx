@@ -11,6 +11,7 @@ import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+
   return (
     <MenuItem
       active={selected === title}
@@ -19,6 +20,7 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
       }}
       onClick={() => setSelected(title)}
       icon={icon}
+      routerLink={<Link href={to} />}
     >
       <Typography>{title}</Typography>
     </MenuItem>
@@ -43,11 +45,11 @@ const SideBar = () => {
         "& .inner-item": {
           padding: "5px 35px 5px 20px !important",
         },
-        "& .inner-item:hover": {
-          color: "#868dfb !important",
+        "& .menu-anchor:hover": {
+          background: `${theme.palette.background.default}`,
         },
-        "& .menu-item.active": {
-        //   color: "#6870fa !important",
+        "& .menu-item.active>a": {
+          background: `${theme.palette.background.default}`,
         },
       }}
     >
@@ -67,7 +69,6 @@ const SideBar = () => {
                 display="flex"
                 justifyContent="space-between"
                 alignItems="center"
-                ml="15px"
               >
                 <IconButton onClick={() => setIsCollapsed(!isCollapsed)}>
                   <MenuOutlinedIcon />
@@ -77,24 +78,24 @@ const SideBar = () => {
           </MenuItem>
 
 
-          <Box paddingLeft={isCollapsed ? undefined : "10%"}>
+          <Box>
             <Item
               title="Dashboard"
-              to="/"
+              to="/dashboard"
               icon={<PieChartOutlineOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
             <Item
               title="Start Test"
-              to="/team"
+              to="/test"
               icon={<PeopleOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
             <Item
               title="Test Information"
-              to="/contacts"
+              to="/information"
               icon={<ContactsOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
