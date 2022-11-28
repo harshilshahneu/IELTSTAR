@@ -6,7 +6,7 @@ const router = express.Router();
  * GET/POST Routes created using questions/
  */
 router
-  .route("/questions")
+  .route("/")
   .post(questionsController.post)
   .get(questionsController.index);
 
@@ -14,7 +14,7 @@ router
  * GET/POST/DELTE Route created using questions/id
  */
 router
-  .route("/questions/:id")
+  .route("/:id")
   .get(questionsController.get)
   .put(questionsController.update)
   .delete(questionsController.remove);

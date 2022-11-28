@@ -2,7 +2,7 @@
 
 import questionRouter from "./question-router.js";
 const routes = (app) => {
-  app.use("/", questionRouter);
+  app.use("/questions", questionRouter);
 };
 
 export default routes;
