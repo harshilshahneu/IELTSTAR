@@ -8,6 +8,7 @@ import { Provider } from "react-redux";
 import { store } from '../store';
 import { ColorModeContext, useMode } from '../material-ui-configs/theme';
 import { ProSidebarProvider } from 'react-pro-sidebar';
+import Layout from '../components/Layout/Student';
 import '../styles/globals.scss';
 
 // Client-side cache, shared for the whole session of the user in the browser.
@@ -20,6 +21,7 @@ interface MyAppProps extends AppProps {
 const myApp = (props: MyAppProps) => {
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
   const [theme, colorMode]= useMode();
+  const getLayout = Component.getLayout || ((page) => <Layout>{page}</Layout>);
 
   return (
       <ProSidebarProvider>
@@ -32,7 +34,7 @@ const myApp = (props: MyAppProps) => {
               <ThemeProvider theme={theme}>
                 {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
                 <CssBaseline enableColorScheme />
-                  <Component {...pageProps} />
+                  { getLayout(<Component {...pageProps} />) }
               </ThemeProvider>
             </ColorModeContext.Provider>
           </CacheProvider>
