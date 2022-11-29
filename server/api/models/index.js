@@ -1,3 +1,3 @@
 import Questions from "./questions.js";
-
-export default { Questions };
+import Score from "./score.js";
+export default { Questions, Score };
