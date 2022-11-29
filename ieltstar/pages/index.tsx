@@ -9,7 +9,6 @@ interface User {
 
 export default function Home() {
   const user = useSelector((state: User) => state.user.user);
-  console.log(user);
   return (
     <>
      

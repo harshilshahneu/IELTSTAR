@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { Sidebar, Menu, MenuItem } from "react-pro-sidebar";
-import { Box, IconButton, Typography, useTheme } from "@mui/material";
+import { Sidebar, Menu, MenuItem, useProSidebar } from "react-pro-sidebar";
+import { Box, Typography, useTheme } from "@mui/material";
 import Link from "next/link";
 import { tokens } from "../../material-ui-configs/theme";
 import PeopleOutlinedIcon from "@mui/icons-material/PeopleOutlined";
@@ -30,54 +30,43 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
 const SideBar = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  const [isCollapsed, setIsCollapsed] = useState(false);
   const [selected, setSelected] = useState("Dashboard");
+  const { collapseSidebar } = useProSidebar();
 
   return (
     <Box
       sx={{
-        "& .sidebar-inner": {
-          background: `${colors.primary[400]} !important`,
-        },
-        "& .pro-icon-wrapper": {
-          backgroundColor: "transparent !important",
-        },
-        "& .inner-item": {
-          padding: "5px 35px 5px 20px !important",
-        },
-        "& .menu-anchor:hover": {
-          background: `${theme.palette.background.default}`,
-        },
-        "& .menu-item.active>a": {
+        "& .ps-menu-button:hover": {
           background: `${theme.palette.background.default}`,
         },
       }}
     >
-      <Sidebar collapsed={isCollapsed} style={{height: '100%'}}>
-        <Menu>
+      <Sidebar style={{height: '100%'}} rootStyles={{
+        ['.ps-sidebar-container']: {
+          background: colors.primary[400]
+        }
+      }}>
+        <Menu 
+        menuItemStyles={{
+          button: ({ level, active, disabled }) => {
+            // only apply styles on first level elements of the tree
+            if (level === 0)
+              return {
+                backgroundColor: active && theme.palette.background.default,
+              };
+          },
+        }}
+        >
           {/* LOGO AND MENU ICON */}
           <MenuItem
-            onClick={() => setIsCollapsed(!isCollapsed)}
-            icon={isCollapsed ? <MenuOutlinedIcon /> : undefined}
+            onClick={() => collapseSidebar()}
+            icon={<MenuOutlinedIcon />}
             style={{
               margin: "10px 0 20px 0",
               color: colors.grey[100],
             }}
           >
-            {!isCollapsed && (
-              <Box
-                display="flex"
-                justifyContent="space-between"
-                alignItems="center"
-              >
-                <IconButton onClick={() => setIsCollapsed(!isCollapsed)}>
-                  <MenuOutlinedIcon />
-                </IconButton>
-              </Box>
-            )}
           </MenuItem>
-
-
           <Box>
             <Item
               title="Dashboard"
