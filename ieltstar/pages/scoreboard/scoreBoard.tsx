@@ -6,7 +6,7 @@ import HeadphonesIcon from '@mui/icons-material/Headphones';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
 import BorderColorOutlinedIcon from '@mui/icons-material/BorderColorOutlined';
 import RecordVoiceOverOutlinedIcon from '@mui/icons-material/RecordVoiceOverOutlined';
-import '../styles/scoreBoard';
+import './scoreBoard.module.scss';
 import { useSelector } from 'react-redux';
 
 
@@ -22,7 +22,7 @@ export default function ScoreBoard() {
     let userProfile = {
         username: "Saloni"
     };
-    
+
     let test = {
         id: "Saloni",
         overall: 7,
@@ -37,7 +37,7 @@ export default function ScoreBoard() {
     let writing;
     let speaking;
 
-    
+
     if (userProfile.username == test.id) {
         overall = test.overall;
         listening = test.listening;
@@ -49,6 +49,7 @@ export default function ScoreBoard() {
         <>
             <div>
                 <Paper className='score-board-paper' elevation={3}>
+
                     <AccountCircleIcon className='profileIcon'></AccountCircleIcon>
                     <div className='profile-title'>USER NAME/ GUEST</div>
 
@@ -77,6 +78,76 @@ export default function ScoreBoard() {
                         RESTART
                     </Button>
                 </Paper>
+                <style jsx>
+                    {`
+                           
+
+                            .mui-style-3su884-MuiPaper-root {
+                                padding: 10%;
+                                font-size: 20px;
+                                position: fixed;
+                                width: 70%;
+                                left: 50%;
+                                top: 50%;
+                                transform: translate(-50%, -50%);
+                                font-weight: bold;
+                            }
+
+
+
+                            .profileIcon {
+                                margin-left: 45%;
+                                height: 100px;
+                                width: 100px;
+                                
+
+                            }
+
+                            .overall-band-component {
+                                background-color: black;
+                                color: white;
+                                text-align: center;
+                                padding: 3%;
+                                margin-left: 10%;
+                                margin-right: 10%;
+                                display: grid;
+                                grid-template-columns: 45% 45%;
+                            }
+
+                            .container {
+                                
+                                display: grid;
+                                grid-template-columns: 10% 45% 45%;
+                            }
+
+                            .profile-title {
+                                text-align: center;
+                                font-size: 25px;
+                                margin-bottom: 3%;
+                            }
+                            .score-board-text {
+                                text-align: left;
+                                padding: 5%;
+                                margin-left: 10%;
+                            }
+
+                            .restart-test {
+                                position: fixed;
+                                width: 70%;
+                                left: 15%;
+                                top: 80%;
+                                font-weight: bolder;
+                                font-size: 20px;
+                                margin-top: 1%;
+                            }
+
+                            .icon {
+                                margin-top: 1%;
+                                margin-right: 1%;
+                            }
+                            
+                        `}
+                </style>
             </div>
         </>
     )
