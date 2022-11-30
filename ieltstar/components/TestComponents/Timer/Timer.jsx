@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
-import styles from '../../../styles/quizstyles/Timer.module.scss';
+// import './Timer.scss';
+
 const Timer = () => {
   // We need ref in this, because we are dealing
   // with JS setInterval to keep track of it and
@@ -75,7 +76,7 @@ const Timer = () => {
   }, []);
 
   return (
-      <h1 className={styles.Timer}>Time Left: {timer}</h1>  );
+      <h1 className="Timer">Time Left: {timer}</h1>  );
 };
 
 export default Timer;
