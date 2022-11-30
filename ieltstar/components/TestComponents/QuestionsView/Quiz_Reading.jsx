@@ -9,68 +9,52 @@ import reading from'./Reading';
 
 const Quiz_Set = [
     {
-        _id:"6384e364c39c711583797e58",
-        questionId:"que_1",
-        questionCategory:"Reading",
-        questionTitle : "1) Heat in voting",
-        questionOptions : [{que_options: "A"},{que_options:"B"},{que_options:"C"}],
-        correctAnswer : "B"
+        queno:"que_1",
+        que : "1) Heat in voting",
+        options : [{que_options: "A" , selected: false},{que_options:"B", selected: false},{que_options:"C", selected: false}],
+        ans : "B"
     },
     {
-        _id:"6384e364c39c711583797e58",
-        questionId:"que_2",
-        questionCategory:"Reading",
-        questionTitle : "2) A fact about the UK",
-        questionOptions : [{que_options: "F"},{que_options:"G"},{que_options:"H"}],
-        correctAnswer : "F"
+        queno:"que_2",
+        que : "2) A fact about the UK",
+        options : [{que_options: "F" , selected: false},{que_options:"G", selected: false},{que_options:"H", selected: false}],
+        ans : "F"
     },
     {
-        _id:"6384e364c39c711583797e58",
-        questionId:"que_3",
-        questionCategory:"Reading",
-        questionTitle : "3) Statement of the caucus guide",
-        questionOptions : [{que_options: "D"},{que_options:"E"},{que_options:"F"}],
-        correctAnswer : "E"
+        queno:"que_3",
+        que : "3) Statement of the caucus guide",
+        options : [{que_options: "D" , selected: false},{que_options:"E", selected: false},{que_options:"F", selected: false}],
+        ans : "E"
     },
     {
-        _id:"6384e364c39c711583797e58",
-        questionId:"que_4",
-        questionCategory:"Reading",
-        questionTitle : "4) The way Democratic caucus-goers in Iowa show their support",
-        questionOptions : [{que_options: "D"},{que_options:"E"},{que_options:"F"}],
-        correctAnswer : "D"
+        queno:"que_4",
+        que : "4) The way Democratic caucus-goers in Iowa show their support",
+        options : [{que_options: "D" , selected: false},{que_options:"E", selected: false},{que_options:"F", selected: false}],
+        ans : "D"
     },
     {
-        _id:"6384e364c39c711583797e58",
-        questionId:"que_5",
-        questionCategory:"Reading",
-        questionTitle : "5) A parallel with sport",
-        questionOptions : [{que_options: "A"},{que_options:"B"},{que_options:"C"}],
-        correctAnswer : "A"
+        queno:"que_5",
+        que : "5) A parallel with sport",
+        options : [{que_options: "A" , selected: false},{que_options:"B", selected: false},{que_options:"C", selected: false}],
+        ans : "A"
     },
     {
-        _id:"6384e364c39c711583797e58",
-        questionId:"que_6",
-        questionCategory:"Reading",
-        questionTitle : "Some examples of winning by the toss of a coin",
-        questionOptions : [{que_options: "F"},{que_options:"G"},{que_options:"H"}],
-        correctAnswer : "G"
+        queno:"que_6",
+        que : "Some examples of winning by the toss of a coin",
+        options : [{que_options: "F" , selected: false},{que_options:"G", selected: false},{que_options:"H", selected: false}],
+        ans : "G"
     },
     {
-        _id:"6384e364c39c711583797e58",
-        questionId:"que_7",
-        questionCategory:"Reading",
-        questionTitle : "7) An unexpected outcome",
-        questionOptions : [{que_options: "C"},{que_options:"D"},{que_options:"E"}],
-        correctAnswer : "C"
+        queno:"que_7",
+        que : "7) An unexpected outcome",
+        options : [{que_options: "C" , selected: false},{que_options:"D", selected: false},{que_options:"E", selected: false}],
+        ans : "C"
     },
     {
-        _id:"6384e364c39c711583797e58",
-        questionId:"que_8",
-        questionCategory:"Reading",
-        questionTitle : "New rule",
-        questionOptions : [{que_options: "F"},{que_options:"G"},{que_options:"H"}],
-        correctAnswer : "H"
+        queno:"que_8",
+        que : "New rule",
+        options : [{que_options: "F" , selected: false},{que_options:"G", selected: false},{que_options:"H", selected: false}],
+        ans : "H"
     }
 ]
 
@@ -114,7 +98,7 @@ class Quiz extends Component{
             if (card.queno !== e.target.name) return card;
             return {
                 ...card,
-                questionOptions: card.questionOptions.map(opt => {
+                options: card.options.map(opt => {
                 const checked = opt.que_options === e.target.value;
                 return {
                     ...opt,
@@ -133,7 +117,7 @@ class Quiz extends Component{
          let notattempcount = 0;
      
                 list.map((item,key)=>{
-                    item.questionOptions.map((anslist,key)=>{
+                    item.options.map((anslist,key)=>{
                        //  console.log("anslist.selected===>",anslist.selected)
                        if(anslist.selected === true){
                            if(anslist.que_options === item.ans){
@@ -172,7 +156,7 @@ return(
  <div className="Quiz_render_container">
 
     { this.state.booleanonsubmit ? 
-        <div className="Quiz-DisplayResult"> 
+        <div className="Quiz-DisplayResult" className="Quiz-DisplayResult"> 
            <h2> The score is {this.state.Total} Out Of 8 </h2>
              <Button onClick={()=>{this.setState({booleanonsubmit:false,activeStep:0,Quiz_Set : Quiz_Set,Total:0})}}> <Replay/> Try again </Button> 
         </div>
@@ -186,7 +170,7 @@ return(
                       <div className="Quiz_que">{item.que}</div>
                        
                           <div className="Quiz_options"> Options are : </div>
-                            {item.questionOptions.map((correctAnswer,index_ans)=>{
+                            {item.options.map((ans,index_ans)=>{
                                 index_ans = index_ans + 1
                                 return (
                                     <div key={index_ans}className="Quiz_multiple_options">
@@ -253,7 +237,19 @@ return(
       
 //         axios.get('http://localhost:8080/questions')
 //             .then(response => setData(response.data))
+      //   const [data, setData] = useState('');
+//   useEffect(() => {
+//       reading();
+//   }, []);
+//   const reading = () => {
       
+//         axios.get('http://localhost:8080/questions')
+//             .then(response => setData(response.data))
+      
+//       return (
+//           <div>Question is {JSON.stringify(data)}</div>
+//       )
+//     }
 //       return (
 //           <div>Question is {JSON.stringify(data)}</div>
 //       )
