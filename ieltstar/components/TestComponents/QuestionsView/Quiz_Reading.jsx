@@ -13,7 +13,7 @@ const Quiz_Set = [
         questionId:"que_1",
         questionCategory:"Reading",
         questionTitle : "1) Heat in voting",
-        options : [{que_options: "A" , selected: false},{que_options:"B", selected: false},{que_options:"C", selected: false}],
+        questionOptions : [{que_options: "A"},{que_options:"B"},{que_options:"C"}],
         correctAnswer : "B"
     },
     {
@@ -21,7 +21,7 @@ const Quiz_Set = [
         questionId:"que_2",
         questionCategory:"Reading",
         questionTitle : "2) A fact about the UK",
-        options : [{que_options: "F" , selected: false},{que_options:"G", selected: false},{que_options:"H", selected: false}],
+        questionOptions : [{que_options: "F"},{que_options:"G"},{que_options:"H"}],
         correctAnswer : "F"
     },
     {
@@ -29,7 +29,7 @@ const Quiz_Set = [
         questionId:"que_3",
         questionCategory:"Reading",
         questionTitle : "3) Statement of the caucus guide",
-        options : [{que_options: "D" , selected: false},{que_options:"E", selected: false},{que_options:"F", selected: false}],
+        questionOptions : [{que_options: "D"},{que_options:"E"},{que_options:"F"}],
         correctAnswer : "E"
     },
     {
@@ -37,7 +37,7 @@ const Quiz_Set = [
         questionId:"que_4",
         questionCategory:"Reading",
         questionTitle : "4) The way Democratic caucus-goers in Iowa show their support",
-        options : [{que_options: "D" , selected: false},{que_options:"E", selected: false},{que_options:"F", selected: false}],
+        questionOptions : [{que_options: "D"},{que_options:"E"},{que_options:"F"}],
         correctAnswer : "D"
     },
     {
@@ -45,7 +45,7 @@ const Quiz_Set = [
         questionId:"que_5",
         questionCategory:"Reading",
         questionTitle : "5) A parallel with sport",
-        options : [{que_options: "A" , selected: false},{que_options:"B", selected: false},{que_options:"C", selected: false}],
+        questionOptions : [{que_options: "A"},{que_options:"B"},{que_options:"C"}],
         correctAnswer : "A"
     },
     {
@@ -53,7 +53,7 @@ const Quiz_Set = [
         questionId:"que_6",
         questionCategory:"Reading",
         questionTitle : "Some examples of winning by the toss of a coin",
-        options : [{que_options: "F" , selected: false},{que_options:"G", selected: false},{que_options:"H", selected: false}],
+        questionOptions : [{que_options: "F"},{que_options:"G"},{que_options:"H"}],
         correctAnswer : "G"
     },
     {
@@ -61,7 +61,7 @@ const Quiz_Set = [
         questionId:"que_7",
         questionCategory:"Reading",
         questionTitle : "7) An unexpected outcome",
-        options : [{que_options: "C" , selected: false},{que_options:"D", selected: false},{que_options:"E", selected: false}],
+        questionOptions : [{que_options: "C"},{que_options:"D"},{que_options:"E"}],
         correctAnswer : "C"
     },
     {
@@ -69,7 +69,7 @@ const Quiz_Set = [
         questionId:"que_8",
         questionCategory:"Reading",
         questionTitle : "New rule",
-        options : [{que_options: "F" , selected: false},{que_options:"G", selected: false},{que_options:"H", selected: false}],
+        questionOptions : [{que_options: "F"},{que_options:"G"},{que_options:"H"}],
         correctAnswer : "H"
     }
 ]
@@ -127,7 +127,7 @@ class Quiz extends Component{
             if (card.questionId !== e.target.name) return card;
             return {
                 ...card,
-                options: card.options.map(opt => {
+                questionOptions: card.questionOptions.map(opt => {
                 const checked = opt.que_options === e.target.value;
                 return {
                     ...opt,
@@ -146,7 +146,7 @@ class Quiz extends Component{
          let notattempcount = 0;
      
                 list.map((item,key)=>{
-                    item.options.map((anslist,key)=>{
+                    item.questionOptions.map((anslist,key)=>{
                        //  console.log("anslist.selected===>",anslist.selected)
                        if(anslist.selected === true){
                            if(anslist.que_options === item.correctAnswer){
@@ -209,7 +209,7 @@ return(
                       <div className="Quiz_que">{item.questionTitle}</div>
                        
                           <div className="Quiz_options"> Options are : </div>
-                            {item.options.map((correctAnswer,index_ans)=>{
+                            {item.questionOptions.map((correctAnswer,index_ans)=>{
                                 index_ans = index_ans + 1
                                 return (
                                     <div key={index_ans}className="Quiz_multiple_options">
