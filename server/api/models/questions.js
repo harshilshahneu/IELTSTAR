@@ -21,7 +21,7 @@ const Schema = new mongoose.Schema(
       default: "",
     },
     questionOptions: {
-      type: Array,
+      type: {que_options:{type: String}},
       default: [],
     },
     questionType: {
