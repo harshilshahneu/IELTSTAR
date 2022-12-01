@@ -9,52 +9,68 @@ import reading from'./Reading';
 
 const Quiz_Set = [
     {
-        queno:"que_1",
-        que : "1) Heat in voting",
-        options : [{que_options: "A" , selected: false},{que_options:"B", selected: false},{que_options:"C", selected: false}],
-        ans : "B"
+        _id:"6384e364c39c711583797e58",
+        questionId:"que_1",
+        questionCategory:"Reading",
+        questionTitle : "1) Heat in voting",
+        questionOptions : [{que_options: "A"},{que_options:"B"},{que_options:"C"}],
+        correctAnswer : "B"
     },
     {
-        queno:"que_2",
-        que : "2) A fact about the UK",
+        _id:"6384e364c39c711583797e58",
+        questionId:"que_2",
+        questionCategory:"Reading",
+        questionTitle : "2) A fact about the UK",
         options : [{que_options: "F" , selected: false},{que_options:"G", selected: false},{que_options:"H", selected: false}],
-        ans : "F"
+        correctAnswer : "F"
     },
     {
-        queno:"que_3",
-        que : "3) Statement of the caucus guide",
+        _id:"6384e364c39c711583797e58",
+        questionId:"que_3",
+        questionCategory:"Reading",
+        questionTitle : "3) Statement of the caucus guide",
         options : [{que_options: "D" , selected: false},{que_options:"E", selected: false},{que_options:"F", selected: false}],
-        ans : "E"
+        correctAnswer : "E"
     },
     {
-        queno:"que_4",
-        que : "4) The way Democratic caucus-goers in Iowa show their support",
+        _id:"6384e364c39c711583797e58",
+        questionId:"que_4",
+        questionCategory:"Reading",
+        questionTitle : "4) The way Democratic caucus-goers in Iowa show their support",
         options : [{que_options: "D" , selected: false},{que_options:"E", selected: false},{que_options:"F", selected: false}],
-        ans : "D"
+        correctAnswer : "D"
     },
     {
-        queno:"que_5",
-        que : "5) A parallel with sport",
+        _id:"6384e364c39c711583797e58",
+        questionId:"que_5",
+        questionCategory:"Reading",
+        questionTitle : "5) A parallel with sport",
         options : [{que_options: "A" , selected: false},{que_options:"B", selected: false},{que_options:"C", selected: false}],
-        ans : "A"
+        correctAnswer : "A"
     },
     {
-        queno:"que_6",
-        que : "Some examples of winning by the toss of a coin",
+        _id:"6384e364c39c711583797e58",
+        questionId:"que_6",
+        questionCategory:"Reading",
+        questionTitle : "Some examples of winning by the toss of a coin",
         options : [{que_options: "F" , selected: false},{que_options:"G", selected: false},{que_options:"H", selected: false}],
-        ans : "G"
+        correctAnswer : "G"
     },
     {
-        queno:"que_7",
-        que : "7) An unexpected outcome",
+        _id:"6384e364c39c711583797e58",
+        questionId:"que_7",
+        questionCategory:"Reading",
+        questionTitle : "7) An unexpected outcome",
         options : [{que_options: "C" , selected: false},{que_options:"D", selected: false},{que_options:"E", selected: false}],
-        ans : "C"
+        correctAnswer : "C"
     },
     {
-        queno:"que_8",
-        que : "New rule",
+        _id:"6384e364c39c711583797e58",
+        questionId:"que_8",
+        questionCategory:"Reading",
+        questionTitle : "New rule",
         options : [{que_options: "F" , selected: false},{que_options:"G", selected: false},{que_options:"H", selected: false}],
-        ans : "H"
+        correctAnswer : "H"
     }
 ]
 
@@ -98,7 +114,7 @@ class Quiz extends Component{
             if (card.queno !== e.target.name) return card;
             return {
                 ...card,
-                options: card.options.map(opt => {
+                questionOptions: card.questionOptions.map(opt => {
                 const checked = opt.que_options === e.target.value;
                 return {
                     ...opt,
@@ -117,7 +133,7 @@ class Quiz extends Component{
          let notattempcount = 0;
      
                 list.map((item,key)=>{
-                    item.options.map((anslist,key)=>{
+                    item.questionOptions.map((anslist,key)=>{
                        //  console.log("anslist.selected===>",anslist.selected)
                        if(anslist.selected === true){
                            if(anslist.que_options === item.ans){
@@ -170,7 +186,11 @@ return(
                       <div className="Quiz_que">{item.que}</div>
                        
                           <div className="Quiz_options"> Options are : </div>
+<<<<<<< HEAD
                             {item.options.map((ans,index_ans)=>{
+=======
+                            {item.questionOptions.map((correctAnswer,index_ans)=>{
+>>>>>>> 724f697 (questions API rectified, json fetched)
                                 index_ans = index_ans + 1
                                 return (
                                     <div key={index_ans}className="Quiz_multiple_options">
