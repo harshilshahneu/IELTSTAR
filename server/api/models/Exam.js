@@ -13,8 +13,8 @@ const Schema = new mongoose.Schema(
     },
     type: {
         type: String,
-        required: "Type is required",
         enum: ["General", "Academic"],
+        required: "Type is required",
     },
     date: {
         type: Date,
