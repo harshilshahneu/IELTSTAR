@@ -14,8 +14,11 @@ import MenuItem from "@mui/material/MenuItem";
 import LoadingButton from "@mui/lab/LoadingButton";
 import { Button } from "@mui/material";
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { openSnackbar } from "../../../store/snackbarSlice";
 
 const CreateExam = ({ data, setData }) => {
+  const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
   const [openCreateDialog, setOpenCreateDialog] = useState(false);
   const [createFormData, setCreateFormData] = useState({
@@ -31,16 +34,34 @@ const CreateExam = ({ data, setData }) => {
         date: new Date(createFormData.date),
       })
       .then((res) => {
+        setCreateFormData({
+          title: "",
+          type: "",
+          date: "",
+        });
         setData([...data, res.data]);
         setLoading(false);
         setOpenCreateDialog(false);
+        dispatch(
+          openSnackbar({
+            message: "Exam Created Successfully",
+            severity: "success",
+          })
+        );
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        setLoading(false);
+        dispatch(
+          openSnackbar({
+            message: "Error Creating Exam : " + err.message,
+            severity: "error",
+          })
+        );
+      });
   };
 
   return (
     <Box sx={{ display: "flex", justifyContent: "center", margin: "10px" }}>
-      {/* //add data button */}
       <Button
         variant="outlined"
         startIcon={<AddIcon />}
