@@ -60,3 +60,14 @@ export const deleteExam = async (req, res) => {
         setResponse(res, 409, { message: e.message });
     }
 }
+
+//get all the tests in the exam
+export const getTestsInExam = async (req, res) => {
+    try {
+        const tests = await examService.getTestsInExam(req.params.id);
+        setResponse(res, 200, tests);
+    }
+    catch (e) {
+        setResponse(res, 400, { message: e.message });
+    }
+}

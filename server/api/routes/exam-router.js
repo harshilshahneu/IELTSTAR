@@ -15,4 +15,8 @@ Router.route('/:id')
     .put(examController.updateExam)
     .delete(examController.deleteExam);
 
+//get all the tests in the exam
+Router.route('/:id/tests')
+    .get(examController.getTestsInExam)
+
 export default Router;
