@@ -1,4 +1,5 @@
 import Exam from "./../models/Exam.js";
+import Test from "./../models/Test.js";
 import mongoose from "mongoose";
 
 //Get all exams from the database
@@ -38,4 +39,13 @@ export const remove = async (id) => {
     //Delete the exam from the database based on id passed and return the deleted exam
     await Exam.findByIdAndRemove(id);
     return `Exam ${id} deleted successfully.`;
+}
+
+//Get all the tests in the exam
+export const getTestsInExam = async (id) => {
+    //Check if the id is valid
+    if (!mongoose.Types.ObjectId.isValid(id)) throw new Error('Invalid ID');
+   //get the tests with the id
+    const tests = await Test.find({examId: id});
+    return tests;
 }

@@ -15,7 +15,7 @@ const Admin = ({ children }) => {
       <AdminSideBar />
       <main className="content">
         <TopBar />
-        <Box style={{padding: "10px"}} >
+        <Box style={{padding: "10px", height: "calc(100vh - 87px)", overflowY: "auto"}} >
           { children }
         </Box>
       </main>
