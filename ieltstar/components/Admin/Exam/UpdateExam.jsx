@@ -13,6 +13,8 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import MenuItem from "@mui/material/MenuItem";
 import LoadingButton from "@mui/lab/LoadingButton";
+import { useDispatch } from "react-redux";
+import { openSnackbar } from "../../../store/snackbarSlice";
 
 const UpdateExam = ({ id, data, setData }) => {
   const [open, setOpen] = useState(false);
@@ -20,6 +22,8 @@ const UpdateExam = ({ id, data, setData }) => {
   const [editFormData, setEditFormData] = useState({});
 
   const [loading, setLoading] = useState(false);
+
+  const dispatch = useDispatch();
 
   const handleClickOpen = (id) => {
     setEditFormData(data.find((item) => item._id === id));
@@ -45,8 +49,22 @@ const UpdateExam = ({ id, data, setData }) => {
         );
         setLoading(false);
         setOpen(false);
+        dispatch(
+          openSnackbar({
+            message: "Exam Updated Successfully",
+            severity: "success",
+          })
+        );
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        setLoading(false);
+        dispatch(
+          openSnackbar({
+            message: "Error Updating Exam : " + err.message,
+            severity: "error",
+          })
+        );
+      });
   };
   return (
     <>
