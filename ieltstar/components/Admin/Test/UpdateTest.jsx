@@ -118,7 +118,7 @@ const UpdateTest = ({ id, data, setData }) => {
                 value={editFormData.category}
                 onChange={(e) =>
                     setEditFormData({
-                    editFormData,
+                    ...editFormData,
                     category: e.target.value,
                   })
                 }
