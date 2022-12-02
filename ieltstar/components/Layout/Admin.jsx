@@ -1,6 +1,7 @@
 import TopBar from '../Navigation/TopBar'
 import AdminSideBar from '../Navigation/AdminSideBar'
 import Head from 'next/head'
+import { Box } from '@mui/material'
 
 const Admin = ({ children }) => {
   return (
@@ -14,7 +15,9 @@ const Admin = ({ children }) => {
       <AdminSideBar />
       <main className="content">
         <TopBar />
-        { children }
+        <Box style={{padding: "10px"}} >
+          { children }
+        </Box>
       </main>
       </div>
     </>
