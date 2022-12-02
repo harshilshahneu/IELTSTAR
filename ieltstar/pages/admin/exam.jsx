@@ -31,7 +31,7 @@ const exam = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/exams")
+      .get(`${process.env.API_URL}/exams`)
       .then((response) => setData(response.data))
       .catch((err) => console.log(err));
   }, []);

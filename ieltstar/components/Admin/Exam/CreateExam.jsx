@@ -29,7 +29,7 @@ const CreateExam = ({ data, setData }) => {
   const createData = () => {
     setLoading(true);
     axios
-      .post(`http://localhost:8080/exams`, {
+      .post(`${process.env.API_URL}/exams`, {
         ...createFormData,
         date: new Date(createFormData.date),
       })
@@ -102,7 +102,7 @@ const CreateExam = ({ data, setData }) => {
                 required
                 id="outlined-required"
                 label="Title"
-                defaultValue={createFormData.title}
+                value={createFormData.title}
                 onChange={(e) =>
                   setCreateFormData({
                     ...createFormData,
@@ -116,7 +116,6 @@ const CreateExam = ({ data, setData }) => {
                 id="create-outlined-select-type"
                 select
                 label="Type"
-                defaultValue=""
                 value={createFormData.type}
                 onChange={(e) =>
                   setCreateFormData({
@@ -138,7 +137,7 @@ const CreateExam = ({ data, setData }) => {
                 id="outlined-required"
                 label="Date"
                 type="date"
-                defaultValue={
+                value={
                   createFormData.date
                     ? new Date(createFormData.date).toISOString().slice(0, 10)
                     : ""

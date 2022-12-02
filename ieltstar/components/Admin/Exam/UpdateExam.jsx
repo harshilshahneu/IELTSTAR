@@ -37,7 +37,7 @@ const UpdateExam = ({ id, data, setData }) => {
   const updateData = () => {
     setLoading(true);
     const res = axios
-      .put(`http://localhost:8080/exams/${editFormData._id}`, {
+      .put(`${process.env.API_URL}/exams/${editFormData._id}`, {
         ...editFormData,
         date: new Date(editFormData.date),
       })
@@ -104,7 +104,7 @@ const UpdateExam = ({ id, data, setData }) => {
                 required
                 id="outlined-required"
                 label="Title"
-                defaultValue={editFormData.title}
+                value={editFormData.title}
                 onChange={(e) =>
                   setEditFormData({
                     ...editFormData,
@@ -139,7 +139,7 @@ const UpdateExam = ({ id, data, setData }) => {
                 id="outlined-required"
                 label="Date"
                 type="date"
-                defaultValue={
+                value={
                   editFormData.date
                     ? new Date(editFormData.date).toISOString().slice(0, 10)
                     : ""

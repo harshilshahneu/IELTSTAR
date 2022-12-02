@@ -8,7 +8,7 @@ const DeleteExam = ({ id, data, setData}) => {
   const dispatch = useDispatch();
   const handleDelete = (id) => {
     axios
-      .delete(`http://localhost:8080/exams/${id}`)
+      .delete(`${process.env.API_URL}/exams/${id}`)
       .then((res) => {
         setData(data.filter((item) => item._id !== id));
         dispatch(
