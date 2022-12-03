@@ -10,87 +10,33 @@ import paragraphStyles from '../../../styles/quizstyles/Paragraph.module.scss';
 
 let quiz_instructions = "";
 let paragraphSourceFromDB = "";
-const Quiz_Set = [
-    {
-        _id:"6384e364c39c711583797e58",
-        questionId:"que_1",
-        questionCategory:"Reading",
-        questionTitle : "1) Heat in voting",
-        questionOptions : [{que_options: "A"},{que_options:"B"},{que_options:"C"}],
-        correctAnswer : "B"
-    },
-    {
-        _id:"6384e364c39c711583797e58",
-        questionId:"que_2",
-        questionCategory:"Reading",
-        questionTitle : "2) A fact about the UK",
-        questionOptions : [{que_options: "F"},{que_options:"G"},{que_options:"H"}],
-        correctAnswer : "F"
-    },
-    {
-        _id:"6384e364c39c711583797e58",
-        questionId:"que_3",
-        questionCategory:"Reading",
-        questionTitle : "3) Statement of the caucus guide",
-        questionOptions : [{que_options: "D"},{que_options:"E"},{que_options:"F"}],
-        correctAnswer : "E"
-    },
-    {
-        _id:"6384e364c39c711583797e58",
-        questionId:"que_4",
-        questionCategory:"Reading",
-        questionTitle : "4) The way Democratic caucus-goers in Iowa show their support",
-        questionOptions : [{que_options: "D"},{que_options:"E"},{que_options:"F"}],
-        correctAnswer : "D"
-    },
-    {
-        _id:"6384e364c39c711583797e58",
-        questionId:"que_5",
-        questionCategory:"Reading",
-        questionTitle : "5) A parallel with sport",
-        questionOptions : [{que_options: "A"},{que_options:"B"},{que_options:"C"}],
-        correctAnswer : "A"
-    },
-    {
-        _id:"6384e364c39c711583797e58",
-        questionId:"que_6",
-        questionCategory:"Reading",
-        questionTitle : "Some examples of winning by the toss of a coin",
-        questionOptions : [{que_options: "F"},{que_options:"G"},{que_options:"H"}],
-        correctAnswer : "G"
-    },
-    {
-        _id:"6384e364c39c711583797e58",
-        questionId:"que_7",
-        questionCategory:"Reading",
-        questionTitle : "7) An unexpected outcome",
-        questionOptions : [{que_options: "C"},{que_options:"D"},{que_options:"E"}],
-        correctAnswer : "C"
-    },
-    {
-        _id:"6384e364c39c711583797e58",
-        questionId:"que_8",
-        questionCategory:"Reading",
-        questionTitle : "New rule",
-        questionOptions : [{que_options: "F"},{que_options:"G"},{que_options:"H"}],
-        correctAnswer : "H"
-    }
-]
+let questionCategory = "";
 
 class Quiz extends Component{
 
       componentDidMount() {
-        axios.get(`http://localhost:8080/tests/638a9d460cad4d1cc4ebe127`)
+        axios.get(`http://localhost:8080/tests/638ae794985db0cbf50ba783`)
           .then(res => {
             const questionsfromdb = res.data;
             quiz_instructions = questionsfromdb.instruction;
             let questions = questionsfromdb.questions;
             paragraphSourceFromDB = questionsfromdb.source;
+     
+            questionCategory = questionsfromdb.category;
+            if(questionCategory === "Listening") {
+                paragraphSourceFromDB = `
+                <h3>Listen to the instructions for each part of this section carefully. Answer all the questions.</h3>
+                <audio controls>
+  <source 
+  src="${questionsfromdb.source}"
+  
+  type="audio/mpeg">
+Your browser does not support the audio element.
+</audio>`
+             }
             console.log(paragraphSourceFromDB);
-            // let questionCategory = questionsfromdb.category;
             questions = questions.map((question, index) => ({
                 questionId: "que_" + index,
-        
                 questionTitle: question.title,
                 questionOptions : question.options.map(option => ({que_options: option})),
                 correctAnswer : question.answer                
@@ -102,7 +48,6 @@ class Quiz extends Component{
         super(props)
         this.state = {
             activeStep:0,
-            Quiz_Set : Quiz_Set,
             booleanonsubmit : false,
             Total:0,
             open:false,
@@ -110,10 +55,6 @@ class Quiz extends Component{
             errormsg:"",
             questionsfromdb:[]
         }
-
-        
-
-        
                 
    }
 
@@ -199,7 +140,7 @@ return(
    <div>
     { this.state.booleanonsubmit ? 
         <div> 
-           <h2> The score is {this.state.Total} Out Of 8 </h2>
+           <h2> The score is {this.state.Total} Out Of {this.state.questionsfromdb.length} </h2>
              <Button onClick={()=>{this.setState({booleanonsubmit:false,activeStep:0,questionsfromdb : questionsfromdb,Total:0})}}> <Replay/> Try again </Button> 
         </div>
      :
@@ -208,16 +149,17 @@ return(
              if( Math.abs(this.state.activeStep - index)<=0)
              {
                 return (
-                    
                     <div className={styles.question_view_main_grid_2_columns}>
-                   
                         <section className={styles.question_view_card}>
-                            <div className={paragraphStyles.Paragraph_content} dangerouslySetInnerHTML={{__html: paragraphSourceFromDB}} /></section>
+                            <div className={paragraphStyles.Paragraph_content}                         
+                            dangerouslySetInnerHTML={{__html: paragraphSourceFromDB}} /></section>
                         <section className={styles.question_view_card}>
                         <div className={styles.Quiz_container_display}>
                         <h3>{quiz_instructions}</h3>
 
-                      <div className={styles.Quiz_que}>{item.questionTitle}</div>
+                      <div className={styles.Quiz_que}>
+                        {item.questionTitle}
+                        </div>
                        
                           <div className={styles.Quiz_options}> Options are : </div>
                             {item.questionOptions.map((correctAnswer,index_ans)=>{
