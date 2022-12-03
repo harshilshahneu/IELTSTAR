@@ -147,6 +147,20 @@ const UpdateTest = ({ id, data, setData }) => {
                 }
               />
             </div>
+            <div>
+              <TextField
+                id="source-outlined"
+                label="Source"
+                value={editFormData.instruction}
+                multiline
+                onChange={(e) =>
+                    setEditFormData({
+                    ...editFormData,
+                    instruction: e.target.value,
+                  })
+                }
+              />
+            </div>
           </Box>
         </DialogContent>
         <DialogActions>

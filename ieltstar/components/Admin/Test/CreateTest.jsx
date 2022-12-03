@@ -25,6 +25,7 @@ const CreateExam = ({ id, data, setData }) => {
     section: "",
     category: "",
     source: "",
+    instruction: ""
   });
   const createData = () => {
     setLoading(true);
@@ -38,6 +39,7 @@ const CreateExam = ({ id, data, setData }) => {
             section: "",
             category: "",
             source: "",
+            instruction: ""
         });
         setData([...data, res.data]);
         setLoading(false);
@@ -142,6 +144,20 @@ const CreateExam = ({ id, data, setData }) => {
                   setCreateFormData({
                     ...createFormData,
                     source: e.target.value,
+                  })
+                }
+              />
+            </div>
+            <div>
+              <TextField
+                id="source-outlined"
+                label="Instruction"
+                value={createFormData.instruction}
+                multiline
+                onChange={(e) =>
+                  setCreateFormData({
+                    ...createFormData,
+                    instruction: e.target.value,
                   })
                 }
               />

@@ -25,6 +25,9 @@ const Schema = new mongoose.Schema(
         //can be a paragraph for reading or audio file path for listening or image file path for writing
         type: String,
     },
+    instruction: {
+        type: String,
+    },
     questions: {
         type: [QuestionSchema],
         default: [],
