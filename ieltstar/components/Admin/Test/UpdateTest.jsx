@@ -139,10 +139,10 @@ const UpdateTest = ({ id, data, setData }) => {
                 )}
               </TextField>
             </div>
-            <div style={{display: 'flex', justifyContent: 'center'}}>
+            <div style={{display: 'flex', alignItems: 'center', flexDirection: 'column', marginBottom: '5px'}}>
             <SunEditor
                 defaultValue={editFormData.source}
-                setDefaultStyle="width: 50ch; height: 200px;border-radius: 5px;"
+                setDefaultStyle="width: 50ch; height: 200px;"
                 onChange={(e) =>
                   setEditFormData((editFormData) => ({
                     ...editFormData,
@@ -150,11 +150,14 @@ const UpdateTest = ({ id, data, setData }) => {
                   }))
                 }
               />
+              <p style={{alignSelf: 'flex-start'}} className="MuiFormHelperText-root MuiFormHelperText-sizeMedium MuiFormHelperText-contained MuiFormHelperText-filled mui-style-xzkq1u-MuiFormHelperText-root">
+                Source
+              </p>
             </div>
             <div>
               <TextField
-                id="source-outlined"
-                label="Source"
+                id="Instruction-outlined"
+                label="Instruction"
                 value={editFormData.instruction}
                 multiline
                 onChange={(e) =>

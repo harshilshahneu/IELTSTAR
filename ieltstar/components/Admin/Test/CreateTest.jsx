@@ -143,7 +143,7 @@ const CreateExam = ({ id, data, setData }) => {
                 )}
               </TextField>
             </div>
-            <div style={{display: 'flex', justifyContent: 'center'}}>
+            <div style={{display: 'flex', alignItems: 'center', flexDirection: 'column', marginBottom: '5px'}}>
               <SunEditor
                 defaultValue={createFormData.source}
                 setDefaultStyle="width: 50ch; height: 200px;border-radius: 5px;"
@@ -154,6 +154,9 @@ const CreateExam = ({ id, data, setData }) => {
                   }))
                 }
               />
+              <p style={{alignSelf: 'flex-start'}} className="MuiFormHelperText-root MuiFormHelperText-sizeMedium MuiFormHelperText-contained MuiFormHelperText-filled mui-style-xzkq1u-MuiFormHelperText-root">
+                Source
+              </p>
             </div>
             <div>
               <TextField
