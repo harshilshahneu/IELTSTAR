@@ -5,8 +5,11 @@ import Replay from '@mui/icons-material/Replay';
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
 import axios from "axios";
+import styles from '../../../styles/quizstyles/QuestionView.module.scss';
+import paragraphStyles from '../../../styles/quizstyles/Paragraph.module.scss';
 
-  
+let quiz_instructions = "";
+let paragraphSourceFromDB = "";
 const Quiz_Set = [
     {
         _id:"6384e364c39c711583797e58",
@@ -76,12 +79,23 @@ const Quiz_Set = [
 
 class Quiz extends Component{
 
-    
       componentDidMount() {
-        axios.get(`http://localhost:8080/questions`)
+        axios.get(`http://localhost:8080/tests/638a9d460cad4d1cc4ebe127`)
           .then(res => {
-            const persons = res.data;
-            this.setState({ persons });
+            const questionsfromdb = res.data;
+            quiz_instructions = questionsfromdb.instruction;
+            let questions = questionsfromdb.questions;
+            paragraphSourceFromDB = questionsfromdb.source;
+            console.log(paragraphSourceFromDB);
+            // let questionCategory = questionsfromdb.category;
+            questions = questions.map((question, index) => ({
+                questionId: "que_" + index,
+        
+                questionTitle: question.title,
+                questionOptions : question.options.map(option => ({que_options: option})),
+                correctAnswer : question.answer                
+            }));
+            this.setState({ questionsfromdb: questions });
           })
       }
    constructor(props){
@@ -94,7 +108,7 @@ class Quiz extends Component{
             open:false,
             catchmsg:"",
             errormsg:"",
-            persons:[]
+            questionsfromdb:[]
         }
 
         
@@ -122,8 +136,8 @@ class Quiz extends Component{
 
     onInputChange = (e) => {
 
-          const { Quiz_Set } = this.state;
-            const nexState = Quiz_Set.map(card => {
+          const { questionsfromdb } = this.state;
+            const nexState = questionsfromdb.map(card => {
             if (card.questionId !== e.target.name) return card;
             return {
                 ...card,
@@ -136,12 +150,11 @@ class Quiz extends Component{
                 })
             }
             });
-            this.setState({ Quiz_Set: nexState })
+            this.setState({ questionsfromdb: nexState })
     }
 
     onsubmit = () =>{
-         //   console.log(this.state.Quiz_Set)
-         let list = this.state.Quiz_Set ;
+         let list = this.state.questionsfromdb ;
          let count = 0;
          let notattempcount = 0;
      
@@ -183,38 +196,36 @@ class Quiz extends Component{
 
 render(){
 return(
-    
- <div className="Quiz_render_container">
-
+   <div>
     { this.state.booleanonsubmit ? 
-        <div className="Quiz-DisplayResult"> 
+        <div> 
            <h2> The score is {this.state.Total} Out Of 8 </h2>
-             <Button onClick={()=>{this.setState({booleanonsubmit:false,activeStep:0,Quiz_Set : Quiz_Set,Total:0})}}> <Replay/> Try again </Button> 
+             <Button onClick={()=>{this.setState({booleanonsubmit:false,activeStep:0,questionsfromdb : questionsfromdb,Total:0})}}> <Replay/> Try again </Button> 
         </div>
      :
-     <div className="Quiz_container_display"> 
-          {this.state.Quiz_Set.map((item,index)=>{
+     <div> 
+          {this.state.questionsfromdb.map((item,index)=>{
              if( Math.abs(this.state.activeStep - index)<=0)
              {
                 return (
-                    <div>
-          
-        {
-          this.state.persons
-            .map(question =>
-             <div>{question.questionTitle}</div>
-            )
-        }
- 
-                      <div className="Quiz_que">{item.questionTitle}</div>
+                    
+                    <div className={styles.question_view_main_grid_2_columns}>
+                   
+                        <section className={styles.question_view_card}>
+                            <div className={paragraphStyles.Paragraph_content} dangerouslySetInnerHTML={{__html: paragraphSourceFromDB}} /></section>
+                        <section className={styles.question_view_card}>
+                        <div className={styles.Quiz_container_display}>
+                        <h3>{quiz_instructions}</h3>
+
+                      <div className={styles.Quiz_que}>{item.questionTitle}</div>
                        
-                          <div className="Quiz_options"> Options are : </div>
+                          <div className={styles.Quiz_options}> Options are : </div>
                             {item.questionOptions.map((correctAnswer,index_ans)=>{
                                 index_ans = index_ans + 1
                                 return (
-                                    <div key={index_ans}className="Quiz_multiple_options">
+                                    <div key={index_ans}className={styles.Quiz_multiple_options}>
                                                                  <input
-                                                                 className="Quiz_radio_input"
+                                                                 className={styles.Quiz_radio_input}
                                             key={index_ans}
                                             type="radio"
                                             name={item.questionId}
@@ -231,6 +242,8 @@ return(
                      
                    
                     </div>
+                    </section>
+                    </div>
                 )
              }else{
                  return null
@@ -239,14 +252,14 @@ return(
           })}
 
        <div className="Quiz-MobileStepper">
-        <MobileStepper  variant="dots" steps={this.state.Quiz_Set.length} position="static" activeStep={this.state.activeStep}
+        <MobileStepper  variant="dots" steps={this.state.questionsfromdb.length} position="static" activeStep={this.state.activeStep}
             nextButton={
-                this.state.activeStep === 7 ? 
+                this.state.activeStep === this.state.questionsfromdb.length-1 ? 
                 <Button size="small" variant="contained" color="info" onClick={this.onsubmit}>
                  Submit
                 </Button>
                 :
-                <Button size="small" variant="contained" color="info" onClick={this.handleNext} disabled={this.state.activeStep === this.state.Quiz_Set.length}>
+                <Button size="small" variant="contained" color="info" onClick={this.handleNext} disabled={this.state.activeStep === this.state.questionsfromdb.length}>
                 Next
                 </Button>
 
@@ -265,6 +278,7 @@ return(
      </div>
     }
      {this.Snackbarrender()}
+
   </div>
    )
   }
