@@ -16,7 +16,7 @@ import { IconButton } from "@mui/material";
 import ArtTrackIcon from "@mui/icons-material/ArtTrack";
 import Tooltip from "@mui/material/Tooltip";
 import UpdateTest from "../../../../components/Admin/Test/UpdateTest";
-import DeleteTest from "../../../../components/Admin/Test/DeleteTest";
+import DeleteQuestion from "../../../../components/Admin/Question/DeleteQuestion";
 
 const question = () => {
   const router = useRouter();
@@ -97,7 +97,7 @@ const question = () => {
                         </IconButton>
                       </Tooltip>
                       <UpdateTest id={row._id} data={data} setData={setData} />
-                      <DeleteTest id={row._id} data={data} setData={setData} />
+                      <DeleteQuestion id={row._id} testId={id} data={data} setData={setData} />
                     </Stack>
                   </TableCell>
                 </TableRow>
