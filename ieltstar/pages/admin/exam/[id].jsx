@@ -76,8 +76,8 @@ const test = () => {
                     {row.section}
                   </TableCell>
                   <TableCell align="center">{row.category}</TableCell>
-                  <TableCell align="center">
-                    {row.source ? row.source : "N/A"}
+                  <TableCell>
+                    <div dangerouslySetInnerHTML={{ __html: row.source }} />
                   </TableCell>
                   <TableCell align="center">
                     {row.instruction}

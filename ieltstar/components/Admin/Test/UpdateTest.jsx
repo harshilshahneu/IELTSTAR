@@ -15,6 +15,12 @@ import MenuItem from "@mui/material/MenuItem";
 import LoadingButton from "@mui/lab/LoadingButton";
 import { useDispatch } from "react-redux";
 import { openSnackbar } from "../../../store/snackbarSlice";
+import dynamic from "next/dynamic";
+import "suneditor/dist/css/suneditor.min.css";
+
+const SunEditor = dynamic(() => import("suneditor-react"), {
+  ssr: false,
+});
 
 const UpdateTest = ({ id, data, setData }) => {
   const [open, setOpen] = useState(false);
@@ -133,24 +139,25 @@ const UpdateTest = ({ id, data, setData }) => {
                 )}
               </TextField>
             </div>
-            <div>
-              <TextField
-                id="source-outlined"
-                label="Source"
-                value={editFormData.source}
-                multiline
+            <div style={{display: 'flex', alignItems: 'center', flexDirection: 'column', marginBottom: '5px'}}>
+            <SunEditor
+                defaultValue={editFormData.source}
+                setDefaultStyle="width: 50ch; height: 200px;"
                 onChange={(e) =>
-                    setEditFormData({
+                  setEditFormData((editFormData) => ({
                     ...editFormData,
-                    source: e.target.value,
-                  })
+                    source: e,
+                  }))
                 }
               />
+              <p style={{alignSelf: 'flex-start'}} className="MuiFormHelperText-root MuiFormHelperText-sizeMedium MuiFormHelperText-contained MuiFormHelperText-filled mui-style-xzkq1u-MuiFormHelperText-root">
+                Source
+              </p>
             </div>
             <div>
               <TextField
-                id="source-outlined"
-                label="Source"
+                id="Instruction-outlined"
+                label="Instruction"
                 value={editFormData.instruction}
                 multiline
                 onChange={(e) =>

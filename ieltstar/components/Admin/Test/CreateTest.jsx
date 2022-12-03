@@ -16,6 +16,12 @@ import { Button } from "@mui/material";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { openSnackbar } from "../../../store/snackbarSlice";
+import dynamic from "next/dynamic";
+import "suneditor/dist/css/suneditor.min.css";
+
+const SunEditor = dynamic(() => import("suneditor-react"), {
+  ssr: false,
+});
 
 const CreateExam = ({ id, data, setData }) => {
   const dispatch = useDispatch();
@@ -25,21 +31,22 @@ const CreateExam = ({ id, data, setData }) => {
     section: "",
     category: "",
     source: "",
-    instruction: ""
+    instruction: "",
   });
   const createData = () => {
     setLoading(true);
+    
     axios
       .post(`${process.env.API_URL}/tests`, {
         ...createFormData,
-        examId: id
+        examId: id,
       })
       .then((res) => {
         setCreateFormData({
-            section: "",
-            category: "",
-            source: "",
-            instruction: ""
+          section: "",
+          category: "",
+          source: "",
+          instruction: "",
         });
         setData([...data, res.data]);
         setLoading(false);
@@ -127,26 +134,29 @@ const CreateExam = ({ id, data, setData }) => {
                 }
                 helperText="Please select test category"
               >
-                {["Reading", "Listening", "Writing", "Speaking"].map((option) => (
-                  <MenuItem key={option} value={option}>
-                    {option}
-                  </MenuItem>
-                ))}
+                {["Reading", "Listening", "Writing", "Speaking"].map(
+                  (option) => (
+                    <MenuItem key={option} value={option}>
+                      {option}
+                    </MenuItem>
+                  )
+                )}
               </TextField>
             </div>
-            <div>
-              <TextField
-                id="source-outlined"
-                label="Source"
-                value={createFormData.source}
-                multiline
+            <div style={{display: 'flex', alignItems: 'center', flexDirection: 'column', marginBottom: '5px'}}>
+              <SunEditor
+                defaultValue={createFormData.source}
+                setDefaultStyle="width: 50ch; height: 200px;border-radius: 5px;"
                 onChange={(e) =>
-                  setCreateFormData({
+                  setCreateFormData((createFormData) => ({
                     ...createFormData,
-                    source: e.target.value,
-                  })
+                    source: e,
+                  }))
                 }
               />
+              <p style={{alignSelf: 'flex-start'}} className="MuiFormHelperText-root MuiFormHelperText-sizeMedium MuiFormHelperText-contained MuiFormHelperText-filled mui-style-xzkq1u-MuiFormHelperText-root">
+                Source
+              </p>
             </div>
             <div>
               <TextField
