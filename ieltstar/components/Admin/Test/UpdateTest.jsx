@@ -139,9 +139,10 @@ const UpdateTest = ({ id, data, setData }) => {
                 )}
               </TextField>
             </div>
-            <div>
+            <div style={{display: 'flex', justifyContent: 'center'}}>
             <SunEditor
                 defaultValue={editFormData.source}
+                setDefaultStyle="width: 50ch; height: 200px;border-radius: 5px;"
                 onChange={(e) =>
                   setEditFormData((editFormData) => ({
                     ...editFormData,
