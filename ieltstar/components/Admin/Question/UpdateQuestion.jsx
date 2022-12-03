@@ -1,9 +1,9 @@
 import { useState } from "react";
+import axios from "axios";
 import IconButton from "@mui/material/IconButton";
+import EditIcon from "@mui/icons-material/Edit";
 import SaveIcon from "@mui/icons-material/Save";
 import CancelIcon from "@mui/icons-material/Cancel";
-import AddIcon from "@mui/icons-material/Add";
-import RemoveIcon from "@mui/icons-material/Remove";
 import Stack from "@mui/material/Stack";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
@@ -11,18 +11,17 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
-import Tooltip from "@mui/material/Tooltip";
 import LoadingButton from "@mui/lab/LoadingButton";
-import { Button } from "@mui/material";
-import axios from "axios";
 import { useDispatch } from "react-redux";
 import { openSnackbar } from "../../../store/snackbarSlice";
+import Tooltip from "@mui/material/Tooltip";
+import RemoveIcon from "@mui/icons-material/Remove";
+import AddIcon from "@mui/icons-material/Add";
 
-const CreateExam = ({ id, data, setData }) => {
-  const dispatch = useDispatch();
-  const [loading, setLoading] = useState(false);
-  const [openCreateDialog, setOpenCreateDialog] = useState(false);
-  const [createFormData, setCreateFormData] = useState({
+const UpdateQuestion = ({ id, testId, data, setData }) => {
+  const [open, setOpen] = useState(false);
+
+  const [editFormData, setEditFormData] = useState({
     title: "",
     description: "",
     options: [""],
@@ -30,27 +29,35 @@ const CreateExam = ({ id, data, setData }) => {
     answer: "",
     marks: "",
   });
-  const createData = () => {
+
+  const [loading, setLoading] = useState(false);
+
+  const dispatch = useDispatch();
+
+  const handleClickOpen = (id) => {
+    setEditFormData(data.find((item) => item._id === id));
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const updateData = () => {
     setLoading(true);
-
     axios
-      .post(`${process.env.API_URL}/tests/${id}/questions`, createFormData)
+      .put(`${process.env.API_URL}/tests/${testId}/questions/${id}`, editFormData)
       .then((res) => {
-        setCreateFormData({
-          title: "",
-          description: "",
-          options: [""],
-          type: "",
-          answer: "",
-          marks: "",
-        });
-
-        setData([...res.data.questions]);
+        setData(
+          data.map((item) =>
+            item._id === editFormData._id ? editFormData : item
+          )
+        );
         setLoading(false);
-        setOpenCreateDialog(false);
+        setOpen(false);
         dispatch(
           openSnackbar({
-            message: "Question Added Successfully",
+            message: "Test Updated Successfully",
             severity: "success",
           })
         );
@@ -59,35 +66,30 @@ const CreateExam = ({ id, data, setData }) => {
         setLoading(false);
         dispatch(
           openSnackbar({
-            message: "Error Adding Question : " + err.message,
+            message: "Error Updating Test : " + err.message,
             severity: "error",
           })
         );
       });
   };
-
   return (
-    <Box sx={{ display: "flex", justifyContent: "center", margin: "10px" }}>
-      <Button
-        variant="outlined"
-        startIcon={<AddIcon />}
-        color="warning"
-        onClick={() => setOpenCreateDialog(true)}
+    <>
+      <IconButton
+        aria-label="edit"
+        color="secondary"
+        onClick={() => handleClickOpen(id)}
       >
-        Add a Question
-      </Button>
-      <Dialog
-        open={openCreateDialog}
-        onClose={() => setOpenCreateDialog(false)}
-      >
+        <EditIcon />
+      </IconButton>
+      <Dialog open={open} onClose={handleClose}>
         <DialogTitle>
           <Box display="flex" alignItems="center">
-            <Box flexGrow={1}>Create Question</Box>
+            <Box flexGrow={1}>Edit Question</Box>
             <Box>
               <IconButton
                 aria-label="cancel"
                 color="error"
-                onClick={() => setOpenCreateDialog(false)}
+                onClick={handleClose}
               >
                 <CancelIcon />
               </IconButton>
@@ -107,10 +109,10 @@ const CreateExam = ({ id, data, setData }) => {
               <TextField
                 id="outlined-title"
                 label="Title"
-                value={createFormData.title}
+                value={editFormData.title}
                 onChange={(e) =>
-                  setCreateFormData({
-                    ...createFormData,
+                  setEditFormData({
+                    ...editFormData,
                     title: e.target.value,
                   })
                 }
@@ -120,17 +122,17 @@ const CreateExam = ({ id, data, setData }) => {
               <TextField
                 id="outlined-description"
                 label="Description"
-                value={createFormData.description}
+                value={editFormData.description}
                 onChange={(e) =>
-                  setCreateFormData({
-                    ...createFormData,
+                  setEditFormData({
+                    ...editFormData,
                     description: e.target.value,
                   })
                 }
               />
             </div>
             <div>
-              {createFormData.options.map((option, index) => (
+              {editFormData.options.map((option, index) => (
                 <div key={index}>
                   <Tooltip title="Remove Option" arrow>
                     <IconButton
@@ -138,9 +140,9 @@ const CreateExam = ({ id, data, setData }) => {
                       color="error"
                       disabled={index === 0}
                       onClick={() => {
-                        setCreateFormData({
-                          ...createFormData,
-                          options: createFormData.options.filter(
+                        setEditFormData({
+                          ...editFormData,
+                          options: editFormData.options.filter(
                             (option, i) => index !== i
                           ),
                         });
@@ -154,9 +156,9 @@ const CreateExam = ({ id, data, setData }) => {
                     label={`Option ${index + 1}`}
                     value={option}
                     onChange={(e) =>
-                      setCreateFormData({
-                        ...createFormData,
-                        options: createFormData.options.map((option, i) =>
+                      setEditFormData({
+                        ...editFormData,
+                        options: editFormData.options.map((option, i) =>
                           i === index ? e.target.value : option
                         ),
                       })
@@ -167,16 +169,16 @@ const CreateExam = ({ id, data, setData }) => {
               <Tooltip title="Add Option" arrow>
                 <IconButton
                   disabled={
-                    createFormData.options[
-                      createFormData.options.length - 1
+                    editFormData.options[
+                      editFormData.options.length - 1
                     ] === ""
                   }
                   aria-label="add-option"
                   color="success"
                   onClick={() => {
-                    setCreateFormData({
-                      ...createFormData,
-                      options: [...createFormData.options, ""],
+                    setEditFormData({
+                      ...editFormData,
+                      options: [...editFormData.options, ""],
                     });
                   }}
                 >
@@ -188,10 +190,10 @@ const CreateExam = ({ id, data, setData }) => {
               <TextField
                 id="outlined-type"
                 label="Type"
-                value={createFormData.type}
+                value={editFormData.type}
                 onChange={(e) =>
-                  setCreateFormData({
-                    ...createFormData,
+                  setEditFormData({
+                    ...editFormData,
                     type: e.target.value,
                   })
                 }
@@ -201,10 +203,10 @@ const CreateExam = ({ id, data, setData }) => {
               <TextField
                 id="outlined-answer"
                 label="Answer"
-                value={createFormData.answer}
+                value={editFormData.answer}
                 onChange={(e) =>
-                  setCreateFormData({
-                    ...createFormData,
+                  setEditFormData({
+                    ...editFormData,
                     answer: e.target.value,
                   })
                 }
@@ -215,10 +217,10 @@ const CreateExam = ({ id, data, setData }) => {
                 id="outlined-marks"
                 label="Marks"
                 type="number"
-                value={createFormData.marks}
+                value={editFormData.marks}
                 onChange={(e) =>
-                  setCreateFormData({
-                    ...createFormData,
+                  setEditFormData({
+                    ...editFormData,
                     marks: e.target.value,
                   })
                 }
@@ -230,7 +232,7 @@ const CreateExam = ({ id, data, setData }) => {
           <Stack direction="row" spacing={2} justifyContent="flex-end">
             <LoadingButton
               color="secondary"
-              onClick={createData}
+              onClick={updateData}
               loading={loading}
               loadingPosition="start"
               startIcon={<SaveIcon />}
@@ -241,8 +243,8 @@ const CreateExam = ({ id, data, setData }) => {
           </Stack>
         </DialogActions>
       </Dialog>
-    </Box>
+    </>
   );
 };
 
-export default CreateExam;
+export default UpdateQuestion;
