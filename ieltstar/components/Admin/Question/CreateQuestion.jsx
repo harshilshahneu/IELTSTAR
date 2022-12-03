@@ -3,6 +3,7 @@ import IconButton from "@mui/material/IconButton";
 import SaveIcon from "@mui/icons-material/Save";
 import CancelIcon from "@mui/icons-material/Cancel";
 import AddIcon from "@mui/icons-material/Add";
+import RemoveIcon from "@mui/icons-material/Remove";
 import Stack from "@mui/material/Stack";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
@@ -10,7 +11,7 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
-import MenuItem from "@mui/material/MenuItem";
+import Tooltip from "@mui/material/Tooltip";
 import LoadingButton from "@mui/lab/LoadingButton";
 import { Button } from "@mui/material";
 import axios from "axios";
@@ -81,7 +82,7 @@ const CreateExam = ({ id, data, setData }) => {
       >
         <DialogTitle>
           <Box display="flex" alignItems="center">
-            <Box flexGrow={1}>Create Test</Box>
+            <Box flexGrow={1}>Create Question</Box>
             <Box>
               <IconButton
                 aria-label="cancel"
@@ -130,24 +131,46 @@ const CreateExam = ({ id, data, setData }) => {
             </div>
             <div>
               {createFormData.options.map((option, index) => (
-                <TextField
-                  id="outlined-option"
-                  key={index}
-                  label={`Option ${index + 1}`}
-                  value={option}
-                  onChange={(e) =>
-                    setCreateFormData({
-                      ...createFormData,
-                      options: createFormData.options.map((option, i) =>
-                        i === index ? e.target.value : option
-                      ),
-                    })
-                  }
-                />
+                <div key={index}>
+                  <Tooltip title="Remove Option" arrow>
+                    <IconButton
+                      aria-label="remove-option"
+                      color="error"
+                      disabled={index === 0}
+                      onClick={() => {
+                        setCreateFormData({
+                          ...createFormData,
+                          options: createFormData.options.filter(
+                            (option, i) => index !== i
+                          ),
+                        });
+                      }}
+                    >
+                      <RemoveIcon />
+                    </IconButton>
+                  </Tooltip>
+                  <TextField
+                    id="outlined-option"
+                    label={`Option ${index + 1}`}
+                    value={option}
+                    onChange={(e) =>
+                      setCreateFormData({
+                        ...createFormData,
+                        options: createFormData.options.map((option, i) =>
+                          i === index ? e.target.value : option
+                        ),
+                      })
+                    }
+                  />
+                </div>
               ))}
-              {
-                createFormData.options[createFormData.options.length - 1] !== "" &&
+              <Tooltip title="Add Option" arrow>
                 <IconButton
+                  disabled={
+                    createFormData.options[
+                      createFormData.options.length - 1
+                    ] === ""
+                  }
                   aria-label="add-option"
                   color="success"
                   onClick={() => {
@@ -159,7 +182,7 @@ const CreateExam = ({ id, data, setData }) => {
                 >
                   <AddIcon />
                 </IconButton>
-              }
+              </Tooltip>
             </div>
             <div>
               <TextField
