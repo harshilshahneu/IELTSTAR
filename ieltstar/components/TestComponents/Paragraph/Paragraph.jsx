@@ -1,11 +1,12 @@
 // import '../../../pages/quizstyles/Paragraph.scss';
 import React, {Component} from 'react';
+import styles from '../../../styles/quizstyles/Paragraph.module.scss';
 
 class Paragraph extends Component {
     render() {
         return(
-            <div className='Paragraph_content'>
-            <h3 className='Paragraph_title'>When the flip of a coin wins an election</h3>
+            <div className={styles.Paragraph_content}>
+            <h3 className={styles.Paragraph_title}>When the flip of a coin wins an election</h3>
             (A) In the first vote to decide the US's presidential candidates, several results were decided on the toss of a coin. How common is it for elections to be decided this way? A silver coin balanced on thumb and forefinger is pinged upwards, falls, then gives its verdict - heads or tails. In sport, it's a common practice to decide who kicks off or opens the batting. In elections it's rarer, but not as rare as you might suppose. In Iowa's Democratic caucuses - a contest between Hillary Clinton and Bernie Sanders for the party's presidential nomination - the results in several precincts were decided by flipping a coin, according to the Des Moines Register.
             <br/><br/>(B) It was a series of dramatic finishes in a race the party called "the closest in Iowa Democratic caucus history". On Twitter there were reports that contests were settled in this way in Ames, one Des Moines precinct, another Des Moines precinct, Newton, West Branch and West Davenport. In some of these cases it was reported that there was a dead heat in voting. In Ames, it was the vagaries of the voting system and the decision by 60 of those present not to vote that left the final result unclear. Party officials were contacted on a hotline to advise, and recommended tossing a coin.
             <br/><br/>(C) Unusually, all six coin tosses were won by Clinton. According to John Moriarty, Reader in Mathematics at Queen Mary University London, there would have been a one-in-64 or 1.6% chance of Clinton winning all six flips. (That's nothing, however, compared to the time the England cricket team lost 12 tosses of the coin in a row - a probability of about 4,000-to-one.) The caucus system used in 10 US states, American Samoa and the Virgin Islands, differs from the primary system used in most states in that votes are taken in small groups rather than on a statewide basis. This makes ties more likely.
