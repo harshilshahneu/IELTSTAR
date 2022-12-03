@@ -144,18 +144,6 @@ const CreateExam = ({ id, data, setData }) => {
               </TextField>
             </div>
             <div>
-              {/* <TextField
-                id="source-outlined"
-                label="Source"
-                value={createFormData.source}
-                multiline
-                onChange={(e) =>
-                  setCreateFormData({
-                    ...createFormData,
-                    source: e.target.value,
-                  })
-                }
-              /> */}
               <SunEditor
                 defaultValue={createFormData.source}
                 onChange={(e) =>
