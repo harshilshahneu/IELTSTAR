@@ -42,7 +42,7 @@ const CreateExam = ({ id, data, setData }) => {
           answer: "",
           marks: "",
         });
-        setData([...data, res.data]);
+        setData([...data, res.data.questions]);
         setLoading(false);
         setOpenCreateDialog(false);
         dispatch(
