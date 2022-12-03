@@ -22,31 +22,32 @@ const CreateExam = ({ id, data, setData }) => {
   const [loading, setLoading] = useState(false);
   const [openCreateDialog, setOpenCreateDialog] = useState(false);
   const [createFormData, setCreateFormData] = useState({
-    section: "",
-    category: "",
-    source: "",
-    instruction: ""
+    title: "",
+    description: "",
+    options: [],
+    type: "",
+    answer: "",
+    marks: "",
   });
   const createData = () => {
     setLoading(true);
     axios
-      .post(`${process.env.API_URL}/tests`, {
-        ...createFormData,
-        examId: id
-      })
+      .post(`${process.env.API_URL}/tests/${id}/questions`, createFormData)
       .then((res) => {
         setCreateFormData({
-            section: "",
-            category: "",
-            source: "",
-            instruction: ""
+          title: "",
+          description: "",
+          options: [],
+          type: "",
+          answer: "",
+          marks: "",
         });
         setData([...data, res.data]);
         setLoading(false);
         setOpenCreateDialog(false);
         dispatch(
           openSnackbar({
-            message: "Test Created Successfully",
+            message: "Question Added Successfully",
             severity: "success",
           })
         );
@@ -55,7 +56,7 @@ const CreateExam = ({ id, data, setData }) => {
         setLoading(false);
         dispatch(
           openSnackbar({
-            message: "Error Creating Test : " + err.message,
+            message: "Error Adding Question : " + err.message,
             severity: "error",
           })
         );
@@ -70,7 +71,7 @@ const CreateExam = ({ id, data, setData }) => {
         color="warning"
         onClick={() => setOpenCreateDialog(true)}
       >
-        Create Test
+        Add a Question
       </Button>
       <Dialog
         open={openCreateDialog}
@@ -101,63 +102,79 @@ const CreateExam = ({ id, data, setData }) => {
           >
             <div>
               <TextField
+                id="outlined-title"
+                label="Title"
+                value={createFormData.title}
+                onChange={(e) =>
+                  setCreateFormData({
+                    ...createFormData,
+                    title: e.target.value,
+                  })
+                }
+              />
+            </div>
+            <div>
+              <TextField
+                id="outlined-description"
+                label="Description"
+                value={createFormData.description}
+                onChange={(e) =>
+                  setCreateFormData({
+                    ...createFormData,
+                    description: e.target.value,
+                  })
+                }
+              />
+            </div>
+            <div>
+              <TextField
+                id="outlined-options"
+                label="Options"
+                value={createFormData.options[0]}
+                onChange={(e) =>
+                  setCreateFormData({
+                    ...createFormData,
+                    options: [e.target.value],
+                  })
+                }
+              />
+            </div>
+            <div>
+              <TextField
+                id="outlined-type"
+                label="Type"
+                value={createFormData.type}
+                onChange={(e) =>
+                  setCreateFormData({
+                    ...createFormData,
+                    type: e.target.value,
+                  })
+                }
+              />
+            </div>
+            <div>
+              <TextField
+                id="outlined-answer"
+                label="Answer"
+                value={createFormData.answer}
+                onChange={(e) =>
+                  setCreateFormData({
+                    ...createFormData,
+                    answer: e.target.value,
+                  })
+                }
+              />
+            </div>
+            <div>
+              <TextField
+                id="outlined-marks"
+                label="Marks"
                 type="number"
-                id="outlined-required"
-                label="Section"
-                value={createFormData.section}
+                value={createFormData.marks}
                 onChange={(e) =>
                   setCreateFormData({
                     ...createFormData,
-                    section: e.target.value,
-                  })
-                }
-              />
-            </div>
-            <div>
-              <TextField
-                id="create-outlined-select-type"
-                select
-                label="Category"
-                value={createFormData.category}
-                onChange={(e) =>
-                  setCreateFormData({
-                    ...createFormData,
-                    category: e.target.value,
-                  })
-                }
-                helperText="Please select test category"
-              >
-                {["Reading", "Listening", "Writing", "Speaking"].map((option) => (
-                  <MenuItem key={option} value={option}>
-                    {option}
-                  </MenuItem>
-                ))}
-              </TextField>
-            </div>
-            <div>
-              <TextField
-                id="source-outlined"
-                label="Source"
-                value={createFormData.source}
-                multiline
-                onChange={(e) =>
-                  setCreateFormData({
-                    ...createFormData,
-                    source: e.target.value,
-                  })
-                }
-              />
-            </div>
-            <div>
-              <TextField
-                id="source-outlined"
-                label="Instruction"
-                value={createFormData.instruction}
-                multiline
-                onChange={(e) =>
-                  setCreateFormData({
-                    ...createFormData,
-                    instruction: e.target.value,
+                    marks: e.target.value,
                   })
                 }
               />

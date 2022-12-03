@@ -1,8 +1,8 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import Admin from "../../../components/Layout/Admin";
+import Admin from "../../../../components/Layout/Admin";
 import axios from "axios";
-import CreateTest from "../../../components/Admin/Test/CreateTest";
+import CreateQuestion from "../../../../components/Admin/Question/CreateQuestion";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -15,10 +15,10 @@ import TablePagination from "@mui/material/TablePagination";
 import { IconButton } from "@mui/material";
 import ArtTrackIcon from "@mui/icons-material/ArtTrack";
 import Tooltip from "@mui/material/Tooltip";
-import UpdateTest from "../../../components/Admin/Test/UpdateTest";
-import DeleteTest from "../../../components/Admin/Test/DeleteTest";
+import UpdateTest from "../../../../components/Admin/Test/UpdateTest";
+import DeleteTest from "../../../../components/Admin/Test/DeleteTest";
 
-const test = () => {
+const question = () => {
   const router = useRouter();
   const { id } = router.query;
   const [data, setData] = useState([]);
@@ -41,10 +41,10 @@ const test = () => {
       return;
     } else {
       axios
-        .get(`${process.env.API_URL}/exams/${router.query.id}/tests`)
+        .get(`${process.env.API_URL}/tests/${router.query.id}/`)
         .then((response) => {
-          console.log(response.data);
-          setData(response.data);
+          console.log(response.data.questions);
+          setData(response.data.questions);
         })
         .catch((err) => console.log(err));
     }
@@ -52,15 +52,17 @@ const test = () => {
 
   return (
     <>
-      <CreateTest id={router.query.id} data={data} setData={setData} />
+      <CreateQuestion id={router.query.id} data={data} setData={setData} />
       <TableContainer component={Paper} sx={{ maxHeight: 550 }}>
         <Table sx={{ minWidth: 650 }} aria-label="questions crud table" stickyHeader>
           <TableHead>
             <TableRow>
-              <TableCell>Section</TableCell>
-              <TableCell align="center">Category</TableCell>
-              <TableCell align="center">Source</TableCell>
-              <TableCell align="center">Instruction</TableCell>
+              <TableCell>Title</TableCell>
+              <TableCell align="center">Description</TableCell>
+              <TableCell align="center">Options</TableCell>
+              <TableCell align="center">Type</TableCell>
+              <TableCell align="center">Answer</TableCell>
+              <TableCell align="center">Marks</TableCell>
               <TableCell align="right">Action</TableCell>
             </TableRow>
           </TableHead>
@@ -73,15 +75,13 @@ const test = () => {
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                 >
                   <TableCell component="th" scope="row">
-                    {row.section}
+                    {row.title}
                   </TableCell>
-                  <TableCell align="center">{row.category}</TableCell>
-                  <TableCell align="center">
-                    {row.source ? row.source : "N/A"}
-                  </TableCell>
-                  <TableCell align="center">
-                    {row.instruction}
-                  </TableCell>
+                  <TableCell align="center">{row.description ? row.description : "-"}</TableCell>
+                  <TableCell align="center">{row.options.join(", ")}</TableCell>
+                  <TableCell align="center">{row.type ? row.type : "-"}</TableCell>
+                  <TableCell align="center">{row.answer}</TableCell>
+                  <TableCell align="center">{row.marks}</TableCell>
                   <TableCell align="center">
                     <Stack
                       direction="row"
@@ -91,7 +91,7 @@ const test = () => {
                       <Tooltip title="Manage questions inside this test" arrow>
                         <IconButton
                           aria-label="redirect"
-                          onClick={() => router.push(`/admin/exam/test/${row._id}`)}
+                          onClick={() => router.push(`/admin/exam/${row._id}`)}
                         >
                           <ArtTrackIcon />
                         </IconButton>
@@ -118,8 +118,8 @@ const test = () => {
   );
 };
 
-test.getLayout = function getLayout(page) {
+question.getLayout = function getLayout(page) {
   return <Admin>{page}</Admin>;
 };
 
-export default test;
+export default question;
