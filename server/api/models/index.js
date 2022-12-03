@@ -1,3 +1,4 @@
 import Questions from "./questions.js";
 import Score from "./score.js";
-export default { Questions, Score };
+import Exam from "./Exam.js";
+export default { Questions, Score, Exam };
