@@ -24,25 +24,27 @@ const CreateExam = ({ id, data, setData }) => {
   const [createFormData, setCreateFormData] = useState({
     title: "",
     description: "",
-    options: [],
+    options: [""],
     type: "",
     answer: "",
     marks: "",
   });
   const createData = () => {
     setLoading(true);
+
     axios
       .post(`${process.env.API_URL}/tests/${id}/questions`, createFormData)
       .then((res) => {
         setCreateFormData({
           title: "",
           description: "",
-          options: [],
+          options: [""],
           type: "",
           answer: "",
           marks: "",
         });
-        setData([...data, res.data.questions]);
+
+        setData([...res.data.questions]);
         setLoading(false);
         setOpenCreateDialog(false);
         dispatch(
@@ -127,17 +129,37 @@ const CreateExam = ({ id, data, setData }) => {
               />
             </div>
             <div>
-              <TextField
-                id="outlined-options"
-                label="Options"
-                value={createFormData.options[0]}
-                onChange={(e) =>
-                  setCreateFormData({
-                    ...createFormData,
-                    options: [e.target.value],
-                  })
-                }
-              />
+              {createFormData.options.map((option, index) => (
+                <TextField
+                  id="outlined-option"
+                  key={index}
+                  label={`Option ${index + 1}`}
+                  value={option}
+                  onChange={(e) =>
+                    setCreateFormData({
+                      ...createFormData,
+                      options: createFormData.options.map((option, i) =>
+                        i === index ? e.target.value : option
+                      ),
+                    })
+                  }
+                />
+              ))}
+              {
+                createFormData.options[createFormData.options.length - 1] !== "" &&
+                <IconButton
+                  aria-label="add-option"
+                  color="success"
+                  onClick={() => {
+                    setCreateFormData({
+                      ...createFormData,
+                      options: [...createFormData.options, ""],
+                    });
+                  }}
+                >
+                  <AddIcon />
+                </IconButton>
+              }
             </div>
             <div>
               <TextField
