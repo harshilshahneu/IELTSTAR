@@ -60,6 +60,7 @@ const test = () => {
               <TableCell>Section</TableCell>
               <TableCell align="center">Category</TableCell>
               <TableCell align="center">Source</TableCell>
+              <TableCell align="center">Instruction</TableCell>
               <TableCell align="right">Action</TableCell>
             </TableRow>
           </TableHead>
@@ -77,6 +78,9 @@ const test = () => {
                   <TableCell align="center">{row.category}</TableCell>
                   <TableCell align="center">
                     {row.source ? row.source : "N/A"}
+                  </TableCell>
+                  <TableCell align="center">
+                    {row.instruction}
                   </TableCell>
                   <TableCell align="center">
                     <Stack
