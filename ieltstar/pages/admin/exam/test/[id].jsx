@@ -15,7 +15,7 @@ import TablePagination from "@mui/material/TablePagination";
 import { IconButton } from "@mui/material";
 import ArtTrackIcon from "@mui/icons-material/ArtTrack";
 import Tooltip from "@mui/material/Tooltip";
-import UpdateTest from "../../../../components/Admin/Test/UpdateTest";
+import UpdateQuestion from "../../../../components/Admin/Question/UpdateQuestion";
 import DeleteQuestion from "../../../../components/Admin/Question/DeleteQuestion";
 
 const question = () => {
@@ -88,15 +88,7 @@ const question = () => {
                       spacing={2}
                       justifyContent="flex-end"
                     >
-                      <Tooltip title="Manage questions inside this test" arrow>
-                        <IconButton
-                          aria-label="redirect"
-                          onClick={() => router.push(`/admin/exam/${row._id}`)}
-                        >
-                          <ArtTrackIcon />
-                        </IconButton>
-                      </Tooltip>
-                      <UpdateTest id={row._id} data={data} setData={setData} />
+                      <UpdateQuestion id={row._id} testId={id} data={data} setData={setData} />
                       <DeleteQuestion id={row._id} testId={id} data={data} setData={setData} />
                     </Stack>
                   </TableCell>
