@@ -6,6 +6,7 @@ const Router = express.Router();
 //Create a test for a particular exam
 Router.route('/')
     .post(testController.createTest)
+    .get(testController.getAllTests);
 
 //Get, Put and Delete routes with test id as the wildcard
 Router.route('/:id')

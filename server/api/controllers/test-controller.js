@@ -5,6 +5,16 @@ const setResponse = (res, status, data) => {
     res.status(status).json(data);
 }
 
+//get all tests
+export const getAllTests = async (req, res) => {
+    try {
+        const tests = await testService.get();
+        setResponse(res, 200, tests);
+    } catch (error) {
+        setResponse(res, 500, error);
+    }
+}
+
 // create a test
 export const createTest = async (req, res) => {
     try {
