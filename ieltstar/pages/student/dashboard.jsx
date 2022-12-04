@@ -1,17 +1,18 @@
 import { Typography, Container, Grid } from "@mui/material";
-import AppWidgetSummary from "../../components/Student/Dashboard/AppWidgetSummary";
-import SectionWiseComparisonChart from "../../components/Student/Dashboard/SectionWiseComparisonChart";
 import { useEffect } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import { useTheme } from "@emotion/react";
+import AppWidgetSummary from "../../components/Student/Dashboard/Summary";
+import SectionWiseComparisonChart from "../../components/Student/Dashboard/SectionWiseComparisonChart";
+import Leaderboard from "../../components/Student/Dashboard/Leaderboard";
 import TestTimeline from "../../components/Student/Dashboard/TestTimeline";
 
 const dashboard = () => {
-  const theme = useTheme();
   useEffect(() => {
-    AOS.init();
-  }, [theme.palette.mode]);
+    AOS.init({
+      once: true,
+    });
+  }, []);
 
   return (
     <Container maxWidth="xl">
@@ -151,6 +152,20 @@ const dashboard = () => {
               ][index],
               type: `order${index + 1}`,
               time: new Date().toLocaleDateString(),
+            }))}
+          />
+        </Grid>
+
+        <Grid item xs={12} md={6} lg={8} data-aos="fade-in">
+          <Leaderboard
+            title="Leaderboard"
+            subheader="Top 5 students on our platform"
+            list={[...Array(5)].map((_, index) => ({
+              id: index,
+              title: 'John Doe',
+              description: 'IELTS Academic Test Dec 2021',
+              image: `/avatars/avatar_${index + 1}.jpg`,
+              proficiency: 8.5 - index,
             }))}
           />
         </Grid>
