@@ -10,6 +10,7 @@ import { ColorModeContext, useMode } from '../material-ui-configs/theme';
 import Layout from '../components/Layout/Default';
 import '../styles/globals.scss';
 import Snackbar from '../components/Global/Snackbar'
+import { UserProvider } from '@auth0/nextjs-auth0/client';
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
@@ -20,25 +21,27 @@ interface MyAppProps extends AppProps {
 
 const myApp = (props: MyAppProps) => {
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
-  const [theme, colorMode]= useMode();
+  const [theme, colorMode] = useMode();
   const getLayout = Component.getLayout || ((page) => <Layout>{page}</Layout>);
 
   return (
-        <Provider store={store}>
-          <CacheProvider value={emotionCache}>
-            <Head>
-              <meta name="viewport" content="initial-scale=1, width=device-width" />
-            </Head>
-            <ColorModeContext.Provider value={colorMode}>
-              <ThemeProvider theme={theme}>
-                {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
-                <CssBaseline enableColorScheme />
-                  <Snackbar />
-                  { getLayout(<Component {...pageProps} />) }
-              </ThemeProvider>
-            </ColorModeContext.Provider>
-          </CacheProvider>
-        </Provider>
+    <Provider store={store}>
+      <UserProvider>
+        <CacheProvider value={emotionCache}>
+          <Head>
+            <meta name="viewport" content="initial-scale=1, width=device-width" />
+          </Head>
+          <ColorModeContext.Provider value={colorMode}>
+            <ThemeProvider theme={theme}>
+              {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
+              <CssBaseline enableColorScheme />
+              <Snackbar />
+              {getLayout(<Component {...pageProps} />)}
+            </ThemeProvider>
+          </ColorModeContext.Provider>
+        </CacheProvider>
+      </UserProvider>
+    </Provider>
   );
 }
 
