@@ -11,6 +11,7 @@ import { ProSidebarProvider } from 'react-pro-sidebar';
 import Layout from '../components/Layout/Student';
 import '../styles/globals.scss';
 import Snackbar from '../components/Global/Snackbar'
+import { UserProvider } from '@auth0/nextjs-auth0/client';
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
@@ -25,9 +26,15 @@ const myApp = (props: MyAppProps) => {
   const getLayout = Component.getLayout || ((page) => <Layout>{page}</Layout>);
 
   return (
+       
+      
+      
       <ProSidebarProvider>
         <Provider store={store}>
+        <UserProvider>
+         <Component {...pageProps} />
           <CacheProvider value={emotionCache}>
+         
             <Head>
               <meta name="viewport" content="initial-scale=1, width=device-width" />
             </Head>
@@ -36,12 +43,18 @@ const myApp = (props: MyAppProps) => {
                 {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
                 <CssBaseline enableColorScheme />
                   <Snackbar />
+                  {/* <UserProvider>
+                    <Component {...pageProps} />
+                    
+                  </UserProvider> */}
                   { getLayout(<Component {...pageProps} />) }
               </ThemeProvider>
             </ColorModeContext.Provider>
           </CacheProvider>
+          </UserProvider>
         </Provider>
       </ProSidebarProvider>
+   
   );
 }
 
