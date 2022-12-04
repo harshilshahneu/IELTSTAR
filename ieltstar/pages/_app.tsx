@@ -10,6 +10,7 @@ import { ColorModeContext, useMode } from '../material-ui-configs/theme';
 import { ProSidebarProvider } from 'react-pro-sidebar';
 import Layout from '../components/Layout/Student';
 import '../styles/globals.scss';
+import Snackbar from '../components/Global/Snackbar'
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
@@ -34,6 +35,7 @@ const myApp = (props: MyAppProps) => {
               <ThemeProvider theme={theme}>
                 {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
                 <CssBaseline enableColorScheme />
+                  <Snackbar />
                   { getLayout(<Component {...pageProps} />) }
               </ThemeProvider>
             </ColorModeContext.Provider>
