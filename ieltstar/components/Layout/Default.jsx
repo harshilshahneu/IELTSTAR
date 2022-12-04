@@ -1,6 +1,6 @@
 import Box from "@mui/material/Box";
 import DefaultTopbar from "../Navigation/DefaultTopbar";
-import AdminDrawer from "../Navigation/AdminDrawer";
+import DefaultDrawer from "../Navigation/DefaultDrawer";
 import { useState } from "react";
 import DrawerHeader from "../Navigation/DrawerHeader";
 
@@ -18,7 +18,7 @@ export default function Default({ children }) {
   return (
     <Box sx={{ display: "flex" }}>
       <DefaultTopbar  open={open} handleDrawerOpen={handleDrawerOpen}/>
-      <AdminDrawer open={open} handleDrawerClose={handleDrawerClose} />
+      <DefaultDrawer open={open} handleDrawerClose={handleDrawerClose} />
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <DrawerHeader />
         {children}
