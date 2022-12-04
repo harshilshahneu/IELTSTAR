@@ -20,50 +20,71 @@ const dashboard = () => {
       </Typography>
 
       <Grid container spacing={3}>
-        <Grid item xs={12} sm={6} md={3}>
+        <Grid item xs={12} sm={6} md={3} data-aos="fade-up">
           <AppWidgetSummary
             title="Reading"
             total={55}
             color="success"
             icon={"fluent-mdl2:reading-mode"}
-            data-aos="fade-up"
           />
         </Grid>
 
-        <Grid item xs={12} sm={6} md={3}>
+        <Grid
+          item
+          xs={12}
+          sm={6}
+          md={3}
+          data-aos="fade-up"
+          data-aos-delay="200"
+        >
           <AppWidgetSummary
             title="Listening"
             total={44}
             color="info"
             icon={"grommet-icons:assist-listening"}
-            data-aos="fade-up"
-            data-aos-delay="200"
           />
         </Grid>
 
-        <Grid item xs={12} sm={6} md={3}>
+        <Grid
+          item
+          xs={12}
+          sm={6}
+          md={3}
+          data-aos="fade-up"
+          data-aos-delay="400"
+        >
           <AppWidgetSummary
             title="Writing"
             total={33}
             color="warning"
             icon={"icon-park-outline:writing-fluently"}
-            data-aos="fade-up"
-            data-aos-delay="400"
           />
         </Grid>
 
-        <Grid item xs={12} sm={6} md={3}>
+        <Grid
+          item
+          xs={12}
+          sm={6}
+          md={3}
+          data-aos="fade-up"
+          data-aos-delay="600"
+        >
           <AppWidgetSummary
             title="Speaking"
             total={77}
             color="error"
             icon={"iconoir:mic-speaking"}
-            data-aos="fade-up"
-            data-aos-delay="600"
           />
         </Grid>
 
-        <Grid item xs={12} md={6} lg={8}>
+        <Grid
+          item
+          xs={12}
+          md={6}
+          lg={8}
+          data-aos="fade-up"
+          data-aos-delay="800"
+        >
           <SectionWiseComparisonChart
             title="Section Wise Comparison"
             subheader="This is a comparison of your performance in each section from all the tests you have taken"
@@ -109,23 +130,30 @@ const dashboard = () => {
           />
         </Grid>
 
-        <Grid item xs={12} md={6} lg={4}>
-            <TestTimeline
-              title="Recent Tests Taken"
-              list={[...Array(5)].map((_, index) => ({
-                id: index,
-                title: [
-                  'IELTS Academic Test Dec 2021',
-                  'IELTS Academic Test Aug 2021',
-                  'IELTS Academic Test Mar 2021',
-                  'IELTS Academic Test Dec 2020',
-                  'IELTS Academic Test Aug 2020',
-                ][index],
-                type: `order${index + 1}`,
-                time: new Date().toLocaleDateString(),
-              }))}
-            />
-          </Grid>
+        <Grid
+          item
+          xs={12}
+          md={6}
+          lg={4}
+          data-aos="fade-up"
+          data-aos-delay="900"
+        >
+          <TestTimeline
+            title="Recent Tests Taken"
+            list={[...Array(5)].map((_, index) => ({
+              id: index,
+              title: [
+                "IELTS Academic Test Dec 2021",
+                "IELTS Academic Test Aug 2021",
+                "IELTS Academic Test Mar 2021",
+                "IELTS Academic Test Dec 2020",
+                "IELTS Academic Test Aug 2020",
+              ][index],
+              type: `order${index + 1}`,
+              time: new Date().toLocaleDateString(),
+            }))}
+          />
+        </Grid>
       </Grid>
     </Container>
   );
