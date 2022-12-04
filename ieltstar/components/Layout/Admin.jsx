@@ -1,27 +1,28 @@
-import TopBar from '../Navigation/TopBar'
-import AdminSideBar from '../Navigation/AdminSideBar'
-import Head from 'next/head'
-import { Box } from '@mui/material'
+import Box from "@mui/material/Box";
+import DefaultTopbar from "../Navigation/DefaultTopbar";
+import AdminDrawer from "../Navigation/AdminDrawer";
+import { useState } from "react";
+import DrawerHeader from "../Navigation/DrawerHeader";
 
-const Admin = ({ children }) => {
+export default function Default({ children }) {
+  const [open, setOpen] = useState(true);
+
+  const handleDrawerOpen = () => {
+    setOpen(true);
+  };
+
+  const handleDrawerClose = () => {
+    setOpen(false);
+  };
+
   return (
-    <>
-      <Head>
-        <title>IELTSTAR admin panel</title>
-        <meta name="description" content="Online platform to practice IELTS test" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-      <div className="app">
-      <AdminSideBar />
-      <main className="content">
-        <TopBar />
-        <Box style={{padding: "10px", height: "calc(100vh - 87px)", overflowY: "auto"}} >
-          { children }
-        </Box>
-      </main>
-      </div>
-    </>
-  )
+    <Box sx={{ display: "flex" }}>
+      <DefaultTopbar  open={open} handleDrawerOpen={handleDrawerOpen}/>
+      <AdminDrawer open={open} handleDrawerClose={handleDrawerClose} />
+      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+        <DrawerHeader />
+        {children}
+      </Box>
+    </Box>
+  );
 }
-
-export default Admin
