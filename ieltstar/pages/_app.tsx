@@ -7,7 +7,6 @@ import createEmotionCache from '../material-ui-configs/createEmotionCache';
 import { Provider } from "react-redux";
 import { store } from '../store';
 import { ColorModeContext, useMode } from '../material-ui-configs/theme';
-import { ProSidebarProvider } from 'react-pro-sidebar';
 import Layout from '../components/Layout/Default';
 import '../styles/globals.scss';
 import Snackbar from '../components/Global/Snackbar'
