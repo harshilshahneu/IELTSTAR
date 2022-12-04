@@ -18,8 +18,8 @@ import { useEffect, useState } from 'react';
 export default function ScoreBoard() {
     const [scores, getScores] = useState([]);
     let testID = 2;
-    //Make the port dynamic ${process.env.PORT}
-    const url = `http://localhost:8082/score?testId="${testID}"`;
+    //http://localhost:8080/score?testId="${testID}
+    const url = `${process.env.API_URL}/score?testId="${testID}"`;
 
     useEffect(() => {
         getCurrentScore();

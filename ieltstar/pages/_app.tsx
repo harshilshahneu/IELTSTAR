@@ -21,53 +21,28 @@ interface MyAppProps extends AppProps {
 
 const myApp = (props: MyAppProps) => {
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
-  const [theme, colorMode]= useMode();
+  const [theme, colorMode] = useMode();
   const getLayout = Component.getLayout || ((page) => <Layout>{page}</Layout>);
 
   return (
-<<<<<<< HEAD
-=======
-       
-      
-      
-      <ProSidebarProvider>
->>>>>>> 0dfc8b0 (Auth0 for user login)
-        <Provider store={store}>
-        <UserProvider>
-         <Component {...pageProps} />
-        <UserProvider>
-         <Component {...pageProps} />
-          <CacheProvider value={emotionCache}>
-         
-         
-            <Head>
-              <meta name="viewport" content="initial-scale=1, width=device-width" />
-            </Head>
-            <ColorModeContext.Provider value={colorMode}>
-              <ThemeProvider theme={theme}>
-                {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
-                <CssBaseline enableColorScheme />
-                  <Snackbar />
-                  {/* <UserProvider>
-                    <Component {...pageProps} />
-                    
-                  </UserProvider> */}
-                  {/* <UserProvider>
-                    <Component {...pageProps} />
-                    
-                  </UserProvider> */}
-                  { getLayout(<Component {...pageProps} />) }
-              </ThemeProvider>
-            </ColorModeContext.Provider>
-          </CacheProvider>
-          </UserProvider>
-          </UserProvider>
-        </Provider>
-<<<<<<< HEAD
-=======
-      </ProSidebarProvider>
-   
->>>>>>> 0dfc8b0 (Auth0 for user login)
+    <Provider store={store}>
+      <UserProvider>
+
+        <CacheProvider value={emotionCache}>
+          <Head>
+            <meta name="viewport" content="initial-scale=1, width=device-width" />
+          </Head>
+          <ColorModeContext.Provider value={colorMode}>
+            <ThemeProvider theme={theme}>
+              {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
+              <CssBaseline enableColorScheme />
+              <Snackbar />
+              {getLayout(<Component {...pageProps} />)}
+            </ThemeProvider>
+          </ColorModeContext.Provider>
+        </CacheProvider>
+      </UserProvider>
+    </Provider>
   );
 }
 
