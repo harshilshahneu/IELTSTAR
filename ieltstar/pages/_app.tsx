@@ -25,14 +25,20 @@ const myApp = (props: MyAppProps) => {
   const getLayout = Component.getLayout || ((page) => <Layout>{page}</Layout>);
 
   return (
+<<<<<<< HEAD
+=======
        
       
       
       <ProSidebarProvider>
+>>>>>>> 0dfc8b0 (Auth0 for user login)
         <Provider store={store}>
         <UserProvider>
          <Component {...pageProps} />
+        <UserProvider>
+         <Component {...pageProps} />
           <CacheProvider value={emotionCache}>
+         
          
             <Head>
               <meta name="viewport" content="initial-scale=1, width=device-width" />
@@ -46,14 +52,22 @@ const myApp = (props: MyAppProps) => {
                     <Component {...pageProps} />
                     
                   </UserProvider> */}
+                  {/* <UserProvider>
+                    <Component {...pageProps} />
+                    
+                  </UserProvider> */}
                   { getLayout(<Component {...pageProps} />) }
               </ThemeProvider>
             </ColorModeContext.Provider>
           </CacheProvider>
           </UserProvider>
+          </UserProvider>
         </Provider>
+<<<<<<< HEAD
+=======
       </ProSidebarProvider>
    
+>>>>>>> 0dfc8b0 (Auth0 for user login)
   );
 }
 
