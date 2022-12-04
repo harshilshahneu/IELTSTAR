@@ -1,11 +1,13 @@
 import { Typography, Container, Grid } from "@mui/material";
 import { useEffect } from "react";
+import Iconify from "../../components/Iconify";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import AppWidgetSummary from "../../components/Student/Dashboard/Summary";
 import SectionWiseComparisonChart from "../../components/Student/Dashboard/SectionWiseComparisonChart";
 import Leaderboard from "../../components/Student/Dashboard/Leaderboard";
 import TestTimeline from "../../components/Student/Dashboard/TestTimeline";
+import SuggestedStudyMaterial from "../../components/Student/Dashboard/SuggestedStudyMaterial";
 
 const dashboard = () => {
   useEffect(() => {
@@ -162,11 +164,60 @@ const dashboard = () => {
             subheader="Top 5 students on our platform"
             list={[...Array(5)].map((_, index) => ({
               id: index,
-              title: 'John Doe',
-              description: 'IELTS Academic Test Dec 2021',
+              title: "John Doe",
+              description: "IELTS Academic Test Dec 2021",
               image: `/avatars/avatar_${index + 1}.jpg`,
               proficiency: 8.5 - index,
             }))}
+          />
+        </Grid>
+
+        <Grid item xs={12} md={6} lg={4} data-aos="fade-in">
+          <SuggestedStudyMaterial
+            title="Study Material"
+            subheader="Handpicked recommendations for you"
+            list={[
+              {
+                name: "Reading",
+                value: "Youtube",
+                icon: (
+                  <Iconify icon={"uit:youtube"} color="#1877F2" width={32} />
+                ),
+              },
+              {
+                name: "Listening",
+                value: "BYJU",
+                icon: (
+                  <Iconify
+                    icon={"simple-icons:byjus"}
+                    color="#DF3E30"
+                    width={32}
+                  />
+                ),
+              },
+              {
+                name: "Speaking",
+                value: "Udemy",
+                icon: (
+                  <Iconify
+                    icon={"logos:udemy-icon"}
+                    color="#006097"
+                    width={32}
+                  />
+                ),
+              },
+              {
+                name: "Writing",
+                value: "Coursera",
+                icon: (
+                  <Iconify
+                    icon={"academicons:coursera-square"}
+                    color="#1C9CEA"
+                    width={32}
+                  />
+                ),
+              },
+            ]}
           />
         </Grid>
       </Grid>
