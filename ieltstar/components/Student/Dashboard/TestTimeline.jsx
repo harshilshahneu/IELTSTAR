@@ -26,7 +26,7 @@ export default function TestTimeline({ title, subheader, list, ...other }) {
       >
         <Timeline>
           {list.map((item, index) => (
-            <OrderItem key={item.id} item={item} isLast={index === list.length - 1} />
+            <Item key={item.id} item={item} isLast={index === list.length - 1} />
           ))}
         </Timeline>
       </CardContent>
@@ -36,7 +36,7 @@ export default function TestTimeline({ title, subheader, list, ...other }) {
 
 // ----------------------------------------------------------------------
 
-OrderItem.propTypes = {
+Item.propTypes = {
   isLast: PropTypes.bool,
   item: PropTypes.shape({
     time: PropTypes.string,
@@ -45,7 +45,7 @@ OrderItem.propTypes = {
   }),
 };
 
-function OrderItem({ item, isLast }) {
+function Item({ item, isLast }) {
   const { type, title, time } = item;
   return (
     <TimelineItem>
