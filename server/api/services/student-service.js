@@ -15,6 +15,15 @@ export const getById = async (id) => {
     return student;
 }
 
+//check if the student exists in the database
+export const getByEmail = async (email) => {
+    //Find the student with the given email and return it
+    const student = await Student.findOne
+    ({email
+    });
+    return student;
+}
+
 //Save a student to the database
 export const save = async (student) => {
     //Create a new student and return the saved student

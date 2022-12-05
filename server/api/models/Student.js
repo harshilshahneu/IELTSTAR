@@ -13,9 +13,9 @@ const Schema = new mongoose.Schema(
         type: String,
         required: "Email is required",
     },
-    pictureURL: {
+    profileURL: {
         type: String,
-        default: '/avatar/avatar_default.jpg'
+        default: "/avatars/avatar_default.jpg",
     },
     testHistory: {
         type: [testHistorySchema],

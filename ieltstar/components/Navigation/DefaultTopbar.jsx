@@ -14,6 +14,8 @@ import { useTheme } from "@emotion/react";
 import { ColorModeContext } from "../../material-ui-configs/theme";
 import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
 import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
+import { useUser } from "@auth0/nextjs-auth0/client";
+import Avatar from "@mui/material/Avatar";
 
 const drawerWidth = 240;
 
@@ -78,6 +80,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 export default function DefaultTopbar({ open, handleDrawerOpen }) {
   const theme = useTheme();
   const colorMode = useContext(ColorModeContext);
+  const { user } = useUser();
 
   return (
     <AppBar
@@ -114,8 +117,12 @@ export default function DefaultTopbar({ open, handleDrawerOpen }) {
         </Typography>
 
         <Box sx={{ flexGrow: 1 }} />
-        <Box sx={{ display: { md: "flex" } }}>
-          <IconButton onClick={colorMode.toggleColorMode} color="inherit">
+        <Box>
+          <IconButton
+            onClick={colorMode.toggleColorMode}
+            size="large"
+            color="inherit"
+          >
             {theme.palette.mode === "dark" ? (
               <DarkModeOutlinedIcon />
             ) : (
@@ -138,7 +145,15 @@ export default function DefaultTopbar({ open, handleDrawerOpen }) {
             aria-haspopup="true"
             color="inherit"
           >
-            <AccountCircle />
+            {!user ? (
+              <a href="/api/auth/login">
+                <AccountCircle />
+              </a>
+            ) : (
+              <a href="/api/auth/logout">
+                <Avatar alt="USER" src={user.picture} />
+              </a>
+            )}
           </IconButton>
         </Box>
       </Toolbar>
