@@ -21,7 +21,7 @@ export default function FormDialog() {
   return (
     <div>
       <Button variant="outlined" onClick={handleClickOpen}>
-        Open form dialog
+        SEND SCORE VIA PHONE NUMBER
       </Button>
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Send Score</DialogTitle>
