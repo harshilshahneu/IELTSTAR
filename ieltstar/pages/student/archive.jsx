@@ -2,7 +2,7 @@ import { Container, Grid, Typography } from "@mui/material";
 import { useEffect } from "react";
 import axios from "axios";
 import { useState } from "react";
-import TestCard from "../../components/Student/Archive/TestCard";
+import ExamCard from "../../components/Student/Archive/ExamCard";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
@@ -11,29 +11,26 @@ const archive = () => {
 
   useEffect(() => {
     AOS.init({
-        once: true,
+      once: true,
     });
     let endpoints = [
       `${process.env.API_URL}/exams`,
       `${process.env.API_URL}/tests`,
     ];
     axios.all(endpoints.map((endpoint) => axios.get(endpoint))).then((data) => {
-      console.log(data);
-      const exams = data[0].data;
-      let tests = data[1].data;
-      console.log("exams : ", exams);
-
-      setData(
-        tests.map((test) => {
-          return {
-            ...test,
-            examType: exams.find((exam) => exam._id === test.examId).type,
-            title: exams.find((exam) => exam._id === test.examId).title,
-            date: exams.find((exam) => exam._id === test.examId).date,
-          };
-        })
-      );
-      console.log(tests);
+      const exams = data[0].data.sort((a, b) => new Date(b.date) - new Date(a.date));
+      const tests = data[1].data;
+      exams.forEach((exam) => {
+        exam["test"] = tests.filter((test) => test.examId === exam._id);
+      });
+      //tests in exam by category
+      exams.forEach(exam => {
+        exam["reading"] = exam.test.filter(test => test.category === "Reading").map(r => ({section: r.section})).sort((a, b) => a.section - b.section);
+        exam["listening"] = exam.test.filter(test => test.category === "Listening").map(r => ({section: r.section})).sort((a, b) => a.section - b.section);
+        exam["writing"] = exam.test.filter(test => test.category === "Writing").map(r => ({section: r.section})).sort((a, b) => a.section - b.section);
+        exam["speaking"] = exam.test.filter(test => test.category === "Speaking").map(r => ({section: r.section})).sort((a, b) => a.section - b.section);
+      })
+      setData(exams);
     });
   }, []);
 
@@ -43,9 +40,17 @@ const archive = () => {
         Select any of the test to get started!
       </Typography>
       <Grid container spacing={3}>
-        {data.map((test, index) => (
-          <Grid item xs={12} sm={6} md={3} data-aos="fade-in" data-aos-delay={150 * index}>
-            <TestCard test={test} />
+        {data.map((exam, index) => (
+          <Grid
+            item
+            xs={12}
+            sm={6}
+            md={3}
+            data-aos="fade-in"
+            data-aos-delay={150 * index}
+            key={exam._id}
+          >
+            <ExamCard exam={exam} />
           </Grid>
         ))}
       </Grid>
