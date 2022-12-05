@@ -1,7 +1,3 @@
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import Button from '@mui/material/Button';
-import RestartAltIcon from '@mui/icons-material/RestartAlt';
-import Paper from '@mui/material/Paper';
 import HeadphonesIcon from '@mui/icons-material/Headphones';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
 import BorderColorOutlinedIcon from '@mui/icons-material/BorderColorOutlined';
@@ -10,18 +6,14 @@ import RecordVoiceOverOutlinedIcon from '@mui/icons-material/RecordVoiceOverOutl
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import Dialog from '@mui/material/Dialog';
-import { TransitionProps } from '@mui/material/transitions';
 import * as React from 'react';
 import Slide from '@mui/material/Slide';
 import CloseIcon from '@mui/icons-material/Close';
 import IconButton from '@mui/material/IconButton';
 import { useUser } from '@auth0/nextjs-auth0/client';
-import dynamic from 'next/dynamic';
-const ReactApexChart = dynamic(() => import('react-apexcharts'), { ssr: false });
-import { useChart } from '../../components/Chart/useChart';
-import PropTypes from 'prop-types';
 import Grid from '@mui/material/Grid';
-import ApexChart from './RadialChart'
+import ApexChart from './RadialChart';
+import FormDialog from '../SendScore/SendScore';
 
 
 export default function ScoreBoard() {
@@ -80,14 +72,13 @@ export default function ScoreBoard() {
                         >
                             <CloseIcon />
                         </IconButton>
-                        {/* <AccountCircleIcon className='profileIcon'></AccountCircleIcon> */}
                         <div className='profile-title'>{user ? user.nickname : 'GUEST'}</div>
 
                         <div className='overall-band-component'>
                             <article>OVERALL BAND:</article>
                             <article>{scores[0].overallBand}</article>
                         </div>
-                        <Grid container spacing={2}>
+                        <Grid container spacing={0}>
                             <Grid item xs={6} md={6}>
                                 <div className='score-board-text'>
                                     <section className='boxes container'>
@@ -110,9 +101,11 @@ export default function ScoreBoard() {
                                 <ApexChart series={series}></ApexChart>
                             </Grid>
                         </Grid>
-                        <Button className='restart-test' variant="contained" href='/dashboard' endIcon={<RestartAltIcon />}>
-                            RESTART
-                        </Button>
+
+                        <FormDialog className='send-score'>
+                        SEND SCORE
+                        </FormDialog>
+                        
 
                     </Dialog>
 
@@ -164,12 +157,13 @@ export default function ScoreBoard() {
                                     margin-bottom: 3%;
                                 }
                                 .score-board-text {
+                                    width: 120%;
                                     text-align: left;
                                     padding: 5%;
-                                    margin-left: 10%;
+                                    margin-left: 20%;
                                 }
     
-                                .restart-test {
+                                .send-score {
                                     position: fixed;
                                     width: 70%;
                                     left: 15%;
