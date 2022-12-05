@@ -14,7 +14,7 @@ import PracticeIcon from "@mui/icons-material/Bolt";
 import ArchiveIcon from "@mui/icons-material/MoveToInbox";
 import LeaderboardIcon from "@mui/icons-material/Leaderboard";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const drawerWidth = 240;
 
@@ -58,6 +58,12 @@ const Drawer = styled(MuiDrawer, {
 const DefaultDrawer = ({ open, handleDrawerClose }) => {
   const [selected, setSelected] = useState('dashboard');
   const theme = useTheme();
+ 
+  useEffect(() => {
+    const path = window.location.pathname;
+    setSelected(path.substring(path.lastIndexOf('/') + 1));
+  }, [])
+
   return (
     <Drawer variant="permanent" open={open}>
       <DrawerHeader>
