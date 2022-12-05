@@ -20,15 +20,16 @@ import dynamic from 'next/dynamic';
 const ReactApexChart = dynamic(() => import('react-apexcharts'), { ssr: false });
 import { useChart } from '../../components/Chart/useChart';
 import PropTypes from 'prop-types';
-
+import Grid from '@mui/material/Grid';
+import ApexChart from './RadialChart'
 
 
 export default function ScoreBoard() {
     const [open, setOpen] = React.useState(true);
     const { user } = useUser();
-//   const handleClickOpen = () => {
-//     setOpen(true);
-//   };
+    //   const handleClickOpen = () => {
+    //     setOpen(true);
+    //   };
     const Transition = React.forwardRef(function Transition(props, ref) {
         return <Slide direction="up" ref={ref} {...props} />;
     });
@@ -52,16 +53,17 @@ export default function ScoreBoard() {
 
     if (scores.length > 0) {
         //setOpen(true);
+        let series = [(scores[0].listeningScore)*11.11,(scores[0].readingScore)*11.11,(scores[0].writingScore)*11.11,(scores[0].speakingScore)*11.11];
         const handleClose = () => {
             setOpen(false);
         };
-        
+
         return (
             <>
-            {/* <Button onClick={handleClickOpen}>
+                {/* <Button onClick={handleClickOpen}>
                     <div>GET SCORES</div>
                 </Button> */}
-                
+
                 <div className='note' key={scores[0].testId}>
 
                     <Dialog
@@ -69,7 +71,7 @@ export default function ScoreBoard() {
                         open={open}
                         onClose={handleClose}
                         TransitionComponent={Transition} className='score-board-paper'
-                    >   
+                    >
                         <IconButton
                             edge="start"
                             color="inherit"
@@ -85,59 +87,35 @@ export default function ScoreBoard() {
                             <article>OVERALL BAND:</article>
                             <article>{scores[0].overallBand}</article>
                         </div>
-
-                        <div className='score-board-text'>
-                            <section className='boxes container'>
-                                <article className="box box1"><HeadphonesIcon className='icon'></HeadphonesIcon></article>
-                                <article className="box box2">Listening:</article>
-                                <article className="box box3">{scores[0].listeningScore}</article>
-                                <article className="box box4"><MenuBookIcon className='icon'></MenuBookIcon></article>
-                                <article className="box box5">Reading:</article>
-                                <article className="box box6">{scores[0].readingScore}</article>
-                                <article className="box box7"><BorderColorOutlinedIcon className='icon'></BorderColorOutlinedIcon></article>
-                                <article className="box box8">Writing:</article>
-                                <article className="box box9">{scores[0].writingScore}</article>
-                                <article className="box box10"><RecordVoiceOverOutlinedIcon className='icon'></RecordVoiceOverOutlinedIcon></article>
-                                <article className="box box11">Speaking:</article>
-                                <article className="box box12">{scores[0].speakingScore}</article>
-                            </section>
-                        </div>
+                        <Grid container spacing={2}>
+                            <Grid item xs={6} md={6}>
+                                <div className='score-board-text'>
+                                    <section className='boxes container'>
+                                        <article className="box box1"><HeadphonesIcon className='icon'></HeadphonesIcon></article>
+                                        <article className="box box2">Listening:</article>
+                                        <article className="box box3">{scores[0].listeningScore}</article>
+                                        <article className="box box4"><MenuBookIcon className='icon'></MenuBookIcon></article>
+                                        <article className="box box5">Reading:</article>
+                                        <article className="box box6">{scores[0].readingScore}</article>
+                                        <article className="box box7"><BorderColorOutlinedIcon className='icon'></BorderColorOutlinedIcon></article>
+                                        <article className="box box8">Writing:</article>
+                                        <article className="box box9">{scores[0].writingScore}</article>
+                                        <article className="box box10"><RecordVoiceOverOutlinedIcon className='icon'></RecordVoiceOverOutlinedIcon></article>
+                                        <article className="box box11">Speaking:</article>
+                                        <article className="box box12">{scores[0].speakingScore}</article>
+                                    </section>
+                                </div>
+                            </Grid>
+                            <Grid item xs={6} md={6}>
+                                <ApexChart series={series}></ApexChart>
+                            </Grid>
+                        </Grid>
                         <Button className='restart-test' variant="contained" href='/dashboard' endIcon={<RestartAltIcon />}>
                             RESTART
                         </Button>
-                        
+
                     </Dialog>
 
-                    {/* <Paper className='score-board-paper' elevation={3}>
-
-                        <AccountCircleIcon className='profileIcon'></AccountCircleIcon>
-                        <div className='profile-title'>USER NAME/ GUEST</div>
-
-                        <div className='overall-band-component'>
-                            <article>OVERALL BAND:</article>
-                            <article>{scores[0].overallBand}</article>
-                        </div>
-
-                        <div className='score-board-text'>
-                            <section className='boxes container'>
-                                <article className="box box1"><HeadphonesIcon className='icon'></HeadphonesIcon></article>
-                                <article className="box box2">Listening:</article>
-                                <article className="box box3">{scores[0].listeningScore}</article>
-                                <article className="box box4"><MenuBookIcon className='icon'></MenuBookIcon></article>
-                                <article className="box box5">Reading:</article>
-                                <article className="box box6">{scores[0].readingScore}</article>
-                                <article className="box box7"><BorderColorOutlinedIcon className='icon'></BorderColorOutlinedIcon></article>
-                                <article className="box box8">Writing:</article>
-                                <article className="box box9">{scores[0].writingScore}</article>
-                                <article className="box box10"><RecordVoiceOverOutlinedIcon className='icon'></RecordVoiceOverOutlinedIcon></article>
-                                <article className="box box11">Speaking:</article>
-                                <article className="box box12">{scores[0].speakingScore}</article>
-                            </section>
-                        </div>
-                        <Button className='restart-test' variant="contained" href='/dashboard' endIcon={<RestartAltIcon />}>
-                            RESTART
-                        </Button>
-                    </Paper> */}
                     <style jsx>
                         {`
                                
