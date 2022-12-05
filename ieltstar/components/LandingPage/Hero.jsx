@@ -22,8 +22,9 @@ const Hero = () => {
             variant="contained"
             color="primary"
             sx={{ width: "200px", fontSize: "16px" }}
+            href="/api/auth/login"
           >
-            START TEST
+            Get Started
           </Button>
         </Grid>
         <Grid item xs={12} md={5}>
