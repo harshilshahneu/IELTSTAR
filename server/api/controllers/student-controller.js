@@ -27,6 +27,17 @@ export const getStudentById = async (req, res) => {
     }
 }
 
+//get student by email
+export const getStudentByEmail = async (req, res) => {
+    try {
+        const student = await studentService.getByEmail(req.params.email);
+        setResponse(res, 200, student);
+    }
+    catch (e) {
+        setResponse(res, 400, { message: e.message });
+    }
+}
+
 // create a student
 export const createStudent = async (req, res) => {
     try {
