@@ -1,32 +1,62 @@
-import styles from "../styles/Landing.module.scss";
-import { useSelector } from "react-redux";
-import Hero from "../components/LandingPage/Hero";
-import Header from "../components/LandingPage/Header";
-import Section from "../components/LandingPage/Section";
-import AboutUs from "../components/LandingPage/AboutUs";
-import Testimonial from "../components/LandingPage/Testimonial";
-import Footer from "../components/LandingPage/Footer";
-import ContactUs from "../components/LandingPage/ContactUs";
+import { useUser } from "@auth0/nextjs-auth0/client";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
+import axios from "axios";
+import Backdrop from '@mui/material/Backdrop';
+import CircularProgress from '@mui/material/CircularProgress';
 
 interface User {
   user: {
-    user: object;
+    email: string;
+    name: string;
+    picture: string;
   };
 }
 
 const Home = () => {
-  const user = useSelector((state: User) => state.user.user);
+  const user = useUser().user;
+  const router = useRouter();
+
+  useEffect(() => {
+    if (user) {
+      //handle log-in or sign-up
+      axios
+        .get(`${process.env.API_URL}/students/email/${user.email}`)
+        .then((res) => {
+          console.log(res);
+          if (res.data === null) {
+            //create new student
+            axios
+              .post(`${process.env.API_URL}/students`, {
+                email: user.email,
+                name: user.name,
+                profileURL: user.picture,
+              })
+              .then((res) => {
+                console.log(res);
+                router.push("/student/dashboard");
+              })
+              .catch((err) => {
+                console.log(err);
+              });
+          } else {
+            router.push("/student/dashboard");
+          }
+        });
+    } else {
+      //when user logs-out
+      router.push("/landing");
+    }
+  }, [user]);
+
   return (
     <>
-      <div className={styles.bgWrap}>
-        <Header />
-        <Hero />
-        <Section />
-        <AboutUs />
-        <Testimonial />
-        <ContactUs />
-        <Footer />
-      </div>
+      <Backdrop
+        sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={true}
+      >
+        <CircularProgress color="primary" />
+      </Backdrop>
     </>
   );
 };

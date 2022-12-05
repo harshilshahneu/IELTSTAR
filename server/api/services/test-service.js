@@ -2,6 +2,11 @@ import Test from "./../models/Test.js";
 import Exam from "./../models/Exam.js";
 import mongoose from "mongoose";
 
+//get all tests
+export const get = async () => {
+    return await Test.find();
+}
+
 //Save a test to the database
 export const save = async (test) => {
     //check if the exam exits

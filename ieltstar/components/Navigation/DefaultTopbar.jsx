@@ -14,9 +14,8 @@ import { useTheme } from "@emotion/react";
 import { ColorModeContext } from "../../material-ui-configs/theme";
 import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
 import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
-import { useUser } from '@auth0/nextjs-auth0/client';
-import { useState } from 'react';
-import Avatar from '@mui/material/Avatar';
+import { useUser } from "@auth0/nextjs-auth0/client";
+import Avatar from "@mui/material/Avatar";
 
 const drawerWidth = 240;
 
@@ -118,8 +117,12 @@ export default function DefaultTopbar({ open, handleDrawerOpen }) {
         </Typography>
 
         <Box sx={{ flexGrow: 1 }} />
-        <Box sx={{ display: { md: "flex" } }}>
-          <IconButton onClick={colorMode.toggleColorMode} color="inherit">
+        <Box>
+          <IconButton
+            onClick={colorMode.toggleColorMode}
+            size="large"
+            color="inherit"
+          >
             {theme.palette.mode === "dark" ? (
               <DarkModeOutlinedIcon />
             ) : (

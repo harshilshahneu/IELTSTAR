@@ -15,6 +15,10 @@ Router.route('/:id')
     .put(studentController.updateStudent)
     .delete(studentController.deleteStudent);
 
+//Get route for student by email
+Router.route('/email/:email')
+    .get(studentController.getStudentByEmail);
+
 //Update test history
 Router.route('/:id/testHistory')
     .post(studentController.addTestHistory)
