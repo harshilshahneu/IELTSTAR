@@ -1,4 +1,5 @@
 import dynamic from 'next/dynamic'
+import styles from '../../../styles/quizstyles/SpeakingView.module.scss';
 // const useSpeechToText = dynamic(() => import('react-hook-speech-to-text'), { ssr: false });
 // const useSpeechToText = (await import('react-hook-speech-to-text')).default;
 
@@ -17,7 +18,7 @@ const Dictaphone = ({ handler}) => {
     resetTranscript,
     browserSupportsSpeechRecognition
   } = useSpeechRecognition();
-  const [language, setLanguage] = useState("hi-IN");
+  const [language, setLanguage] = useState("en-IN");
   const [data, setData] = useState("");
 
   if (!browserSupportsSpeechRecognition) {
@@ -30,7 +31,7 @@ const Dictaphone = ({ handler}) => {
   return (
     <div>
       <p>Microphone: {listening ? "on" : "off"}</p>
-      <select
+      {/* <select
         onChange={(e) => {
           setLanguage(e.target.value);
         }}
@@ -38,9 +39,9 @@ const Dictaphone = ({ handler}) => {
       >
         <option value="en-IN">English</option>
         <option value="hi-IN">Hindi</option>
-      </select>
-      <br /> <br />
-      <textarea id="te" rows="3" cols="100" value={transcript} />
+      </select> */}
+      {/* <br /> <br /> */}
+      <textarea id="te" rows="3" cols="100" value={transcript} className={styles.speaking_view_textarea} />
       <br /> <br />
       <button
         onClick={() =>

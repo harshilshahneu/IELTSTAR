@@ -17,7 +17,8 @@ let quiz_instructions = "";
 let parsedQuestionSource = "";
 let questionCategory = "";
 let demoClientId = "client_9m1fYK3MPQxwKsib5CxtpB";
-
+let writingScoreToSend = 0;
+let wordsWritten = 0;
 let demoText = {
   textarea: `The basics
 
@@ -42,6 +43,27 @@ It can even help when you wanna refine ur slang or formality level. That's espec
 };
 
 
+const sendWritingScoreDataToDB = ({id, scoretosend}) => (
+  axios.post('http://localhost:8080/students/638e075eac7f1518351d2e6f/testHistory', {
+       
+      // examId:"638a57d71435b001ef155480",
+      examId:id,
+      testId:"638d425ea7480fb6d4b37540",
+      section:"1",
+      testType:"Writing",
+      score:scoretosend,
+      date:"2022-12-05T00:59:10.089+00:00"
+          
+  })
+  .then(function (response) {
+    console.log(response);
+  })
+  .catch(function (error) {
+    console.log(error);
+  })
+
+  );
+
 
 const StatsOutput = ({ title, stats }) => (
   <section>
@@ -59,7 +81,10 @@ export const Editors = () => {
       <h2>Textarea</h2>
       <GrammarlyEditorPlugin
       config={{ underlines: "off", suggestionCards: "off" }}
-        onDocumentStats={(evt) => setDocStats(evt.detail)}
+        onDocumentStats={(evt) => {
+          writingScoreToSend = evt.detail.readabilityScore;
+          wordsWritten = evt.detail.wordsCount;
+          setDocStats(evt.detail)}}
         onSessionStats={(evt) => setSessionStats(evt.detail)}
       >
         <textarea defaultValue={demoText.textarea} rows={10} className={styles.question_view_textarea}></textarea>
@@ -75,7 +100,7 @@ class Quiz extends Component{
 
       componentDidMount() {
         
-        axios.get(`http://localhost:8080/tests/638c4346c72d7d42b6d78a3b`)
+        axios.get(`http://localhost:8080/tests/638d425ea7480fb6d4b37540`)
           .then(res => {
             const questionsfromdb = res.data;
             quiz_instructions = questionsfromdb.instruction;
@@ -168,6 +193,8 @@ Your browser does not support the audio element.
          let count = 0;
          let notattempcount = 0;
 
+
+         
      // TODO: Pass the writing text (writingtext) to server
                 list.map((item,key)=>{
                     item.questionOptions.map((anslist,key)=>{
@@ -278,7 +305,7 @@ return(
                     <div className={styles.Quiz_container_display}>
                     <h3>{quiz_instructions}</h3>
                     <Dictaphone handler={this.handleSpeechText}/>
-                    <Editors/> 
+                    <Editors/>
                   <div className={styles.Quiz_que}>
                     {item.questionTitle}
                     </div>
