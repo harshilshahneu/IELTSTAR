@@ -84,7 +84,7 @@ const DefaultDrawer = ({ open, handleDrawerClose }) => {
           <ListItemText primary="Practice Test" />
         </ListItem>
        
-        <ListItem button component={Link} href="/archive" selected={selected == 'archive'} onClick={() => setSelected('archive')}>
+        <ListItem button component={Link} href="/student/archive" selected={selected == 'archive'} onClick={() => setSelected('archive')}>
           <ListItemIcon>
             <ArchiveIcon />
           </ListItemIcon>
