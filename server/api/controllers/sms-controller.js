@@ -1,5 +1,7 @@
 import Twilio from "twilio";
+import dotenv from "dotenv";
 
+dotenv.config();
 const accountSid = `${process.env.AccountSID}`;
 const authToken = `${process.env.AuthToken}`;
 
@@ -9,8 +11,10 @@ const setResponse = (res, status, data) => {
   res.status(status).json(data);
 };
 
-// get all exams
-export const getExams = (req, res) => {
+// get all sms
+export const sendSms = (req, res) => {
+  //   const id = request.params.id;
+  // const questions = await questionsService.get(id);
   //   send email
   client.messages
     .create({
