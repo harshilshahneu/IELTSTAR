@@ -14,17 +14,17 @@ const setResponse = (res, status, data) => {
 
 // get all sms
 export const sendSms = (req, res) => {
-  //   const id = request.params.id;
+  const id = JSON.stringify(req.params.id);
+  console.log(id);
   // const questions = await questionsService.get(id);
   //   send email
   client.messages
     .create({
       body: "Hey welcome to ieltstar. Thankyou for verifying your account",
-      from: `${procss.env.FROM_SMS}`,
-      to: "+15513318177",
+      from: `${process.env.FROM_SMS}`,
+      to: id,
     })
-    .then((message) => console.log(message.sid))
-    .catch((err) => console.log(err));
+    .then((message) => console.log(message.sid));
 };
 
 /**

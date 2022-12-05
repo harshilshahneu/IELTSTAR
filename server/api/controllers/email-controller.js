@@ -18,9 +18,10 @@ const setResponse = (res, status, data) => {
 
 // get all exams
 export const sendEmails = async (req, res) => {
+  const id = JSON.stringify(req.params.id);
   const options = {
     from: `${process.env.FROM_EMAIL}`,
-    to: "techgeniusk@gmail.com",
+    to: id,
     // email subject
     subject: "Sending Email Test",
     // email content
