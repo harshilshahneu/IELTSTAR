@@ -1,3 +1,7 @@
+// import dynamic from 'next/dynamic'
+// const SpeechToTextComponent = dynamic(() => import('./SpeechToText'), { ssr: false });
+import 'regenerator-runtime/runtime';
+import Dictaphone from './SpeechToText';
 import { Grammarly, GrammarlyEditorPlugin } from "@grammarly/editor-sdk-react";
 import { Component, use, useEffect, useState, React } from "react";
 import { MobileStepper } from '@mui/material';
@@ -8,9 +12,6 @@ import Alert from '@mui/material/Alert';
 import axios from "axios";
 import styles from '../../../styles/quizstyles/QuestionView.module.scss';
 import paragraphStyles from '../../../styles/quizstyles/Paragraph.module.scss';
-
-import { ReactMic } from "react-mic";
-import AudioPlayer from "react-h5-audio-player";
 
 let quiz_instructions = "";
 let parsedQuestionSource = "";
@@ -39,6 +40,8 @@ It can even help when you wanna refine ur slang or formality level. That's espec
   </p>
 `,
 };
+
+
 
 const StatsOutput = ({ title, stats }) => (
   <section>
@@ -72,7 +75,7 @@ class Quiz extends Component{
 
       componentDidMount() {
         
-        axios.get(`http://localhost:8080/tests/638c4346c72d7d42b6d78a3b`)
+        axios.get(`http://localhost:8080/tests/638d425ea7480fb6d4b37540`)
           .then(res => {
             const questionsfromdb = res.data;
             quiz_instructions = questionsfromdb.instruction;
@@ -107,6 +110,7 @@ Your browser does not support the audio element.
         super(props)
         
         this.state = {
+          speakingtext:"",
             writingtext:"",
             activeStep:0,
             booleanonsubmit : false,
@@ -118,12 +122,10 @@ Your browser does not support the audio element.
         }
                 
    }
-
-   
-
+    handleSpeechText = (text) => this.setState({speakingtext: text})
     handleNext=()=>{
-        this.setState({activeStep:this.state.activeStep+1})
-    }
+      console.log("text is ", this.state.speakingtext)
+        this.setState({activeStep:this.state.activeStep+1})    }
 
     handleBack=()=>{
         this.setState({activeStep:this.state.activeStep-1})
@@ -165,6 +167,7 @@ Your browser does not support the audio element.
          let list = this.state.questionsfromdb ;
          let count = 0;
          let notattempcount = 0;
+
      // TODO: Pass the writing text (writingtext) to server
                 list.map((item,key)=>{
                     item.questionOptions.map((anslist,key)=>{
@@ -231,7 +234,7 @@ return(
                         <section className={styles.question_view_card}>
                         <div className={styles.Quiz_container_display}>
                         <h3>{quiz_instructions}</h3>
-                        <textarea onChange={this.onInputChange} spellCheck='false' type='textarea' rows={19} className={styles.question_view_textarea}></textarea>
+                        <Editors/>                        {/* <textarea onChange={this.onInputChange} spellCheck='false' type='textarea' rows={19} className={styles.question_view_textarea}></textarea> */}
 
                       <div className={styles.Quiz_que}>
                         {item.questionTitle}
@@ -274,6 +277,8 @@ return(
                     <section className={styles.question_view_card}>
                     <div className={styles.Quiz_container_display}>
                     <h3>{quiz_instructions}</h3>
+                    <Dictaphone handler={this.handleSpeechText}/>
+                    
                   <div className={styles.Quiz_que}>
                     {item.questionTitle}
                     </div>
