@@ -2,6 +2,7 @@ import Twilio from "twilio";
 import dotenv from "dotenv";
 
 dotenv.config();
+
 const accountSid = `${process.env.AccountSID}`;
 const authToken = `${process.env.AuthToken}`;
 
@@ -19,7 +20,7 @@ export const sendSms = (req, res) => {
   client.messages
     .create({
       body: "Hey welcome to ieltstar. Thankyou for verifying your account",
-      from: "+16506643056",
+      from: `${procss.env.FROM_SMS}`,
       to: "+15513318177",
     })
     .then((message) => console.log(message.sid))

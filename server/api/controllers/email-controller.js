@@ -1,4 +1,7 @@
 import nodemailer from "nodemailer";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const mailer = nodemailer.createTransport({
   service: "SendGrid",
@@ -14,9 +17,9 @@ const setResponse = (res, status, data) => {
 };
 
 // get all exams
-export const getExams = async (req, res) => {
+export const sendEmails = async (req, res) => {
   const options = {
-    from: "keerthanasatheesh21@gmail.com",
+    from: `${process.env.FROM_EMAIL}`,
     to: "techgeniusk@gmail.com",
     // email subject
     subject: "Sending Email Test",
