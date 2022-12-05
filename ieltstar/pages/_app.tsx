@@ -11,6 +11,14 @@ import Layout from '../components/Layout/Default';
 import '../styles/globals.scss';
 import Snackbar from '../components/Global/Snackbar'
 import { UserProvider } from '@auth0/nextjs-auth0/client';
+import Router from 'next/router';
+import NProgress from 'nprogress'; //nprogress module
+import 'nprogress/nprogress.css'; //styles of nprogress
+
+//Route Events. 
+Router.events.on('routeChangeStart', () => NProgress.start()); 
+Router.events.on('routeChangeComplete', () => NProgress.done()); 
+Router.events.on('routeChangeError', () => NProgress.done());
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
