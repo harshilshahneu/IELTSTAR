@@ -75,7 +75,7 @@ class Quiz extends Component{
 
       componentDidMount() {
         
-        axios.get(`http://localhost:8080/tests/638d425ea7480fb6d4b37540`)
+        axios.get(`http://localhost:8080/tests/638c4346c72d7d42b6d78a3b`)
           .then(res => {
             const questionsfromdb = res.data;
             quiz_instructions = questionsfromdb.instruction;
@@ -278,7 +278,7 @@ return(
                     <div className={styles.Quiz_container_display}>
                     <h3>{quiz_instructions}</h3>
                     <Dictaphone handler={this.handleSpeechText}/>
-                    
+                    <Editors/> 
                   <div className={styles.Quiz_que}>
                     {item.questionTitle}
                     </div>
