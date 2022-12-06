@@ -31,7 +31,8 @@ export default function ScoreBoard() {
 
     useEffect(() => {
         getCurrentScore();
-    }, []);
+        sendEmail(user, scores);
+    }, [user || '']);
 
     const getCurrentScore = () => {
         axios.get(`${url}`)
@@ -41,6 +42,27 @@ export default function ScoreBoard() {
                 console.log(scores);
             })
             .catch(error => console.log(`Error: ${error}`));
+    }
+    const sendEmail = (user, scores) => {
+        if (user) {
+            //handle log-in or sign-up
+            axios
+            .post(`${process.env.API_URL}/email/${user.email}`, {
+                email: user.email,
+                name: user.given_name || user.nickname,
+                picture: user.picture,
+                scores: scores[0]
+
+              })
+              .then((res) => {
+                console.log(res);
+                console.log("EMAIL SEND SUCCESSFULLY");
+                console.log(scores[0]);
+              })
+              .catch((err) => {
+                console.log(err);
+              });
+          }
     }
 
     if (scores.length > 0) {
