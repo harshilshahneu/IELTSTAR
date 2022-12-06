@@ -20,7 +20,7 @@ export const sendSms = (req, res) => {
     .create({
       from: `${process.env.FROM_SMS}`,
       to: id,
-      body: "Hey welcome to ieltstar. Thankyou for verifying your account",
+      body: `Hi ${req.body.name}, Your ielts overall band score is:${req.body.scores.overallBand}. Reading Score:${req.body.scores.readingScore}, Writing Score:${req.body.scores.writingScore}, Speaking Score:${req.body.scores.speakingScore}, Listening Score:${req.body.scores.listeningScore}`,
     })
     .then(() => {
       res.send(JSON.stringify({ success: true }));
