@@ -23,10 +23,20 @@ export const sendEmails = async (req, res) => {
     from: `${process.env.FROM_EMAIL}`,
     to: id,
     // email subject
-    subject: "Sending Email Test",
-    // email content
-    html: `<div style="text-align: center;"><h1>Hello Keerthana</h1></div>
-             `,
+    subject: "Ielts Test Scores",
+    templateId: "d-b2de4eb090e841de8e0a207a02261464",
+    dynamic_template_data: {
+      email: req.body.email,
+      name: req.body.name,
+      picture: req.body.picture,
+      scores: {
+        readingScore: req.body.scores.readingScore,
+        writingScore: req.body.scores.writingScore,
+        speakingScore: req.body.scores.speakingScore,
+        listeningScore: req.body.scores.listeningScore,
+        overallBand: req.body.scores.overallBand,
+      },
+    },
   };
   try {
     //   send email
