@@ -21,6 +21,11 @@ export const sendEmails = async (req, res) => {
   const id = JSON.stringify(req.params.id);
   console.log(req.body);
   console.log(req.body.name);
+  console.log(req.body.scores.readingScore);
+  console.log(req.body.scores.writingScore);
+  console.log(req.body.scores.speakingScore);
+  console.log(req.body.scores.listeningScore);
+  console.log(req.body.scores.overallBand);
   const options = {
     from: `${process.env.FROM_EMAIL}`,
     to: id,
