@@ -11,23 +11,27 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 
 export default function FormDialog(props) {
-  console.log("CHECK1");
   const [open, setOpen] = React.useState(false);
+  const [isStart, setIsStart] = useState(false);
   let scores = props.scores;
-  console.log(props.scores);
-  console.log("CHECK2");
 
   const handleClickOpen = () => {
     setOpen(true);
   };
 
   const handleClose = () => {
+    sendSms(user, scores);
+  };
+
+  const handleSend = () => {
     setOpen(false);
   };
 
   const { user } = useUser();
   useEffect(() => {
-    sendSms(user, scores);
+    // if (isStart) {
+      sendSms(user, scores);
+    // }
   }, [user || '']);
 
   const sendSms = (user, scores) => {
@@ -38,11 +42,7 @@ export default function FormDialog(props) {
           email: user.email,
           name: user.given_name || user.nickname,
           picture: user.picture,
-          overallBand: scores[0].overallBand,
-          listeningScore: scores[0].listeningScore,
-          readingScore: scores[0].readingScore,
-          writingScore: scores[0].writingScore,
-          speakingScore: scores[0].speakingScore
+          scores: scores[0]
         })
         .then((res) => {
           console.log(res);
@@ -78,7 +78,7 @@ export default function FormDialog(props) {
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleClose}>Send</Button>
+          <Button onClick={() => setIsStart(true)}>Send</Button>
         </DialogActions>
       </Dialog>
     </div>
