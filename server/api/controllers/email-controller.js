@@ -30,8 +30,6 @@ export const sendEmails = async (req, res) => {
       name: req.body.name,
       picture: req.body.picture,
       scores: {
-        _id: "638663ce29b99e23f2099cdf",
-        testId: "2",
         readingScore: req.body.scores.readingScore,
         writingScore: req.body.scores.writingScore,
         speakingScore: req.body.scores.speakingScore,
