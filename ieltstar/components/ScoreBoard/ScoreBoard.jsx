@@ -78,6 +78,7 @@ export default function ScoreBoard() {
                             <article>OVERALL BAND:</article>
                             <article>{scores[0].overallBand}</article>
                         </div>
+                        <div className='grid-content'>
                         <Grid container spacing={0}>
                             <Grid item xs={6} md={6}>
                                 <div className='score-board-text'>
@@ -98,13 +99,16 @@ export default function ScoreBoard() {
                                 </div>
                             </Grid>
                             <Grid item xs={6} md={6}>
+                            <div className='score-chart'>
                                 <ApexChart series={series}></ApexChart>
+                            </div>
                             </Grid>
                         </Grid>
-
-                        <FormDialog className='send-score'>
-                        SEND SCORE
-                        </FormDialog>
+                        </div>
+                        <div className='send-score'>
+                        <FormDialog />
+                        </div>
+                        
                         
 
                     </Dialog>
@@ -133,6 +137,9 @@ export default function ScoreBoard() {
                                     
     
                                 }
+                                .grid-content {
+                                    margin-top: 5%
+                                }
     
                                 .overall-band-component {
                                     background-color: black;
@@ -160,17 +167,20 @@ export default function ScoreBoard() {
                                     width: 120%;
                                     text-align: left;
                                     padding: 5%;
-                                    margin-left: 20%;
+                                    margin-left: 25%;
+                                }
+                                .score-chart {
+                                    margin-left: -5%
                                 }
     
                                 .send-score {
                                     position: fixed;
                                     width: 70%;
-                                    left: 15%;
-                                    top: 80%;
+                                    left: 20%;
+                                    top: 65%;
                                     font-weight: bolder;
                                     font-size: 20px;
-                                    margin-top: 1%;
+                                    margin-top: 5%;
                                 }
     
                                 .icon {
