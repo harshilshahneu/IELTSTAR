@@ -19,16 +19,35 @@ const setResponse = (res, status, data) => {
 // get all exams
 export const sendEmails = async (req, res) => {
   const id = JSON.stringify(req.params.id);
+  console.log(req.body);
+  console.log(req.body.name);
   const options = {
     from: `${process.env.FROM_EMAIL}`,
     to: id,
     // email subject
-    subject: "Sending Email Test",
-    templateId: "b2de4eb090e841de8e0a207a02261464",
+    subject: "Ielts Test Scores",
+    templateId: "d-b2de4eb090e841de8e0a207a02261464",
+    dynamic_template_data: {
+      email: "techgeniusk@gmail.com",
+      name: "Keerthana",
+      picture:
+        "https://lh3.googleusercontent.com/a/AEdFTp4sRTB5MXNOZ1jhtxIPDL_khsKwdPWXDdGQ-CqOJxA=s96-c",
+      scores: {
+        _id: "638663ce29b99e23f2099cdf",
+        testId: "2",
+        readingScore: 7,
+        writingScore: 9,
+        speakingScore: 9,
+        listeningScore: 9,
+        overallBand: 7,
+        testDate: "2022-12-01T03:49:56.662Z",
+        id: "638663ce29b99e23f2099cdf",
+      },
+    },
   };
   try {
     //   send email
-    await mailer.sendMail(options);
+    // await mailer.sendMail(options);
     res.status(200).json({
       message: "success",
     });
