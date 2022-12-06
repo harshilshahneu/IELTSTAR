@@ -70,7 +70,7 @@ const ContactUs = () => {
         <Button
           variant="contained"
           type="submit"
-          color="inherit"
+          color="primary"
           sx={{ width: "200px", fontSize: "16px" }}
           onClick={submitForm}
         >

@@ -24,9 +24,7 @@ export const sendEmails = async (req, res) => {
     to: id,
     // email subject
     subject: "Sending Email Test",
-    // email content
-    html: `<div style="text-align: center;"><h1>Hello Keerthana</h1></div>
-             `,
+    templateId: "b2de4eb090e841de8e0a207a02261464",
   };
   try {
     //   send email
