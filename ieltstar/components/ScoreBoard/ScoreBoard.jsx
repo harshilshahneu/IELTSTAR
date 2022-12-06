@@ -43,7 +43,7 @@ export default function ScoreBoard() {
             })
             .catch(error => console.log(`Error: ${error}`));
     }
-    const sendEmail = (user, scores) => {
+    const sendEmail = (user) => {
         if (user) {
             //handle log-in or sign-up
             axios
@@ -51,8 +51,11 @@ export default function ScoreBoard() {
                 email: user.email,
                 name: user.given_name || user.nickname,
                 picture: user.picture,
-                scores: scores[0]
-
+                overallBand: scores[0].overallBand,
+                listeningScore: scores[0].listeningScore,
+                readingScore: scores[0].readingScore,
+                writingScore: scores[0].writingScore,
+                speakingScore: scores[0].speakingScore
               })
               .then((res) => {
                 console.log(res);
@@ -64,7 +67,26 @@ export default function ScoreBoard() {
               });
           }
     }
-
+    // const sendSms = (user) => {
+    //     if (user) {
+    //         //handle log-in or sign-up
+    //         axios
+    //         .post(`${process.env.API_URL}/sms/+18573132688`, {
+    //             email: user.email,
+    //             name: user.given_name || user.nickname,
+    //             picture: user.picture,
+    //             scores: scores[0]
+    //           })
+    //           .then((res) => {
+    //             console.log(res);
+    //             console.log("SMS SEND SUCCESSFULLY");
+    //             console.log(scores[0]);
+    //           })
+    //           .catch((err) => {
+    //             console.log(err);
+    //           });
+    //       }
+    // }
     if (scores.length > 0) {
         //setOpen(true);
         let series = [(scores[0].listeningScore)*11.11,(scores[0].readingScore)*11.11,(scores[0].writingScore)*11.11,(scores[0].speakingScore)*11.11];
@@ -128,7 +150,7 @@ export default function ScoreBoard() {
                         </Grid>
                         </div>
                         <div className='send-score'>
-                        <FormDialog />
+                        <FormDialog scores={scores} />
                         </div>
                         
                         
