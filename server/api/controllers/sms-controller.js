@@ -16,28 +16,17 @@ const setResponse = (res, status, data) => {
 export const sendSms = (req, res) => {
   const id = JSON.stringify(req.params.id);
   console.log(id);
-  // const questions = await questionsService.get(id);
-  //   send email
   client.messages
     .create({
-      body: "Hey welcome to ieltstar. Thankyou for verifying your account",
       from: `${process.env.FROM_SMS}`,
       to: id,
+      body: "Hey welcome to ieltstar. Thankyou for verifying your account",
     })
-    .then((message) => console.log(message.sid));
-};
-
-/**
- * Post API request method
- * @param {*} request
- * @param {*} response
- */
-export const post = async (request, response) => {
-  try {
-    const payload = request.body;
-    const questions = await questionsService.save(payload);
-    setSuccessResponse(questions, response);
-  } catch (error) {
-    setErrorResponse(error, response);
-  }
+    .then(() => {
+      res.send(JSON.stringify({ success: true }));
+    })
+    .catch((err) => {
+      console.log(err);
+      res.send(JSON.stringify({ success: false }));
+    });
 };
