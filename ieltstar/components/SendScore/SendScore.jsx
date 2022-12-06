@@ -6,9 +6,16 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import { useUser } from '@auth0/nextjs-auth0/client';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
 
-export default function FormDialog() {
+export default function FormDialog(props) {
+  console.log("CHECK1");
   const [open, setOpen] = React.useState(false);
+  let scores = props.scores;
+  console.log(props.scores);
+  console.log("CHECK2");
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -18,6 +25,34 @@ export default function FormDialog() {
     setOpen(false);
   };
 
+  const { user } = useUser();
+  useEffect(() => {
+    sendSms(user, scores);
+  }, [user || '']);
+
+  const sendSms = (user, scores) => {
+    if (user) {
+      axios
+        .post(`${process.env.API_URL}/sms/+18573132688`, {
+          phonenumber: +18573132688,
+          email: user.email,
+          name: user.given_name || user.nickname,
+          picture: user.picture,
+          overallBand: scores[0].overallBand,
+          listeningScore: scores[0].listeningScore,
+          readingScore: scores[0].readingScore,
+          writingScore: scores[0].writingScore,
+          speakingScore: scores[0].speakingScore
+        })
+        .then((res) => {
+          console.log(res);
+          console.log("SMS SEND SUCCESSFULLY");
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }
   return (
     <div>
       <Button variant="outlined" onClick={handleClickOpen}>
