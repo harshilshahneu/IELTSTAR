@@ -18,18 +18,44 @@ const archive = () => {
       `${process.env.API_URL}/tests`,
     ];
     axios.all(endpoints.map((endpoint) => axios.get(endpoint))).then((data) => {
-      const exams = data[0].data.sort((a, b) => new Date(b.date) - new Date(a.date));
+      const exams = data[0].data.sort(
+        (a, b) => new Date(b.date) - new Date(a.date)
+      );
       const tests = data[1].data;
       exams.forEach((exam) => {
         exam["test"] = tests.filter((test) => test.examId === exam._id);
       });
       //tests in exam by category
-      exams.forEach(exam => {
-        exam["reading"] = exam.test.filter(test => test.category === "Reading").map(r => ({section: r.section})).sort((a, b) => a.section - b.section);
-        exam["listening"] = exam.test.filter(test => test.category === "Listening").map(r => ({section: r.section})).sort((a, b) => a.section - b.section);
-        exam["writing"] = exam.test.filter(test => test.category === "Writing").map(r => ({section: r.section})).sort((a, b) => a.section - b.section);
-        exam["speaking"] = exam.test.filter(test => test.category === "Speaking").map(r => ({section: r.section})).sort((a, b) => a.section - b.section);
-      })
+      exams.forEach((exam) => {
+        exam["reading"] = exam.test
+          .filter((test) => test.category === "Reading")
+          .map((r) => ({ section: r.section }))
+          .sort((a, b) => a.section - b.section);
+        exam["listening"] = exam.test
+          .filter((test) => test.category === "Listening")
+          .map((r) => ({ section: r.section }))
+          .sort((a, b) => a.section - b.section);
+        exam["writing"] = exam.test
+          .filter((test) => test.category === "Writing")
+          .map((r) => ({ section: r.section }))
+          .sort((a, b) => a.section - b.section);
+        exam["speaking"] = exam.test
+          .filter((test) => test.category === "Speaking")
+          .map((r) => ({ section: r.section }))
+          .sort((a, b) => a.section - b.section);
+        if (
+          !exam["reading"].length ||
+          !exam["listening"].length ||
+          !exam["writing"].length ||
+          !exam["speaking"].length
+        ) {
+          exam["completed"] = false;
+        }
+        else {
+          exam["completed"] = true;
+        }
+      });
+
       setData(exams);
     });
   }, []);

@@ -9,13 +9,14 @@ import {
   AvatarGroup,
   Avatar,
 } from "@mui/material";
-import { blueGrey, purple, cyan, teal, deepOrange } from "@mui/material/colors";
+import {  purple, cyan, teal, deepOrange } from "@mui/material/colors";
 import formatDate from "../../../utils/formatDate";
 import ReadingIcon from "@mui/icons-material/AutoStories";
 import ListeningIcon from "@mui/icons-material/Hearing";
 import WritingIcon from "@mui/icons-material/Description";
 import SpeakingIcon from "@mui/icons-material/RecordVoiceOver";
 import { useTheme } from "@emotion/react";
+import Link from "next/link";
 
 function getComponent(category) {
   if (category === "Reading")
@@ -31,8 +32,10 @@ function getComponent(category) {
 const TestCard = ({ exam }) => {
   const theme = useTheme();
   return (
-    <Card sx={{ maxWidth: 345 }} variant="outlined">
-      <CardActionArea>
+    <Card sx={{ maxWidth: 345, cursor: exam.completed ? 'pointer': 'not-allowed' }} variant="outlined">
+      <CardActionArea component={Link} href={`/student/exam/${exam._id}` }
+        style={{ pointerEvents: exam.completed ? "all" : "none" }}
+      >
         <CardContent>
           <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
             {formatDate(new Date(exam.date))}
