@@ -128,7 +128,6 @@ Your browser does not support the audio element.
   }
   handleSpeechText = (text) => this.setState({ speakingtext: text });
   handleNext = () => {
-    console.log("text is ", this.state.speakingtext);
     this.setState({ activeStep: this.state.activeStep + 1 });
   };
 
@@ -185,7 +184,6 @@ Your browser does not support the audio element.
     })
    }
    else if(this.props.test.category === "Writing" || this.props.test.category === "Speaking"){
-    console.log(this.state.writingScores)
     axios.post(`${process.env.API_URL}/students/${this.props.user}/testHistory`, {
       testType: this.props.test.category,
       testId: this.props.test._id,
@@ -264,7 +262,6 @@ Your browser does not support the audio element.
   };
 
   render() {
-    console.log('triggered')
     return (
       <div>
         {this.state.booleanonsubmit ? (
