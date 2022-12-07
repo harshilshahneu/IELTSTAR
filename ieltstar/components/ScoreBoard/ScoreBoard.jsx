@@ -18,13 +18,9 @@ import { useRouter } from "next/router";
 import styles from "../../styles/ScoreBoard.module.scss";
 
 
-export default function ScoreBoard() {
-    const [open, setOpen] = React.useState(true);
+export default function ScoreBoard({open, setOpen}) {
     const { user } = useUser();
     const router = useRouter();
-    //   const handleClickOpen = () => {
-    //     setOpen(true);
-    //   };
     const Transition = React.forwardRef(function Transition(props, ref) {
         return <Slide direction="up" ref={ref} {...props} />;
     });

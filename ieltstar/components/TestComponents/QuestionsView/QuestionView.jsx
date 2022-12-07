@@ -21,6 +21,7 @@ import ListeningInstructions from "../../Instructions/Listening";
 import WritingInstructions from "../../Instructions/Writing";
 import SpeakingInstructions from "../../Instructions/Speaking";
 import PlayCircleIcon from '@mui/icons-material/PlayCircle';
+import ScoreBoard from '../../ScoreBoard/ScoreBoard';
 
 
 const Transition = forwardRef(function Transition(props, ref) {
@@ -49,6 +50,7 @@ const QuestionView = ({ exams }) => {
   const [email, setEmail] = useState("");
   const [initial, setInitial] = useState(true);
   const user = useUser().user;
+  const [scoreOpen, setScoreOpen] = useState(false);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -90,6 +92,7 @@ const QuestionView = ({ exams }) => {
     //check if last exam
     if (index === exams.length - 1) {
       console.log("fire score");
+      setScoreOpen(true);
     }
     else if(exams[index + 1].category !== exams[index].category) { 
       setCurrentInsctruction(exams[index + 1].category);
@@ -126,6 +129,7 @@ const QuestionView = ({ exams }) => {
 </Button>
        </Box>
       </Dialog>
+      <ScoreBoard open={scoreOpen} setOpen={setScoreOpen}></ScoreBoard>
     </section>
   );
 };
