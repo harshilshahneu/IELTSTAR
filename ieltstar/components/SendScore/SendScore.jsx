@@ -12,33 +12,44 @@ import { useEffect, useState } from 'react';
 
 export default function FormDialog(props) {
   const [open, setOpen] = React.useState(false);
-  const [isStart, setIsStart] = useState(false);
+  const [isStart, setIsStart] = React.useState(false);
   let scores = props.scores;
+  const [phone, setPhone] = React.useState('+1');
 
   const handleClickOpen = () => {
     setOpen(true);
   };
 
   const handleClose = () => {
-    sendSms(user, scores);
-  };
-
-  const handleSend = () => {
     setOpen(false);
   };
 
+  const handleSend = () => {
+    setIsStart(true);
+    console.log(isStart);
+  };
+
+  const handleChange = (event) => {
+    setPhone(event.target.value);
+  };
   const { user } = useUser();
   useEffect(() => {
-    // if (isStart) {
+    console.log(isStart);
+    console.log(phone);
+    if (isStart) {
       sendSms(user, scores);
-    // }
-  }, [user || '']);
+      setIsStart(false);
+      setOpen(false);
+    }
+  }, [isStart || '']);
 
   const sendSms = (user, scores) => {
+    let phoneNo = Number(phone);
+    //console.log(typeOf phoneNo);
     if (user) {
       axios
-        .post(`${process.env.API_URL}/sms/+18573132688`, {
-          phonenumber: +18573132688,
+        .post(`${process.env.API_URL}/sms/${phone}`, {
+          phonenumber: phone,
           email: user.email,
           name: user.given_name || user.nickname,
           picture: user.picture,
@@ -72,13 +83,14 @@ export default function FormDialog(props) {
             type="text"
             fullWidth
             variant="standard"
+            value={phone} 
+            onChange={handleChange}
             inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
-            defaultValue="+1"
           />
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={() => setIsStart(true)}>Send</Button>
+          <Button onClick={handleSend}>Send</Button>
         </DialogActions>
       </Dialog>
     </div>
