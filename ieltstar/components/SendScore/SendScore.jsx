@@ -16,19 +16,23 @@ export default function FormDialog(props) {
   let scores = props.scores;
   const [phone, setPhone] = React.useState('+1');
 
+  // Handle Open to open dialog
   const handleClickOpen = () => {
     setOpen(true);
   };
 
+  // Handle Close to close dialog
   const handleClose = () => {
     setOpen(false);
   };
 
+  // Handle Send to set isStart true for sending in useEffect
   const handleSend = () => {
     setIsStart(true);
     console.log(isStart);
   };
 
+  // Handle change for setting phone number from textfield value
   const handleChange = (event) => {
     setPhone(event.target.value);
   };
@@ -36,6 +40,7 @@ export default function FormDialog(props) {
   useEffect(() => {
     console.log(isStart);
     console.log(phone);
+    // Send SMS if isStart is true
     if (isStart) {
       sendSms(user, scores);
       setIsStart(false);
@@ -43,9 +48,13 @@ export default function FormDialog(props) {
     }
   }, [isStart || '']);
 
+  /**
+     * Function to Send Score via SMS from API
+     * @param {user} user - LoggedIn User 
+     * @param {scores} user - LoggedIn User 
+     * 
+     */
   const sendSms = (user, scores) => {
-    let phoneNo = Number(phone);
-    //console.log(typeOf phoneNo);
     if (user) {
       axios
         .post(`${process.env.API_URL}/sms/${phone}`, {
