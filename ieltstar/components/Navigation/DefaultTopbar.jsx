@@ -16,6 +16,7 @@ import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
 import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
 import { useUser } from "@auth0/nextjs-auth0/client";
 import Avatar from "@mui/material/Avatar";
+import BasicPopover from "./Popover";
 
 const drawerWidth = 240;
 
@@ -150,9 +151,12 @@ export default function DefaultTopbar({ open, handleDrawerOpen }) {
                 <AccountCircle />
               </a>
             ) : (
-              <a href="/api/auth/logout">
-                <Avatar alt="USER" src={user.picture} />
-              </a>
+              // <a href="/api/auth/logout">
+              //   <Avatar alt="USER" src={user.picture} />
+              // </a>
+              <div>
+                <BasicPopover user={user}></BasicPopover>
+              </div>
             )}
           </IconButton>
         </Box>
