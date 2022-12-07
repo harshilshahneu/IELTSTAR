@@ -19,6 +19,7 @@ export const save = async (test) => {
 
 //get test by id from database
 export const getById = async (id) => {
+    //@TODO only admin should be allowed to use this id
     //Find the test with the given id and return it
     const test = await Test.findById(id);
     return test;

@@ -45,7 +45,7 @@ const StatsOutput = ({ title, stats }) => (
     <pre>{JSON.stringify(stats, null, 2)}</pre>
   </section>
 );
-export const Editors = () => {
+export const Editors = ({questionNo, setWritingState}) => {
   // const [grammarlyConfig, setGrammarlyConfig] = useState({ underlines: "on", suggestionCards: "on" })
   const [docStats, setDocStats] = useState();
   const [sessionStats, setSessionStats] = useState();
@@ -55,7 +55,7 @@ export const Editors = () => {
       <h2>Textarea</h2>
       <GrammarlyEditorPlugin
         config={{ underlines: "off", suggestionCards: "off" }}
-        onDocumentStats={(evt) => setDocStats(evt.detail)}
+        onDocumentStats={(evt) => setWritingState(evt.detail, questionNo)}
         onSessionStats={(evt) => setSessionStats(evt.detail)}
       >
         <textarea
@@ -64,10 +64,10 @@ export const Editors = () => {
           className={styles.question_view_textarea}
         ></textarea>
       </GrammarlyEditorPlugin>
-      {docStats && <StatsOutput stats={docStats} title="Document Stats" />}
+      {/* {docStats && <StatsOutput stats={docStats} title="Document Stats" />}
       {sessionStats && (
         <StatsOutput stats={sessionStats} title="Session Stats" />
-      )}
+      )} */}
     </Grammarly>
   );
 };
@@ -101,7 +101,7 @@ Your browser does not support the audio element.
     }
 
     questions = questions.map((question, index) => ({
-      questionId: "que_" + index,
+      questionId: question._id,
       questionTitle: question.title,
       questionOptions: question.options.map((option) => ({
         que_options: option,
@@ -123,7 +123,7 @@ Your browser does not support the audio element.
       catchmsg: "",
       errormsg: "",
       questionsfromdb: [],
-     
+      writingScores: [0, 0],
     };
   }
   handleSpeechText = (text) => this.setState({ speakingtext: text });
@@ -165,9 +165,39 @@ Your browser does not support the audio element.
     this.setState({ questionsfromdb: nexState });
   };
 
+  setWritingStateHandler = (writingState, questionNo) => {
+    let array = this.state.writingScores;
+    array[questionNo] = writingState;
+    this.setState({writingScores: array})
+  }
+
   onsubmit = () => {
-    console.log("list : ", this.state.questionsfromdb)
-    console.log("test : ", this.props.test)
+   if(this.props.test.category === "Listening" || this.props.test.category === "Reading"){
+    axios.post(`${process.env.API_URL}/students/${this.props.user}/testHistory`, {
+      testType: this.props.test.category,
+      testId: this.props.test._id,
+      section: this.props.test.section,
+      examId: this.props.test.examId,
+      score: 0,
+      userResponse: this.state.questionsfromdb
+    }).then(()=> {
+      this.props.getNextTest();
+    })
+   }
+   else if(this.props.test.category === "Writing"){
+    console.log(this.state.writingScores)
+    axios.post(`${process.env.API_URL}/students/${this.props.user}/testHistory`, {
+      testType: this.props.test.category,
+      testId: this.props.test._id,
+      section: this.props.test.section,
+      examId: this.props.test.examId,
+      score: this.state.writingScores})
+      .then(()=> {
+        this.props.getNextTest();
+      })
+   }
+   else if(this.props.test.category === "Speaking"){}
+  
     alert('stop')
     // this.props.getNextTest();
     let list = this.state.questionsfromdb;
@@ -212,7 +242,7 @@ Your browser does not support the audio element.
          
         
       })
-      this.props.getNextTest();
+      
     }
   };
 
@@ -275,45 +305,24 @@ Your browser does not support the audio element.
                             __html: parsedQuestionSource,
                           }}
                         />
+                          <div className={styles.Quiz_que}>
+                            {item.questionTitle}
+                          </div>
                       </section>
                       <section className={styles.question_view_card}>
                         <div className={styles.Quiz_container_display}>
                           <h3>{quiz_instructions}</h3>
-                          <Editors />{" "}
+                          <Editors questionNo={index} setWritingState={this.setWritingStateHandler}/>
                           {/* <textarea onChange={this.onInputChange} spellCheck='false' type='textarea' rows={19} className={styles.question_view_textarea}></textarea> */}
-                          <div className={styles.Quiz_que}>
-                            {item.questionTitle}
-                          </div>
-                          <div className={styles.Quiz_options}></div>
-                          {item.questionOptions.map(
-                            (correctAnswer, index_ans) => {
-                              index_ans = index_ans + 1;
-                              return (
-                                <div
-                                  key={index_ans}
-                                  className={styles.Quiz_multiple_options}
-                                >
-                                  <input
-                                    className={styles.Quiz_radio_input}
-                                    key={index_ans}
-                                    type="radio"
-                                    name={item.questionId}
-                                    value={correctAnswer.que_options}
-                                    checked={!!correctAnswer.selected}
-                                    onChange={this.onInputChange}
-                                  />
-                                  {index_ans}] {correctAnswer.que_options}
-                                </div>
-                              );
-                            }
-                          )}
+                        
+                          
                         </div>
                       </section>
                     </div>
                   );
                 else if (questionCategory === "Speaking")
                   return (
-                    <div className={styles.question_view_main_grid_2_columns} key={key}>
+                    <div className={styles.question_view_main_grid_2_columns}>
                       <section className={styles.question_view_card}>
                         <div
                           className={paragraphStyles.Paragraph_content}
@@ -330,30 +339,6 @@ Your browser does not support the audio element.
                           <div className={styles.Quiz_que}>
                             {item.questionTitle}
                           </div>
-
-                          <div className={styles.Quiz_options}></div>
-                          {item.questionOptions.map(
-                            (correctAnswer, index_ans) => {
-                              index_ans = index_ans + 1;
-                              return (
-                                <div
-                                  key={index_ans}
-                                  className={styles.Quiz_multiple_options}
-                                >
-                                  <input
-                                    className={styles.Quiz_radio_input}
-                                    key={index_ans}
-                                    type="radio"
-                                    name={item.questionId}
-                                    value={correctAnswer.que_options}
-                                    checked={!!correctAnswer.selected}
-                                    onChange={this.onInputChange}
-                                  />
-                                  {index_ans}] {correctAnswer.que_options}
-                                </div>
-                              );
-                            }
-                          )}
                         </div>
                       </section>
                     </div>

@@ -1,15 +1,25 @@
 import { useEffect, useState } from "react";
 import Timer from "../Timer/Timer";
 import Quiz from "./Quiz";
+import { useUser } from "@auth0/nextjs-auth0/client";
 
 const QuestionView = ({ exams }) => {
   const [test, setTest] = useState({});
+  const [email, setEmail] = useState("");
+  const user = useUser().user;
+  console.log(user);
 
   useEffect(() => {
     if (exams.length > 0) {
-      setTest(exams[1]);
+      setTest(exams[0]);
     }
   }, [exams]);
+
+  useEffect(() => {
+    if (user) {
+      setEmail(user.email);
+    }
+  }, [user]);
 
   const getNextTest = () => {
     let index = exams.findIndex((item) => item._id === test._id);
@@ -21,7 +31,7 @@ const QuestionView = ({ exams }) => {
   return (
     <section>
       <Timer />
-      <Quiz test={test} getNextTest={getNextTest} />
+      <Quiz test={test} getNextTest={getNextTest} user={email} />
     </section>
   );
 };
