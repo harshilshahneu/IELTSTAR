@@ -35,6 +35,9 @@ export default function ScoreBoard() {
         //sendEmail(user, scores);
     }, [user || '']);
 
+    /**
+     * Function to get current score from API
+     */
     const getCurrentScore = () => {
         axios.get(`${url}`)
             .then((response) => {
@@ -44,6 +47,12 @@ export default function ScoreBoard() {
             })
             .catch(error => console.log(`Error: ${error}`));
     }
+
+    /**
+     * Function to Send Score via Email from API
+     * @param {user} user - LoggedIn User 
+     * 
+     */
     const sendEmail = (user) => {
         if (user) {
             axios
@@ -63,7 +72,6 @@ export default function ScoreBoard() {
           }
     }
     if (scores.length > 0) {
-        //setOpen(true);
         let series = [(scores[0].listeningScore)*11.11,(scores[0].readingScore)*11.11,(scores[0].writingScore)*11.11,(scores[0].speakingScore)*11.11];
         const handleClose = () => {
             setOpen(false);
@@ -134,8 +142,6 @@ export default function ScoreBoard() {
 
                     <style jsx>
                         {`
-                               
-    
                                 .mui-style-3su884-MuiPaper-root {
                                     padding: 10%;
                                     font-size: 20px;
@@ -147,14 +153,10 @@ export default function ScoreBoard() {
                                     font-weight: bold;
                                 }
     
-    
-    
                                 .profileIcon {
                                     margin-left: 45%;
                                     height: 100px;
                                     width: 100px;
-                                    
-    
                                 }
                                 .grid-content {
                                     margin-top: 5%
