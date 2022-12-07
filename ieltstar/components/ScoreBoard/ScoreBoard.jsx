@@ -77,7 +77,7 @@ export default function ScoreBoard() {
     if (scores.length > 0) {
         let series = [(scores[0].listeningScore)*11.11,(scores[0].readingScore)*11.11,(scores[0].writingScore)*11.11,(scores[0].speakingScore)*11.11];
         const handleClose = () => {
-            //router.push("/student/dashboard");
+            router.push("/student/dashboard");
             setOpen(false);
         };
 
@@ -86,8 +86,6 @@ export default function ScoreBoard() {
                 {/* <Button onClick={handleClickOpen}>
                     <div>GET SCORES</div>
                 </Button> */}
-
-                <div className={styles.note} key={scores[0].testId}>
 
                     <Dialog
                         fullScreen
@@ -143,7 +141,7 @@ export default function ScoreBoard() {
                         
 
                     </Dialog>
-                </div>
+                
             </>
         )
     }

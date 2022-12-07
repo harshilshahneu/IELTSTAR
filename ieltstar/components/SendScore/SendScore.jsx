@@ -9,12 +9,17 @@ import DialogTitle from '@mui/material/DialogTitle';
 import { useUser } from '@auth0/nextjs-auth0/client';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import { useDispatch } from "react-redux";
+import { openSnackbar } from "../../store/snackbarSlice";
+import LoadingButton from "@mui/lab/LoadingButton";
 
 export default function FormDialog(props) {
   const [open, setOpen] = React.useState(false);
   const [isStart, setIsStart] = React.useState(false);
   let scores = props.scores;
   const [phone, setPhone] = React.useState('+1');
+  const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
 
   // Handle Open to open dialog
   const handleClickOpen = () => {
@@ -56,6 +61,7 @@ export default function FormDialog(props) {
      */
   const sendSms = (user, scores) => {
     if (user) {
+      setLoading(true);
       axios
         .post(`${process.env.API_URL}/sms/${phone}`, {
           phonenumber: phone,
@@ -65,19 +71,39 @@ export default function FormDialog(props) {
           scores: scores[0]
         })
         .then((res) => {
+          setLoading(false);
+          dispatch(
+            openSnackbar({
+              message: "SMS Sent Successfully",
+              severity: "success",
+            })
+          );
           console.log(res);
-          console.log("SMS SEND SUCCESSFULLY");
+          console.log("SMS Sent SUCCESSFULLY");
         })
         .catch((err) => {
+          setLoading(false);
+          dispatch(
+            openSnackbar({
+              message: "Error Sending sms : " + err.message,
+              severity: "error",
+            })
+          );
           console.log(err);
         });
     }
   }
   return (
     <div>
-      <Button variant="outlined" onClick={handleClickOpen}>
-        SEND SCORE VIA PHONE NUMBER
-      </Button>
+      <LoadingButton
+              variant="outlined" 
+              onClick={handleClickOpen}
+              color="secondary"
+              loading={loading}
+              loadingPosition="start"
+            >
+              SEND SCORE VIA PHONE NUMBER
+      </LoadingButton>
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Send Score</DialogTitle>
         <DialogContent>
