@@ -14,11 +14,14 @@ import { useUser } from '@auth0/nextjs-auth0/client';
 import Grid from '@mui/material/Grid';
 import ApexChart from './RadialChart';
 import FormDialog from '../SendScore/SendScore';
+import { useRouter } from "next/router";
+import styles from "../../styles/ScoreBoard.module.scss";
 
 
 export default function ScoreBoard() {
     const [open, setOpen] = React.useState(true);
     const { user } = useUser();
+    const router = useRouter();
     //   const handleClickOpen = () => {
     //     setOpen(true);
     //   };
@@ -74,6 +77,7 @@ export default function ScoreBoard() {
     if (scores.length > 0) {
         let series = [(scores[0].listeningScore)*11.11,(scores[0].readingScore)*11.11,(scores[0].writingScore)*11.11,(scores[0].speakingScore)*11.11];
         const handleClose = () => {
+            //router.push("/student/dashboard");
             setOpen(false);
         };
 
@@ -83,13 +87,13 @@ export default function ScoreBoard() {
                     <div>GET SCORES</div>
                 </Button> */}
 
-                <div className='note' key={scores[0].testId}>
+                <div className={styles.note} key={scores[0].testId}>
 
                     <Dialog
                         fullScreen
                         open={open}
                         onClose={handleClose}
-                        TransitionComponent={Transition} className='score-board-paper'
+                        TransitionComponent={Transition} 
                     >
                         <IconButton
                             edge="start"
@@ -99,17 +103,17 @@ export default function ScoreBoard() {
                         >
                             <CloseIcon />
                         </IconButton>
-                        <div className='profile-title'>{user ? user.nickname : 'GUEST'}</div>
+                        <div className={styles.profileTitle}>{user ? user.nickname : 'GUEST'}</div>
 
-                        <div className='overall-band-component'>
+                        <div className={styles.overallBandComponent}>
                             <article>OVERALL BAND:</article>
                             <article>{scores[0].overallBand}</article>
                         </div>
                         <div className='grid-content'>
                         <Grid container spacing={0}>
                             <Grid item xs={6} md={6}>
-                                <div className='score-board-text'>
-                                    <section className='boxes container'>
+                                <div className={styles.scoreBoardText}>
+                                    <section className={styles.container}>
                                         <article className="box box1"><HeadphonesIcon className='icon'></HeadphonesIcon></article>
                                         <article className="box box2">Listening:</article>
                                         <article className="box box3">{scores[0].listeningScore}</article>
@@ -126,91 +130,19 @@ export default function ScoreBoard() {
                                 </div>
                             </Grid>
                             <Grid item xs={6} md={6}>
-                            <div className='score-chart'>
+                            <div className={styles.scoreChart}>
                                 <ApexChart series={series}></ApexChart>
                             </div>
                             </Grid>
                         </Grid>
                         </div>
-                        <div className='send-score'>
+                        <div className={styles.sendScore}>
                         <FormDialog scores={scores} />
                         </div>
                         
                         
 
                     </Dialog>
-
-                    <style jsx>
-                        {`
-                                .mui-style-3su884-MuiPaper-root {
-                                    padding: 10%;
-                                    font-size: 20px;
-                                    position: fixed;
-                                    width: 70%;
-                                    left: 50%;
-                                    top: 50%;
-                                    transform: translate(-50%, -50%);
-                                    font-weight: bold;
-                                }
-    
-                                .profileIcon {
-                                    margin-left: 45%;
-                                    height: 100px;
-                                    width: 100px;
-                                }
-                                .grid-content {
-                                    margin-top: 5%
-                                }
-    
-                                .overall-band-component {
-                                    background-color: black;
-                                    color: white;
-                                    text-align: center;
-                                    padding: 3%;
-                                    margin-left: 10%;
-                                    margin-right: 10%;
-                                    display: grid;
-                                    grid-template-columns: 45% 45%;
-                                }
-    
-                                .container {
-                                    
-                                    display: grid;
-                                    grid-template-columns: 10% 45% 45%;
-                                }
-    
-                                .profile-title {
-                                    text-align: center;
-                                    font-size: 25px;
-                                    margin-bottom: 3%;
-                                }
-                                .score-board-text {
-                                    width: 120%;
-                                    text-align: left;
-                                    padding: 5%;
-                                    margin-left: 25%;
-                                }
-                                .score-chart {
-                                    margin-left: -5%
-                                }
-    
-                                .send-score {
-                                    position: fixed;
-                                    width: 70%;
-                                    left: 20%;
-                                    top: 65%;
-                                    font-weight: bolder;
-                                    font-size: 20px;
-                                    margin-top: 5%;
-                                }
-    
-                                .icon {
-                                    margin-top: 1%;
-                                    margin-right: 1%;
-                                }
-                                
-                            `}
-                    </style>
                 </div>
             </>
         )
