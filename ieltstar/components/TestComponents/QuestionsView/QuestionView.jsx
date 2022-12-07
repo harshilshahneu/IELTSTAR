@@ -26,6 +26,9 @@ const QuestionView = ({ exams }) => {
     if (index < exams.length - 1) {
       setTest(exams[index + 1]);
     }
+    else {
+      //fire score dialog here
+    }
   };
 
   return (

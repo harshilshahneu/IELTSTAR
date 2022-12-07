@@ -100,6 +100,7 @@ export const addTestHistory = async (req, res) => {
         }
         else if(testType === "Speaking") {
             //handle score for speaking
+            req.body.score = req.body.score.reduce((prev, current) => prev + current ? current.readabilityScore:0, 0)
         }
         const updatedStudent = await studentService.addHistory(student._id, req.body);
         setResponse(res, 200, updatedStudent);

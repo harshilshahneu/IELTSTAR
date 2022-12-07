@@ -184,7 +184,7 @@ Your browser does not support the audio element.
       this.props.getNextTest();
     })
    }
-   else if(this.props.test.category === "Writing"){
+   else if(this.props.test.category === "Writing" || this.props.test.category === "Speaking"){
     console.log(this.state.writingScores)
     axios.post(`${process.env.API_URL}/students/${this.props.user}/testHistory`, {
       testType: this.props.test.category,
@@ -195,10 +195,7 @@ Your browser does not support the audio element.
       .then(()=> {
         this.props.getNextTest();
       })
-   }
-   else if(this.props.test.category === "Speaking"){}
-  
-    alert('stop')
+   } 
     // this.props.getNextTest();
     let list = this.state.questionsfromdb;
     let count = 0;
@@ -334,7 +331,7 @@ Your browser does not support the audio element.
                       <section className={styles.question_view_card}>
                         <div className={styles.Quiz_container_display}>
                           <h3>{quiz_instructions}</h3>
-                          <Dictaphone handler={this.handleSpeechText} />
+                          <Dictaphone handler={this.handleSpeechText} questionNo={index} setWritingState={this.setWritingStateHandler}/>
 
                           <div className={styles.Quiz_que}>
                             {item.questionTitle}
