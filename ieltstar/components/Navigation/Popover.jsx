@@ -23,10 +23,7 @@ export default function BasicPopover(props) {
 
   return (
     <div>
-      {/* <Button aria-describedby={id} variant="contained" onClick={handleClick}> */}
-      
         <Avatar alt="USER" src={user.picture} onClick={handleClick} aria-describedby={id} variant="contained"/>
-      {/* </Button> */}
       <Popover
         id={id}
         open={open}
