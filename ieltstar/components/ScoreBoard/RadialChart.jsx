@@ -37,7 +37,7 @@ class ApexChart extends Component {
               
             }
           },
-          colors: ['#1ab7ea', '#0084ff', '#39539E', '#0077B5'],
+          colors: ['#ffa726', '#f44336', '#66bb6a', '#93c4f0'],
           labels: ['Listening', 'Reading', 'Writing', 'Speaking'],
           legend: {
             show: true,
