@@ -1,4 +1,4 @@
-import dynamic from 'next/dynamic'
+import styles from "../../../styles/quizstyles/QuestionView.module.scss";
 // const useSpeechToText = dynamic(() => import('react-hook-speech-to-text'), { ssr: false });
 // const useSpeechToText = (await import('react-hook-speech-to-text')).default;
 
@@ -9,8 +9,22 @@ import React, { useEffect, useState } from "react";
 import SpeechRecognition, {
   useSpeechRecognition
 } from "react-speech-recognition";
+import { Grammarly, GrammarlyEditorPlugin } from "@grammarly/editor-sdk-react";
+
+let demoClientId = "client_9m1fYK3MPQxwKsib5CxtpB";
+
+
+const StatsOutput = ({ title, stats }) => (
+  <section>
+    <h3>{title}</h3>
+    <pre>{JSON.stringify(stats, null, 2)}</pre>
+  </section>
+);
 
 const Dictaphone = ({ handler}) => {
+    // const [grammarlyConfig, setGrammarlyConfig] = useState({ underlines: "on", suggestionCards: "on" })
+    const [docStats, setDocStats] = useState();
+    const [sessionStats, setSessionStats] = useState();
   const {
     transcript,
     listening,
@@ -40,7 +54,26 @@ const Dictaphone = ({ handler}) => {
         <option value="hi-IN">Hindi</option>
       </select>
       <br /> <br />
-      <textarea id="te" rows="3" cols="100" value={transcript} />
+      {/* <textarea id="te" rows="3" cols="100" value={transcript} /> */}
+      <Grammarly clientId={demoClientId}>
+      <h2>Textarea</h2>
+      <GrammarlyEditorPlugin
+        config={{ underlines: "off", suggestionCards: "off", activation: "immediate" }}
+        onDocumentStats={(evt) => setDocStats(evt.detail)}
+        onSessionStats={(evt) => setSessionStats(evt.detail)}
+      >
+        <textarea
+          defaultValue={transcript}
+          rows={10}
+          className={styles.question_view_textarea}
+          disabled
+        ></textarea>
+      </GrammarlyEditorPlugin>
+      {docStats && <StatsOutput stats={docStats} title="Document Stats" />}
+      {sessionStats && (
+        <StatsOutput stats={sessionStats} title="Session Stats" />
+      )}
+    </Grammarly>
       <br /> <br />
       <button
         onClick={() =>
@@ -52,7 +85,8 @@ const Dictaphone = ({ handler}) => {
       >
         Start
       </button>
-      <button onClick={SpeechRecognition.stopListening}>Stop</button>
+      <button onClick={()=>{SpeechRecognition.stopListening();document.querySelector(".QuestionView_question_view_textarea__nlBO4").select()
+}}>Stop</button>
       <button
         onClick={() => {
           const el = document.getElementById("te");
