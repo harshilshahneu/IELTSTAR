@@ -1,30 +1,21 @@
-import nodemailer from "nodemailer";
 import dotenv from "dotenv";
-
+import sgMail from "@sendgrid/mail";
 dotenv.config();
 
-const mailer = nodemailer.createTransport({
-  service: "SendGrid",
-  auth: {
-    user: "apikey",
-    pass: `${process.env.SENDGRID_APIKEY}`,
-  },
-});
-
+sgMail.setApiKey(`${process.env.SENDGRID_APIKEY}`);
 // set status and send response
 const setResponse = (res, status, data) => {
   res.status(status).json(data);
 };
 
-// get all exams
+// send emails
 export const sendEmails = async (req, res) => {
-  const id = JSON.stringify(req.params.id);
   const options = {
     from: `${process.env.FROM_EMAIL}`,
-    to: id,
+    to: req.params.id,
     // email subject
     subject: "Ielts Test Scores",
-    templateId: "d-b2de4eb090e841de8e0a207a02261464",
+    templateId: `${process.env.SENDGRID_TEMPLATEID}`,
     dynamic_template_data: {
       email: req.body.email,
       name: req.body.name,
@@ -40,7 +31,7 @@ export const sendEmails = async (req, res) => {
   };
   try {
     //   send email
-    await mailer.sendMail(options);
+    await sgMail.send(options);
     res.status(200).json({
       message: "success",
     });
