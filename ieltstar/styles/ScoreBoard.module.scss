@@ -1,27 +1,13 @@
-
-
-.mui-style-3su884-MuiPaper-root {
-    padding: 10%;
-    font-size: 20px;
-    position: fixed;
-    width: 70%;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    font-weight: bold;
-}
-
-
-
 .profileIcon {
     margin-left: 45%;
     height: 100px;
     width: 100px;
-    
-
+}
+.gridContent {
+    margin-top: 5%
 }
 
-.overall-band-component {
+.overallBandComponent {
     background-color: black;
     color: white;
     text-align: center;
@@ -36,27 +22,31 @@
     
     display: grid;
     grid-template-columns: 10% 45% 45%;
-  }
+}
 
-.profile-title {
+.profileTitle {
     text-align: center;
     font-size: 25px;
     margin-bottom: 3%;
 }
-.score-board-text {
+.scoreBoardText {
+    width: 120%;
     text-align: left;
     padding: 5%;
-    margin-left: 10%;
+    margin-left: 25%;
+}
+.scoreChart {
+    margin-left: -5%
 }
 
-.restart-test {
+.sendScore {
     position: fixed;
     width: 70%;
-    left: 15%;
-    top: 80%;
+    left: 20%;
+    top: 65%;
     font-weight: bolder;
     font-size: 20px;
-    margin-top: 1%;
+    margin-top: 5%;
 }
 
 .icon {
