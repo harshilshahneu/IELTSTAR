@@ -1,5 +1,4 @@
 import QuestionsView from "../../../components/TestComponents/QuestionsView/QuestionView";
-import Reading from "../../../components/TestComponents/QuestionsView/Quiz_Writing";
 import { FullScreen, useFullScreenHandle } from "react-full-screen";
 import { Fab } from "@mui/material";
 import FullscreenIcon from "@mui/icons-material/Fullscreen";
