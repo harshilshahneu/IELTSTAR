@@ -64,7 +64,12 @@ export const deleteExam = async (req, res) => {
 //get all the tests in the exam
 export const getTestsInExam = async (req, res) => {
     try {
-        const tests = await examService.getTestsInExam(req.params.id);
+        const tests = await examService.getTestsInExam(req.params.id, "user");
+        tests.forEach(test => {
+            test.questions.forEach(question => {
+                question.answer = null;
+            });
+        });
         setResponse(res, 200, tests);
     }
     catch (e) {

@@ -36,6 +36,7 @@
     "react": "18.2.0",
     "react-apexcharts": "^1.4.0",
     "react-dom": "18.2.0",
+    "react-full-screen": "^1.1.1",
     "react-h5-audio-player": "^3.8.6",
     "react-hook-speech-to-text": "^0.8.0",
     "react-mic": "^12.4.6",

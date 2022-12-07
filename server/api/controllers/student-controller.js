@@ -1,4 +1,5 @@
 import * as studentService from '../services/student-service.js';
+import * as testService from '../services/test-service.js';
 
 // set status and send response
 const setResponse = (res, status, data) => {
@@ -75,7 +76,33 @@ export const deleteStudent = async (req, res) => {
 // add student history
 export const addTestHistory = async (req, res) => {
     try {
-        const updatedStudent = await studentService.addHistory(req.params.id, req.body);
+        const {  testId, userResponse, testType } = req.body;
+        const student = await studentService.getByEmail(req.params.id);
+        const test = await testService.getById(testId);
+        if(testType === "Listening" || testType === "Reading") {
+            test.questions.forEach((question) => {
+                userResponse.forEach(response => {
+                    if(response.questionId === question._id.toString()) {
+                        response.questionOptions.forEach(option => {
+                            if(option.hasOwnProperty('selected')) {
+                                if(option.selected && option.que_options == question.answer) {
+                                    req.body.score += 1
+                                }
+                            }
+                        })
+                    }
+                })
+            });
+        }
+        else if(testType === "Writing") {
+            //handle score for writing
+            req.body.score = req.body.score[0].suggestionsCount + req.body.score[1].suggestionsCount
+        }
+        else if(testType === "Speaking") {
+            //handle score for speaking
+            req.body.score = req.body.score.reduce((prev, current) => prev + current ? current.readabilityScore:0, 0)
+        }
+        const updatedStudent = await studentService.addHistory(student._id, req.body);
         setResponse(res, 200, updatedStudent);
     }
     catch (e) {
