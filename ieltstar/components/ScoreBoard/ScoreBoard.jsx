@@ -31,7 +31,8 @@ export default function ScoreBoard() {
 
     useEffect(() => {
         getCurrentScore();
-        sendEmail(user, scores);
+        // Please uncomment after development
+        //sendEmail(user, scores);
     }, [user || '']);
 
     const getCurrentScore = () => {
