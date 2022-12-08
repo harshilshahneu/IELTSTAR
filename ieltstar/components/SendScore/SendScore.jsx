@@ -68,7 +68,7 @@ export default function FormDialog(props) {
           email: user.email,
           name: user.given_name || user.nickname,
           picture: user.picture,
-          scores: scores[0]
+          scores: scores
         })
         .then((res) => {
           setLoading(false);
