@@ -5,6 +5,7 @@ import { useState } from "react";
 import DrawerHeader from "../Navigation/DrawerHeader";
 import Head from "next/head";
 
+//Default Layout for student page
 export default function Default({ children }) {
   const [open, setOpen] = useState(true);
 

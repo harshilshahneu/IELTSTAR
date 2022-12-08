@@ -13,6 +13,7 @@ import Box from "@mui/material/Box";
 import { useUser } from "@auth0/nextjs-auth0/client";
 import axios from "axios";
 
+// Dashboard Page for Student to see all stats and leaderboard
 const dashboard = () => {
   const user = useUser().user;
   const [userData, setUserData] = useState({});

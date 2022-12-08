@@ -8,6 +8,8 @@ import { useUser } from "@auth0/nextjs-auth0/client";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
 
+
+//Admin Layout for admin page
 export default function Default({ children }) {
   const [open, setOpen] = useState(true);
   const user = useUser().user;

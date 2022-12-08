@@ -16,6 +16,7 @@ import LeaderboardIcon from "@mui/icons-material/Leaderboard";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
+//drawer syling and theming
 const drawerWidth = 240;
 
 const openedMixin = (theme) => ({
@@ -55,6 +56,7 @@ const Drawer = styled(MuiDrawer, {
   }),
 }));
 
+//side drawer for student layout
 const DefaultDrawer = ({ open, handleDrawerClose }) => {
   const [selected, setSelected] = useState('dashboard');
   const theme = useTheme();

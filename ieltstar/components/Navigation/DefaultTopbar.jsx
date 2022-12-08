@@ -18,6 +18,7 @@ import { useUser } from "@auth0/nextjs-auth0/client";
 import Avatar from "@mui/material/Avatar";
 import BasicPopover from "./Popover";
 
+//topbar styling and theming
 const drawerWidth = 240;
 
 const AppBar = styled(MuiAppBar, {
@@ -78,6 +79,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
+//topbar component for student layout
 export default function DefaultTopbar({ open, handleDrawerOpen }) {
   const theme = useTheme();
   const colorMode = useContext(ColorModeContext);

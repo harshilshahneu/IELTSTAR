@@ -13,6 +13,8 @@ import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 import Link from "next/link";
 import { useState } from "react";
 
+
+//drawer syling and theming
 const drawerWidth = 240;
 
 const openedMixin = (theme) => ({
@@ -52,6 +54,7 @@ const Drawer = styled(MuiDrawer, {
   }),
 }));
 
+//side drawer for admin page
 const AdminDrawer = ({ open, handleDrawerClose }) => {
   const [selected, setSelected] = useState('exam');
   const theme = useTheme();

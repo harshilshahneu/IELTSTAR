@@ -6,6 +6,7 @@ import ExamCard from "../../components/Student/Archive/ExamCard";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
+// Archive Page for Student to see all exams and tests
 const archive = () => {
   const [data, setData] = useState([]);
 

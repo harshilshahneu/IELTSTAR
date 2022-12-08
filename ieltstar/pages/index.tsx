@@ -13,6 +13,7 @@ interface User {
   };
 }
 
+//Handler for login and sign-up and redirecting to admin or student dashboard
 const Home = () => {
   const user = useUser().user;
   const router = useRouter();
