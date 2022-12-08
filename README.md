@@ -51,6 +51,18 @@ IELTSTAR is an online IELTS test platform. The platform provides multiple mock t
 - Run `npm start` in ieltstar and server folder to start the application, `npm run dev` in ieltstar folder to start the application in development mode
 - Go to http://localhost:3000 to view the application
 
+### Technology Stack
+- React
+- Node.js
+- Express
+- MongoDB
+- Auth0
+- SendGrid
+- Twilio
+- React Material UI
+- NextJS
+- TypeScript
+
 ### Folder Structure
 ```
 .
@@ -81,17 +93,6 @@ IELTSTAR is an online IELTS test platform. The platform provides multiple mock t
 │   ├──├── services - All the services
     └──└── models - All the models
 
-### Technology Stack
-- React
-- Node.js
-- Express
-- MongoDB
-- Auth0
-- SendGrid
-- Twilio
-- React Material UI
-- NextJS
-- TypeScript
-
+```
 
 
