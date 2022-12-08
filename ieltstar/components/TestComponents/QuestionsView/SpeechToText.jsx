@@ -1,10 +1,5 @@
 import styles from "../../../styles/quizstyles/QuestionView.module.scss";
-// const useSpeechToText = dynamic(() => import('react-hook-speech-to-text'), { ssr: false });
-// const useSpeechToText = (await import('react-hook-speech-to-text')).default;
-
-// const {SpeechRecognition} = dynamic(() => import('react-speech-recognition'), { ssr: false });
-// const {useSpeechRecognition} = dynamic(() => import('react-speech-recognition'), { ssr: false });
-
+//Converts speecht to text
 import React, { useEffect, useState } from "react";
 import SpeechRecognition, {
   useSpeechRecognition,

@@ -23,11 +23,11 @@ import SpeakingInstructions from "../../Instructions/Speaking";
 import PlayCircleIcon from '@mui/icons-material/PlayCircle';
 import ScoreBoard from '../../ScoreBoard/ScoreBoard';
 
-
+//Navigation buttons
 const Transition = forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
-
+//Shows section instructions
 const getInstructions = (type) => {
   switch (type) {
     case "Reading":
@@ -42,7 +42,7 @@ const getInstructions = (type) => {
       return <div>no instructions</div>;
   }
 };
-
+//Actual questions component
 const QuestionView = ({ exams }) => {
   const [open, setOpen] = useState(true);
   const [currentInsctruction, setCurrentInsctruction] = useState("Listening");
@@ -86,6 +86,8 @@ const QuestionView = ({ exams }) => {
       setEmail(user.email);
     }
   }, [user]);
+
+  //Opens next section
 
   const getNextTest = () => {
     let index = exams.findIndex((item) => item._id === test._id);

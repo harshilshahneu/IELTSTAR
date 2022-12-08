@@ -1,7 +1,7 @@
 // import '../../../pages/quizstyles/Paragraph.scss';
 import React, {Component} from 'react';
 import styles from '../../../styles/quizstyles/Paragraph.module.scss';
-
+//Demo component for showing demo paragraph
 class Paragraph extends Component {
     render() {
         return(

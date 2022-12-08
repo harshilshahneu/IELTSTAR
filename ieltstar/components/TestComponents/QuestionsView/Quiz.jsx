@@ -19,13 +19,15 @@ let demoClientId = "client_9m1fYK3MPQxwKsib5CxtpB";
 let demoText = {
   textarea: ``,
 };
-
+//Grammarly output of suggestions
 const StatsOutput = ({ title, stats }) => (
   <section>
     <h3>{title}</h3>
     <pre>{JSON.stringify(stats, null, 2)}</pre>
   </section>
 );
+
+//Grammarly text analysis component
 export const Editors = ({questionNo, setWritingState}) => {
   // const [grammarlyConfig, setGrammarlyConfig] = useState({ underlines: "on", suggestionCards: "on" })
   const [docStats, setDocStats] = useState();
@@ -80,6 +82,8 @@ Your browser does not support the audio element.
 </audio>`;
     }
 
+    //Mapping questions with answers
+
     questions = questions.map((question, index) => ({
       questionId: question._id,
       questionTitle: question.title,
@@ -106,11 +110,13 @@ Your browser does not support the audio element.
       writingScores: [0, 0],
     };
   }
+
+  //To convert speech to text
   handleSpeechText = (text) => this.setState({ speakingtext: text });
   handleNext = () => {
     this.setState({ activeStep: this.state.activeStep + 1 });
   };
-
+//Back navigation
   handleBack = () => {
     this.setState({ activeStep: this.state.activeStep - 1 });
   };
@@ -121,7 +127,7 @@ Your browser does not support the audio element.
     }
     this.setState({ open: false });
   };
-
+//If input is selected then check if answer is correct or not
   onInputChange = (e) => {
     if (questionCategory === "Writing") {
       this.setState({ writingtext: e.target.value });
@@ -149,8 +155,10 @@ Your browser does not support the audio element.
     array[questionNo] = writingState;
     this.setState({writingScores: array})
   }
-
+//After submitting the answers of every section
   onsubmit = () => {
+
+    //Calculates score for reading & listening
    if(this.props.test.category === "Listening" || this.props.test.category === "Reading"){
     axios.post(`${process.env.API_URL}/students/${this.props.user}/testHistory`, {
       testType: this.props.test.category,
@@ -179,7 +187,6 @@ Your browser does not support the audio element.
     let count = 0;
     let notattempcount = 0;
 
-    // TODO: Pass the writing text (writingtext) to server
     list.map((item, key) => {
       item.questionOptions.map((anslist, key) => {
         //  console.log("anslist.selected===>",anslist.selected)
@@ -220,7 +227,7 @@ Your browser does not support the audio element.
       
     }
   };
-
+//Snackbar warnings
   Snackbarrender = () => {
     return this.state.open ? (
       <Snackbar
@@ -366,7 +373,6 @@ Your browser does not support the audio element.
                 return null;
               }
             })}
-
             <div className="Quiz-MobileStepper">
               <MobileStepper
                 variant="dots"
