@@ -123,9 +123,10 @@ const QuestionView = ({ exams }) => {
             </Typography>
           </Toolbar>
         </AppBar>
-       <Box sx={{display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "column", height: "100%", p: 10}}>
+       <Box sx={{display: "flex", alignItems: "left", justifyContent: "left", flexDirection: "column", height: "100%", p: 10}}>
         {getInstructions(currentInsctruction)} 
-        <Button onClick={handleClose} variant="outlined" endIcon={<PlayCircleIcon />} size="large">
+        <br />
+        <Button onClick={handleClose} variant="outlined" endIcon={<PlayCircleIcon />} size="large" color="warning">
         {currentInsctruction === "Listening" ? "Start" : "Next"}
 </Button>
        </Box>
