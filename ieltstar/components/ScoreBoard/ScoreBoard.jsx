@@ -23,27 +23,31 @@ import styles from "../../styles/ScoreBoard.module.scss";
 export default function ScoreBoard({open, setOpen}) {
     const { user } = useUser();
     const router = useRouter();
+    const { id } = router.query;
     const Transition = React.forwardRef(function Transition(props, ref) {
         return <Slide direction="up" ref={ref} {...props} />;
     });
-    const [scores, getScores] = useState([]);
-    let testID = 2;
-    const url = `${process.env.API_URL}/score?testId="${testID}"`;
+    const [scores, setScores] = useState([]);
+    //let testID = 2;
+    //const url = `${process.env.API_URL}/score?testId="${testID}"`;
 
     useEffect(() => {
-        getCurrentScore();
+        if (!id) {
+            return;
+          } else {
+            getCurrentScore(id);
         // Please uncomment after development
         //sendEmail(user, scores);
+          }
     }, [user || '']);
 
     /**
      * Function to get current score from API
      */
-    const getCurrentScore = () => {
+    const getCurrentScore = (id) => {
         
-        axios.get(`${process.env.API_URL}/students/email/arvindmann307@gmail.com`)
+        axios.get(`${process.env.API_URL}/students/email/${user.email}`)
         .then((response) => {
-            //console.log(response.data.testHistory);
             console.log("Test Data");
             const userData = response.data.testHistory;
             let overall;
@@ -56,11 +60,7 @@ export default function ScoreBoard({open, setOpen}) {
             let writingCount = 0;
             let writing = 0;
             userData.forEach(userTest => {
-                //console.log(userTest.examId);
-                //let num = Number("638a57d71435b001ef155480");
-                //console.log(typeOf userTest.testId);
-                if (userTest.examId == "638a57d71435b001ef155480") {
-                    //console.log(userTest.examId);
+                if (userTest.examId == id) {
                     if (userTest.testType === "Listening") {
                         listening += userTest.score;
                         listeningCount++;
@@ -111,24 +111,20 @@ export default function ScoreBoard({open, setOpen}) {
                     }
                     
                 }
-                // if (overall == 0) {
                     overall =  Math.round(((reading + writing + speaking + listening) / 4)*2)/2;
-                    console.log(overall);
-                    console.log("overall");
-                // }
+                    if ( overall < 4.5) {
+                        overall = 4.5;
+                    }
 
             });
-            let scores = {
+            let scoresData = {
                 overallBand: overall,
                 listeningScore: listening,
                 readingScore: reading,
                 writingScore: writing,
                 speakingScore: speaking
             }
-            
-
-            //const scores = response.data;
-            getScores(scores);
+            setScores(scoresData);
             console.log(scores);
         })
             .catch(error => console.log(`Error: ${error}`));
@@ -139,7 +135,7 @@ export default function ScoreBoard({open, setOpen}) {
      * @param {user} user - LoggedIn User 
      * 
      */
-    const sendEmail = (user) => {
+    const sendEmail = (user, scores) => {
         if (user) {
             axios
             .post(`${process.env.API_URL}/email/${user.email}`, {
@@ -157,9 +153,6 @@ export default function ScoreBoard({open, setOpen}) {
               });
           }
     }
-    // if (scores.length > 0) {
-        console.log(scores.speakingScore);
-        console.log("speakingScore");
         let series = [(scores.listeningScore)*11.11,(scores.readingScore)*11.11,(scores.writingScore)*11.11,(scores.speakingScore)*11.11];
         const handleClose = () => {
             router.push("/student/dashboard");
@@ -168,10 +161,6 @@ export default function ScoreBoard({open, setOpen}) {
 
         return (
             <>
-                {/* <Button onClick={handleClickOpen}>
-                    <div>GET SCORES</div>
-                </Button> */}
-
                     <Dialog
                         fullScreen
                         open={open}
@@ -278,6 +267,5 @@ export default function ScoreBoard({open, setOpen}) {
                 
             </>
         )
-    // }
 
 }
