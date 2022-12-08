@@ -257,7 +257,7 @@ const dashboard = () => {
             list={[...Array(5)].map((_, index) => ({
               id: index,
               title: ["Amey Bansod", "Keerthana Zues", "Saloni Chaaku", "Rahul Kumar", "Santosh Biden"][index],
-              description: timeline[index]?.type,
+              description: ["General", "Academic", "General", "Academic", "Academic"][index],
               image: `/avatars/avatar_${index + 1}.jpg`,
               proficiency: 8.5 - index,
             }))}

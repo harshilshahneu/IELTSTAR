@@ -2,7 +2,7 @@ import "regenerator-runtime/runtime";
 import Dictaphone from "./SpeechToText";
 import { Grammarly, GrammarlyEditorPlugin } from "@grammarly/editor-sdk-react";
 import { Component, use, useEffect, useState, React } from "react";
-import { MobileStepper } from "@mui/material";
+import { Divider, MobileStepper } from "@mui/material";
 import Button from "@mui/material/Button";
 import Replay from "@mui/icons-material/Replay";
 import Snackbar from "@mui/material/Snackbar";
@@ -327,9 +327,12 @@ Your browser does not support the audio element.
                       <section className={styles.question_view_card}>
                         <div className={styles.Quiz_container_display}>
                           <h3>{quiz_instructions}</h3>
-
+                          <Divider />
+                          <br />
                           <div className={styles.Quiz_que}>
                             {item.questionTitle}
+                            <br />
+                            <br />
                           </div>
 
                           <div className={styles.Quiz_options}></div>
@@ -350,7 +353,7 @@ Your browser does not support the audio element.
                                     checked={!!correctAnswer.selected}
                                     onChange={this.onInputChange}
                                   />
-                                  {index_ans}] {correctAnswer.que_options}
+                                   &nbsp;&nbsp;{correctAnswer.que_options}
                                 </div>
                               );
                             }
