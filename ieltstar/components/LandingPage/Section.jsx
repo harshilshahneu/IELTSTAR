@@ -11,20 +11,30 @@ const Section = () => {
   const sectionItems = [
     {
       id: 1,
-      icon: <AssignmentIcon sx={{ fontSize: 100 }} color="primary" />,
+      icon: (
+        <AssignmentIcon sx={{ fontSize: 100 }} className={styles.menuIcon} />
+      ),
       sentence:
         "Use our free IELTS practice tests to study. Improve your listening, reading, writing and speaking. 2022 updated!",
     },
     {
       id: 2,
-      icon: <HistoryToggleOffIcon sx={{ fontSize: 100 }} color="primary" />,
+      icon: (
+        <HistoryToggleOffIcon
+          sx={{ fontSize: 100 }}
+          className={styles.menuIcon}
+        />
+      ),
       sentence:
         "Saving your time by doing a short test in our website everyday to track your progress.",
     },
     {
       id: 3,
-      icon: <PaidOutlinedIcon sx={{ fontSize: 100 }} color="primary" />,
-      sentence: "Flexible payment plan is applicable to all our services",
+      icon: (
+        <PaidOutlinedIcon sx={{ fontSize: 100 }} className={styles.menuIcon} />
+      ),
+      sentence:
+        "Learn from the best and most effective IELTS practice test material for Listening, Reading, Writing, and Speaking without worrying about your pockets.    ",
     },
   ];
   return (

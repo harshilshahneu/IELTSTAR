@@ -20,7 +20,7 @@ const Hero = () => {
           </Typography>
           <Button
             variant="contained"
-            color="primary"
+            className={styles.button}
             sx={{ width: "200px", fontSize: "16px" }}
             href="/api/auth/login"
           >

@@ -9,28 +9,28 @@ const Testimonial = () => {
       id: 1,
       name: "Karl Brighton",
       statement:
-        "The team perfectly fit the specialized skill set required. They focused on the most essential features helping us launch the platform eight months faster than planned.",
+        "I find IELTSTAR very useful for helping my students prepare for the Ielts exam. Great site with excellent questions in reading, writing, speaking & vocabulary! ",
       image_url:
         "https://sweta-myteam-website-fm.netlify.app/static/media/avatar-kady.78fc482c.jpg",
-      position: "Software Engineer at Kadex",
+      position: "Canada",
     },
     {
       id: 2,
       name: "Krishna Bells",
       statement:
-        "We needed to automate our entire onboarding process. The team came in and built out the whole journey. Since going live, user retention has gone through the roof!",
+        "I found the IELTSTAR Practice Tests to be a great learning and review tool for people who will be required to take this test in the near future.",
       image_url:
         "https://sweta-myteam-website-fm.netlify.app/static/media/avatar-aiysha.e119a0c1.jpg",
-      position: "Product Manager at Google",
+      position: "England",
     },
     {
       id: 3,
       name: "Ben Spiff",
       statement:
-        "Amazing. Our team helped us build an app that delivered a new experience for hiring a physio. The launch was an instant success with 100k downloads in the first month.",
+        "IELTSTAR is what you need if studying for the exam. Will give you a better understanding of the overall feel of the test which is very important. It has useful practice tests.",
       image_url:
         "https://sweta-myteam-website-fm.netlify.app/static/media/avatar-arthur.098c2e26.jpg",
-      position: "Founder of Crypto",
+      position: "USA",
     },
   ];
   return (
