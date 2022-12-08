@@ -2,6 +2,7 @@ import React from "react";
 import { Box, Typography, Link } from "@mui/material";
 import styles from "../../styles/Landing.module.scss";
 
+// Adding html and styling for Footer component
 const Footer = () => {
   const date = new Date().getFullYear();
 

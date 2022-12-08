@@ -5,8 +5,6 @@ import {
   Box,
   Toolbar,
   List,
-  ListItem,
-  ListItemText,
   IconButton,
   Drawer,
 } from "@mui/material";
@@ -45,6 +43,7 @@ ElevationScroll.propTypes = {
   window: PropTypes.func,
 };
 
+// adding styles for header components
 const Header = (props) => {
   const [state, setState] = React.useState({
     right: false,

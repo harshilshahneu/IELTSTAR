@@ -30,7 +30,7 @@ export const sendEmails = async (req, res) => {
     },
   };
   try {
-    //   send email
+    //   send email using twilio sendgrid
     await sgMail.send(options);
     res.status(200).json({
       message: "success",

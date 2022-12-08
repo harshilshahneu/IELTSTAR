@@ -7,6 +7,7 @@ import AllInclusiveIcon from "@mui/icons-material/AllInclusive";
 import PaidOutlinedIcon from "@mui/icons-material/PaidOutlined";
 import styles from "../../styles/Landing.module.scss";
 
+// Adding html and styling for Section component
 const Section = () => {
   const sectionItems = [
     {

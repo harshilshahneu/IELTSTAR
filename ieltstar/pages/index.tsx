@@ -57,18 +57,12 @@ const Home = () => {
 
   return (
     <>
-      <script
-        src="https://cdn.onesignal.com/sdks/OneSignalSDK.js"
-        async=""
-      ></script>
+      <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js"></script>
       <Backdrop
         sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
         open={true}
       >
-        <script
-          src="https://cdn.onesignal.com/sdks/OneSignalSDK.js"
-          async=""
-        ></script>
+        <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js"></script>
         <CircularProgress color="primary" />
       </Backdrop>
     </>

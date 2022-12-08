@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-
+// initialize one signal and send prompt
 const useOneSignal = () =>
   useEffect(() => {
     window.OneSignal = window.OneSignal || [];

@@ -3,6 +3,7 @@ import { Typography, Box, Card, CardContent, Grid } from "@mui/material";
 import { Avatar } from "@mui/material";
 import styles from "../../styles/Landing.module.scss";
 
+// Adding html and styling for Testimonial component
 const Testimonial = () => {
   const reviews = [
     {

@@ -33,7 +33,6 @@ const Hero = () => {
             alt="Picture of the author"
             className={styles.largeImage}
           />
-          {/* <img src={myteam} alt="My Team" className={styles.largeImage} /> */}
         </Grid>
       </Grid>
     </Box>

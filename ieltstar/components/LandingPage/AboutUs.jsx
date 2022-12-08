@@ -4,6 +4,7 @@ import bestTeams from "../../images/certification.svg";
 import Image from "next/image";
 import styles from "../../styles/Landing.module.scss";
 
+// Adding html and styling for About component
 const AboutUs = () => {
   return (
     <Box className={styles.aboutUsContainer}>
