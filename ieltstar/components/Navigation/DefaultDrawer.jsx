@@ -83,12 +83,6 @@ const DefaultDrawer = ({ open, handleDrawerClose }) => {
           </ListItemIcon>
           <ListItemText primary="Dashboard" />
         </ListItem>
-        <ListItem button component={Link} href="/student/test" selected={selected == 'test'} onClick={() => setSelected('test')}>
-          <ListItemIcon>
-            <PracticeIcon />
-          </ListItemIcon>
-          <ListItemText primary="Practice Test" />
-        </ListItem>
        
         <ListItem button component={Link} href="/student/archive" selected={selected == 'archive'} onClick={() => setSelected('archive')}>
           <ListItemIcon>
@@ -97,15 +91,7 @@ const DefaultDrawer = ({ open, handleDrawerClose }) => {
           <ListItemText primary="Archive" />
         </ListItem>
       </List>
-      <Divider />
-      <List>
-      <ListItem button component={Link} href="/student/leaderboard" selected={selected == 'leaderboard'} onClick={() => setSelected('leaderboard')}>
-          <ListItemIcon>
-            <LeaderboardIcon />
-          </ListItemIcon>
-          <ListItemText primary="Leaderboard" />
-        </ListItem>
-      </List>
+      
     </Drawer>
   );
 };
