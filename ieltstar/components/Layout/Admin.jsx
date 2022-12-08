@@ -4,9 +4,14 @@ import AdminDrawer from "../Navigation/AdminDrawer";
 import { useState } from "react";
 import DrawerHeader from "../Navigation/DrawerHeader";
 import Head from "next/head";
+import { useUser } from "@auth0/nextjs-auth0/client";
+import { useEffect } from "react";
+import { useRouter } from "next/router";
 
 export default function Default({ children }) {
   const [open, setOpen] = useState(true);
+  const user = useUser().user;
+  const router = useRouter();
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -15,6 +20,19 @@ export default function Default({ children }) {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
+  useEffect(() => {
+    if (user) {
+      //handle log-in or sign-up
+      if(user.email !== "admin@gmail.com") {
+        router.push("/");
+      }
+    } else {
+      //when user logs-out
+      router.push("/landing");
+    }
+  }, [user]);
+
 
   return (
     <>
