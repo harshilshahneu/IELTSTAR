@@ -24,7 +24,7 @@ export default function Default({ children }) {
   useEffect(() => {
     if (user) {
       //handle log-in or sign-up
-      if(user.email !== "admin") {
+      if(user.email !== "admin@gmail.com") {
         router.push("/");
       }
     } else {
