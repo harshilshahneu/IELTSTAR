@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import axios from "axios";
 import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
+import runOneSignal from "../store/onesignal";
 
 interface User {
   user: {
@@ -18,6 +19,7 @@ const Home = () => {
   const router = useRouter();
 
   useEffect(() => {
+    runOneSignal();
     if (user) {
       //redirect to admin if admin
       console.log(user.email);
