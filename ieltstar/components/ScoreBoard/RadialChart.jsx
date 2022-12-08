@@ -45,7 +45,7 @@ class ApexChart extends Component {
             floating: true,
             fontSize: '16px',
             position: 'left',
-            offsetX: 160,
+            offsetX: 190,
             offsetY: 15,
             labels: {
               useSeriesColors: true,

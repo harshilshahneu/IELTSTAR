@@ -1,25 +1,29 @@
-import * as React from 'react';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
-import { useUser } from '@auth0/nextjs-auth0/client';
-import axios from 'axios';
-import { useEffect, useState } from 'react';
+import * as React from "react";
+import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
+import { useUser } from "@auth0/nextjs-auth0/client";
+import axios from "axios";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { openSnackbar } from "../../store/snackbarSlice";
 import LoadingButton from "@mui/lab/LoadingButton";
+import { useRouter } from "next/router";
+import IconHome from "@mui/icons-material/Home";
+import SendIcon from '@mui/icons-material/Send';
 
 export default function FormDialog(props) {
   const [open, setOpen] = React.useState(false);
   const [isStart, setIsStart] = React.useState(false);
   let scores = props.scores;
-  const [phone, setPhone] = React.useState('+1');
+  const [phone, setPhone] = React.useState("+1");
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
+  const router = useRouter();
 
   // Handle Open to open dialog
   const handleClickOpen = () => {
@@ -51,14 +55,14 @@ export default function FormDialog(props) {
       setIsStart(false);
       setOpen(false);
     }
-  }, [isStart || '']);
+  }, [isStart || ""]);
 
   /**
-     * Function to Send Score via SMS from API
-     * @param {user} user - LoggedIn User 
-     * @param {scores} user - LoggedIn User 
-     * 
-     */
+   * Function to Send Score via SMS from API
+   * @param {user} user - LoggedIn User
+   * @param {scores} user - LoggedIn User
+   *
+   */
   const sendSms = (user, scores) => {
     if (user) {
       setLoading(true);
@@ -68,7 +72,7 @@ export default function FormDialog(props) {
           email: user.email,
           name: user.given_name || user.nickname,
           picture: user.picture,
-          scores: scores
+          scores: scores,
         })
         .then((res) => {
           setLoading(false);
@@ -92,18 +96,27 @@ export default function FormDialog(props) {
           console.log(err);
         });
     }
-  }
+  };
+  const handleRedirect = () => {
+    router.push("/student/dashboard");
+    setOpen(false);
+  };
   return (
-    <div>
+    <>
       <LoadingButton
-              variant="outlined" 
-              onClick={handleClickOpen}
-              color="secondary"
-              loading={loading}
-              loadingPosition="start"
-            >
-              SEND SCORE VIA PHONE NUMBER
+        variant="outlined"
+        onClick={handleClickOpen}
+        color="warning"
+        loading={loading}
+        loadingPosition="start"
+        endIcon={<SendIcon />}
+      >
+        SEND SCORE VIA PHONE NUMBER
       </LoadingButton>
+
+      <Button variant="outlined" endIcon={<IconHome />}>
+        Exit
+      </Button>
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Send Score</DialogTitle>
         <DialogContent>
@@ -118,9 +131,9 @@ export default function FormDialog(props) {
             type="text"
             fullWidth
             variant="standard"
-            value={phone} 
+            value={phone}
             onChange={handleChange}
-            inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
+            inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
           />
         </DialogContent>
         <DialogActions>
@@ -128,6 +141,6 @@ export default function FormDialog(props) {
           <Button onClick={handleSend}>Send</Button>
         </DialogActions>
       </Dialog>
-    </div>
+    </>
   );
 }
