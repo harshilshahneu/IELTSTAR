@@ -113,7 +113,7 @@ export const addTestHistory = async (req, res) => {
                 }
             })
             req.body.score = req.body.score[0].suggestionsCount + req.body.score[1].suggestionsCount
-            let totalSuggestions = req.body.score * 0.045;
+            let totalSuggestions = req.body.score * 0.00045;
             score = req.body.score - totalSuggestions;
             if(wordCount[0] < 250) {
                 score = req.body.score - 2
@@ -151,6 +151,7 @@ export const addTestHistory = async (req, res) => {
                 req.body.score = 4.5
             }
         }
+        req.body.score =  Math.round(req.body.score*2)/2;
         const updatedStudent = await studentService.addHistory(student._id, req.body);
         setResponse(res, 200, updatedStudent);
     }
