@@ -41,7 +41,6 @@
     "react-hook-speech-to-text": "^0.8.0",
     "react-mic": "^12.4.6",
     "react-nextjs-record": "^0.0.7",
-    "react-onesignal": "^2.0.4",
     "react-redux": "^8.0.5",
     "react-speech-recognition": "^3.10.0",
     "react-voice-recorder": "^2.1.2",
