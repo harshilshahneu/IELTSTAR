@@ -114,7 +114,7 @@ export default function FormDialog(props) {
         SEND SCORE VIA PHONE NUMBER
       </LoadingButton>
 
-      <Button variant="outlined" endIcon={<IconHome />}>
+      <Button variant="outlined" onClick={handleRedirect} endIcon={<IconHome />}>
         Exit
       </Button>
       <Dialog open={open} onClose={handleClose}>
