@@ -24,14 +24,6 @@ IELTSTAR is an online IELTS test platform. The platform provides multiple mock t
 - Users will be able to view browser notifications for new questions and promotional activities
 - Users can sign up for additional rewards (study material via email)
 
-#### Guests Users (Students)
-- Users can log in as a guest  
-- Users can take the IELTS  test 
-- Users can view the scores immediately after completing the test 
-- Users can send scores to different social platforms  
-- Users can send scores via email or SMS
-- Users will be able to view browser notifications for new questions and promotional activities 
-
 ## Team Members
 - Amey Bansod (NUID: 002743117)
 - Harshil Shah (NUID: 002780887)
@@ -39,5 +31,6 @@ IELTSTAR is an online IELTS test platform. The platform provides multiple mock t
 - Saloni Talwar (NUID: 002924067)
 
 ## Domain Model
-![Final domain diagram](https://user-images.githubusercontent.com/113074072/199590835-36747d70-e814-4813-8dc0-9b53ec43052c.jpg)
+![Final domain diagram]
 
+![image](https://user-images.githubusercontent.com/113074747/206375077-633c45fb-8d01-4e03-8b3e-946b1ce1721c.png)
