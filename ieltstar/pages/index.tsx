@@ -4,7 +4,6 @@ import { useEffect } from "react";
 import axios from "axios";
 import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
-import runOneSignal from "../store/onesignal";
 
 interface User {
   user: {
@@ -19,7 +18,6 @@ const Home = () => {
   const router = useRouter();
 
   useEffect(() => {
-    runOneSignal();
     if (user) {
       //redirect to admin if admin
       console.log(user.email);
@@ -59,10 +57,18 @@ const Home = () => {
 
   return (
     <>
+      <script
+        src="https://cdn.onesignal.com/sdks/OneSignalSDK.js"
+        async=""
+      ></script>
       <Backdrop
         sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
         open={true}
       >
+        <script
+          src="https://cdn.onesignal.com/sdks/OneSignalSDK.js"
+          async=""
+        ></script>
         <CircularProgress color="primary" />
       </Backdrop>
     </>

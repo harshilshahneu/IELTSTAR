@@ -10,6 +10,7 @@ import Head from "next/head";
 const Landing = () => {
   return (
     <>
+      <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js"></script>
       <Head>
         <title>IELTSTAR - Student</title>
         <link rel="icon" type="image/x-icon" href="/favicon.png"></link>
