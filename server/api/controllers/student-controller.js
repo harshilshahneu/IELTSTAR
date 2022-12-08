@@ -96,10 +96,8 @@ export const addTestHistory = async (req, res) => {
         }
         else if(testType === "Writing") {
             //handle score for writing
-            console.log(req.body.score)
             req.body.score = req.body.score.map(score => {
                 if(score === 0) {
-                    console.log(score)
                     return {
                         suggestionsCount : 0
                     }
@@ -108,7 +106,6 @@ export const addTestHistory = async (req, res) => {
                     return score
                 }
             })
-            console.log(req.body.score)
             req.body.score = req.body.score[0].suggestionsCount + req.body.score[1].suggestionsCount
         }
         else if(testType === "Speaking") {
