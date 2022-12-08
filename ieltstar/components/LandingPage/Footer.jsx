@@ -7,12 +7,6 @@ const Footer = () => {
 
   return (
     <Box sx={{ flexGrow: 1 }} className={styles.footerContainer}>
-      <Typography className={styles.footerText}>
-        Provided by{" "}
-        <Link href="https://appseed.us" target="_blank" underline="none">
-          Northeastern
-        </Link>
-      </Typography>
       <Typography className={styles.footerDate}>HuskyBytes</Typography>
     </Box>
   );

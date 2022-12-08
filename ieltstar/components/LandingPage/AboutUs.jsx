@@ -10,22 +10,21 @@ const AboutUs = () => {
       <Grid container spacing={6} className={styles.gridContainer}>
         <Grid item xs={12} md={5}>
           <Image src={bestTeams} alt="My Team" className={styles.largeImage} />
-          {/* <img src={bestTeams} alt="My Team" className={styles.largeImage} /> */}
         </Grid>
 
         <Grid item xs={12} md={6}>
           <Typography variant="h3" fontWeight={700} className={styles.title}>
-            We build, We revive
+            Learn anytime and anywhere
           </Typography>
           <Typography className={styles.aboutUsSubtitle}>
-            Your business needs to be in safe hands at all times. We ensure you
-            never run out of customers and not run at loss. We are trusted by
-            over 500+ companies to deliver quality marketing campaigns using
-            Digital marketing & Offline marketing channels.
+            IELTS is a universally accepted English language proficiency test
+            that evaluates a candidate's English language skills. This test is
+            mainly designed for non-native English speakers who wish to migrate,
+            study, or work in dominant English-speaking countries.
           </Typography>
           <Button
             variant="contained"
-            color="primary"
+            className={styles.button}
             sx={{ width: "200px", fontSize: "16px" }}
           >
             CONTACT US

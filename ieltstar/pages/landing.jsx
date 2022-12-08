@@ -5,7 +5,6 @@ import Section from "../components/LandingPage/Section";
 import AboutUs from "../components/LandingPage/AboutUs";
 import Testimonial from "../components/LandingPage/Testimonial";
 import Footer from "../components/LandingPage/Footer";
-import ContactUs from "../components/LandingPage/ContactUs";
 
 const Landing = () => {
   return (
@@ -16,7 +15,6 @@ const Landing = () => {
         <Section />
         <AboutUs />
         <Testimonial />
-        <ContactUs />
         <Footer />
       </div>
     </>

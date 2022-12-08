@@ -17,6 +17,8 @@ import MenuIcon from "@mui/icons-material/Menu";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import styles from "../../styles/Landing.module.scss";
+import logo from "../../images/logoWithoutName.png";
+import Image from "next/image";
 
 function ElevationScroll(props) {
   const { children, window } = props;
@@ -44,15 +46,6 @@ ElevationScroll.propTypes = {
 };
 
 const Header = (props) => {
-  const links = [
-    {
-      id: 1,
-      route: "About",
-      url: "https://blog.appseed.us/mui-react-coding-landing-page/",
-    },
-    { id: 2, route: "More Apps", url: "https://appseed.us/apps/react" },
-  ];
-
   const [state, setState] = React.useState({
     right: false,
   });
@@ -75,13 +68,7 @@ const Header = (props) => {
       onClick={toggleDrawer(anchor, false)}
       onKeyDown={toggleDrawer(anchor, false)}
     >
-      <List>
-        {links.map((link) => (
-          <ListItem button key={link.id}>
-            <ListItemText primary={link.route} />
-          </ListItem>
-        ))}
-      </List>
+      <List></List>
     </Box>
   );
 
@@ -93,6 +80,7 @@ const Header = (props) => {
       <ElevationScroll {...props}>
         <AppBar>
           <Toolbar className={styles.toolBar}>
+            <Image src={logo} alt="Logo" className={styles.smallImage} />
             <Link href="#" underline="none">
               <Typography variant="h5" className={styles.logo}>
                 IELTSTAR
@@ -126,20 +114,7 @@ const Header = (props) => {
                   justifyContent: "space-between",
                   flexGrow: "0.1",
                 }}
-              >
-                {links.map((link) => (
-                  <Link
-                    href={link.url}
-                    target="_blank"
-                    underline="none"
-                    key={link.id}
-                  >
-                    <Typography className={styles.link}>
-                      {link.route}
-                    </Typography>
-                  </Link>
-                ))}
-              </Box>
+              ></Box>
             )}
           </Toolbar>
         </AppBar>
