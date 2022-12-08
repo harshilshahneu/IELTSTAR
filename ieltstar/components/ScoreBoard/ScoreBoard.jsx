@@ -88,6 +88,7 @@ export default function ScoreBoard({open, setOpen}) {
                         open={open}
                         onClose={handleClose}
                         TransitionComponent={Transition} 
+                        disableEscapeKeyDown
                     >
                         <IconButton
                             edge="start"

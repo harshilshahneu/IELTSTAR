@@ -107,12 +107,13 @@ const QuestionView = ({ exams }) => {
   return (
     <section>
       <Timer />
-      <Quiz test={test} getNextTest={getNextTest} user={email} />
+      <Quiz test={test} getNextTest={getNextTest} user={email}/>
       <Dialog
         fullScreen
         open={open}
         onClose={handleClose}
         TransitionComponent={Transition}
+        disableEscapeKeyDown
       >
         <AppBar sx={{ position: "relative" }}>
           <Toolbar>
