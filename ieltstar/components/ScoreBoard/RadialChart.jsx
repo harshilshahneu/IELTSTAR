@@ -6,6 +6,7 @@ const ReactApexChart = dynamic(() => import('react-apexcharts'), { ssr: false })
 class ApexChart extends Component {
     constructor(props) {
       super(props);
+      console.log(props.series)
 
       this.state = {
       
@@ -53,7 +54,7 @@ class ApexChart extends Component {
               size: 0
             },
             formatter: function(seriesName, opts) {
-              return seriesName + ":  " + (opts.w.globals.series[opts.seriesIndex])/11.11
+              return seriesName + ":  " + Math.round(((opts.w.globals.series[opts.seriesIndex])/11.11)*2)/2
             },
             itemMargin: {
               vertical: 3

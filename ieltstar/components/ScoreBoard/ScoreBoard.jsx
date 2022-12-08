@@ -40,12 +40,97 @@ export default function ScoreBoard({open, setOpen}) {
      * Function to get current score from API
      */
     const getCurrentScore = () => {
-        axios.get(`${url}`)
-            .then((response) => {
-                const scores = response.data;
-                getScores(scores);
-                console.log(scores);
-            })
+        
+        axios.get(`${process.env.API_URL}/students/email/arvindmann307@gmail.com`)
+        .then((response) => {
+            //console.log(response.data.testHistory);
+            console.log("Test Data");
+            const userData = response.data.testHistory;
+            let overall;
+            let reading = 0;
+            let readingCount = 0;
+            let listening = 0;
+            let listeningCount = 0;
+            let speakingCount  = 0;
+            let speaking = 0;
+            let writingCount = 0;
+            let writing = 0;
+            userData.forEach(userTest => {
+                //console.log(userTest.examId);
+                //let num = Number("638a57d71435b001ef155480");
+                //console.log(typeOf userTest.testId);
+                if (userTest.examId == "638a57d71435b001ef155480") {
+                    //console.log(userTest.examId);
+                    if (userTest.testType === "Listening") {
+                        listening += userTest.score;
+                        listeningCount++;
+                        
+                    }
+                    if (userTest.testType === "Speaking") {
+                        speaking += userTest.score;
+                        speakingCount++;
+                        
+                    }
+                    if (userTest.testType === "Writing") {
+                        writing += userTest.score;
+                        writingCount++;
+                        
+                    }
+                    if (userTest.testType === "Reading") {
+                        reading += userTest.score;
+                        readingCount++;
+                        
+                    }
+                
+                }
+                if (reading > 0) {
+                    reading = Math.round((reading / readingCount)*2)/2;
+                    if (reading < 4.5) {
+                        reading = 4.5;
+                    }
+                    
+                }
+                if (speaking > 0) {
+                    speaking = Math.round((speaking / speakingCount)*2)/2;
+                    if (speaking < 4.5) {
+                        speaking = 4.5;
+                    }
+                    
+                }
+                if (listening > 0) {
+                    listening = Math.round((listening / listeningCount)*2)/2;
+                    if (listening < 4.5) {
+                        listening = 4.5;
+                    }
+                    
+                }
+                if (writing > 0) {
+                    writing = Math.round((writing / writingCount)*2)/2;
+                    if (writing < 4.5) {
+                        writing = 4.5;
+                    }
+                    
+                }
+                // if (overall == 0) {
+                    overall =  Math.round(((reading + writing + speaking + listening) / 4)*2)/2;
+                    console.log(overall);
+                    console.log("overall");
+                // }
+
+            });
+            let scores = {
+                overallBand: overall,
+                listeningScore: listening,
+                readingScore: reading,
+                writingScore: writing,
+                speakingScore: speaking
+            }
+            
+
+            //const scores = response.data;
+            getScores(scores);
+            console.log(scores);
+        })
             .catch(error => console.log(`Error: ${error}`));
     }
 
@@ -61,7 +146,7 @@ export default function ScoreBoard({open, setOpen}) {
                 email: user.email,
                 name: user.given_name || user.nickname,
                 picture: user.picture,
-                scores: scores[0]
+                scores: scores
               })
               .then((res) => {
                 console.log(res);
@@ -72,8 +157,10 @@ export default function ScoreBoard({open, setOpen}) {
               });
           }
     }
-    if (scores.length > 0) {
-        let series = [(scores[0].listeningScore)*11.11,(scores[0].readingScore)*11.11,(scores[0].writingScore)*11.11,(scores[0].speakingScore)*11.11];
+    // if (scores.length > 0) {
+        console.log(scores.speakingScore);
+        console.log("speakingScore");
+        let series = [(scores.listeningScore)*11.11,(scores.readingScore)*11.11,(scores.writingScore)*11.11,(scores.speakingScore)*11.11];
         const handleClose = () => {
             router.push("/student/dashboard");
             setOpen(false);
@@ -152,7 +239,7 @@ export default function ScoreBoard({open, setOpen}) {
        
                         <div className={styles.overallBandComponent}>
                             <article>OVERALL BAND:</article>
-                            <article>{scores[0].overallBand}</article>
+                            <article>{scores.overallBand}</article>
                         </div>
                         <div className='grid-content'>
                         <Grid container spacing={0}>
@@ -161,16 +248,16 @@ export default function ScoreBoard({open, setOpen}) {
                                     <section className={styles.container}>
                                         <article className="box box1"><HeadphonesIcon className='icon'></HeadphonesIcon></article>
                                         <article className="box box2">Listening:</article>
-                                        <article className="box box3">{scores[0].listeningScore}</article>
+                                        <article className="box box3">{scores.listeningScore}</article>
                                         <article className="box box4"><MenuBookIcon className='icon'></MenuBookIcon></article>
                                         <article className="box box5">Reading:</article>
-                                        <article className="box box6">{scores[0].readingScore}</article>
+                                        <article className="box box6">{scores.readingScore}</article>
                                         <article className="box box7"><BorderColorOutlinedIcon className='icon'></BorderColorOutlinedIcon></article>
                                         <article className="box box8">Writing:</article>
-                                        <article className="box box9">{scores[0].writingScore}</article>
+                                        <article className="box box9">{scores.writingScore}</article>
                                         <article className="box box10"><RecordVoiceOverOutlinedIcon className='icon'></RecordVoiceOverOutlinedIcon></article>
                                         <article className="box box11">Speaking:</article>
-                                        <article className="box box12">{scores[0].speakingScore}</article>
+                                        <article className="box box12">{scores.speakingScore}</article>
                                     </section>
                                 </div>
                             </Grid>
@@ -191,6 +278,6 @@ export default function ScoreBoard({open, setOpen}) {
                 
             </>
         )
-    }
+    // }
 
 }
