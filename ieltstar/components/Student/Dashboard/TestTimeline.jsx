@@ -46,7 +46,7 @@ Item.propTypes = {
 };
 
 function Item({ item, isLast }) {
-  const { type, title, time } = item;
+  const { type, title, time, category } = item;
   return (
     <TimelineItem>
       <TimelineSeparator>
@@ -63,7 +63,7 @@ function Item({ item, isLast }) {
       </TimelineSeparator>
 
       <TimelineContent>
-        <Typography variant="subtitle2">{title}</Typography>
+        <Typography variant="subtitle2">{title + ", " + category}</Typography>
 
         <Typography variant="caption" sx={{ color: 'text.secondary' }}>
           {time}
