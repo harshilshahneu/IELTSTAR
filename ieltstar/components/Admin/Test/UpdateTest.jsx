@@ -140,16 +140,31 @@ const UpdateTest = ({ id, data, setData }) => {
               </TextField>
             </div>
             <div style={{display: 'flex', alignItems: 'center', flexDirection: 'column', marginBottom: '5px'}}>
-            <SunEditor
-                defaultValue={editFormData.source}
-                setDefaultStyle="width: 50ch; height: 200px;"
-                onChange={(e) =>
-                  setEditFormData((editFormData) => ({
-                    ...editFormData,
-                    source: e,
-                  }))
-                }
-              />
+            {editFormData.category === "Listening" ? (
+                <TextField
+                  type="text"
+                  id="outlined-required"
+                  label="Source"
+                  value={editFormData.source}
+                  onChange={(e) =>
+                    setEditFormData({
+                      ...editFormData,
+                      source: e.target.value,
+                    })
+                  }
+                />
+              ) : (
+                <SunEditor
+                  defaultValue={editFormData.source}
+                  setDefaultStyle="width: 50ch; height: 200px;border-radius: 5px;"
+                  onChange={(e) =>
+                    setEditFormData((editFormData) => ({
+                      ...editFormData,
+                      source: e,
+                    }))
+                  }
+                />
+              )}
               <p style={{alignSelf: 'flex-start'}} className="MuiFormHelperText-root MuiFormHelperText-sizeMedium MuiFormHelperText-contained MuiFormHelperText-filled mui-style-xzkq1u-MuiFormHelperText-root">
                 Source
               </p>
