@@ -45,10 +45,7 @@ const Dictaphone = ({ handler, questionNo, setWritingState}) => {
   return (
     <div>
       <p>Microphone: {listening ? "on" : "off"}</p>
-      <br /> <br />
-      {/* <textarea id="te" rows="3" cols="100" value={transcript} /> */}
       <Grammarly clientId={demoClientId}>
-      <h2>Textarea</h2>
       <GrammarlyEditorPlugin
         config={{ underlines: "off", suggestionCards: "off", activation: "immediate" }}
         onDocumentStats={(evt) => setWritingState(evt.detail, questionNo)}
