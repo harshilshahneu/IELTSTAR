@@ -1,6 +1,6 @@
 import { useUser } from "@auth0/nextjs-auth0/client";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
@@ -17,6 +17,14 @@ interface User {
 const Home = () => {
   const user = useUser().user;
   const router = useRouter();
+  const  [open, setOpen] = useState(false);
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+  const handleToggle = () => {
+    setOpen(!open);
+  };
 
   useEffect(() => {
     if (user) {
@@ -26,6 +34,8 @@ const Home = () => {
         router.push("/admin/exam");
       } else {
         //handle log-in or sign-up
+        //add a loader till this happens
+        handleToggle();
         axios
           .get(`${process.env.API_URL}/students/email/${user.email}`)
           .then((res) => {
@@ -40,12 +50,14 @@ const Home = () => {
                 })
                 .then((res) => {
                   console.log(res);
+                  handleToggle();
                   router.push("/student/dashboard");
                 })
                 .catch((err) => {
                   console.log(err);
                 });
             } else {
+              handleClose();
               router.push("/student/dashboard");
             }
           });
@@ -61,7 +73,7 @@ const Home = () => {
       <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js"></script>
       <Backdrop
         sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
-        open={true}
+        open={open}
       >
         <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js"></script>
         <CircularProgress color="primary" />
